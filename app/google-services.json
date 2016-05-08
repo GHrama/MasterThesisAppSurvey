@@ -1,0 +1,43 @@
+{
+  "project_info": {
+    "project_id": "trialapp04",
+    "project_number": "650908643181",
+    "name": "trialapp04"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650908643181:android:3de2ec69938c3521",
+        "client_id": "android:com.example.ramapriyasridharan",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "com.example.ramapriyasridharan.trialapp04",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

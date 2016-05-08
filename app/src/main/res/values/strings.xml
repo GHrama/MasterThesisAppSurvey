@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TrialApp04</string>
+    <string name="action_settings">Settings</string>
+    <string name="first_time">true</string>
+    <string name="title_activity_register_user">RegisterUserActivity</string>
+    <string name="title_activity_user_info">user_info</string>
+    <string name="title_activity_main_bidding">MainBiddingActivity</string>
+</resources>
