@@ -1,18 +1,19 @@
 package com.example.ramapriyasridharan.trialapp04;
 
+import android.support.v7.app.AppCompatActivity;
+
+
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.ramapriyasridharan.helpers.UserInstanceClass;
+import com.example.ramapriyasridharan.localstore.StoreDbHelper;
 import com.kinvey.android.Client;
 import com.kinvey.android.callback.KinveyUserCallback;
 import com.kinvey.java.User;
@@ -21,15 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static String TAG = MainActivity.class.getName();
-    public static final String MY_PREFS_NAME = "MyPrefsFile";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        SharedPreferences settings = getSharedPreferences(MY_PREFS_NAME,0);
-
 
         UserInstanceClass instance_user = new UserInstanceClass();
         //final Client mKinveyClient = new Client.Builder("kid_W1EFbeKyy-", "1b6f09e812114210ae4447f310b38a0a"
@@ -80,8 +78,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }*/
         String user_string = instance_user.mKinveyClient.user().getId();
-        Log.i(TAG,"running for first time");
-        Intent intent = new Intent(this, RegisterUserActivity.class);
+        Log.i(TAG, "running for first time");
+        // Create DB
+        StoreDbHelper db = new StoreDbHelper(this);
+        // clear content to simulate first time user
+        db.removeAll();
+        Intent intent = new Intent(this, GetUserInformation.class);
         intent.putExtra("user_id",user_string);
         startActivity(intent);
 

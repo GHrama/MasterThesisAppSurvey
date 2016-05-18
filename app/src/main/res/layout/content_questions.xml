@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.ramapriyasridharan.trialapp04.QuestionsActivity"
+    tools:showIn="@layout/activity_questions">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="No Data Requests Currently ..."
+        android:id="@+id/tv_question_window_entry"
+        android:layout_below="@+id/tv_day_number_entry"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="168dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_privacy_choice_entry"
+        android:prompt="@string/bidding_prompt"
+        android:entries="@array/bidding_arrays"
+        android:layout_above="@+id/button_bidding_submit"
+        android:layout_alignRight="@+id/tv_this_round_credit"
+        android:layout_alignEnd="@+id/tv_this_round_credit"
+        android:layout_marginBottom="121dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/button_bidding_submit"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="62dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Day Number"
+        android:id="@+id/tv_day_number_entry"
+        android:layout_alignTop="@+id/tv_user_id_entry"
+        android:layout_alignLeft="@+id/tv_this_round_credit"
+        android:layout_alignStart="@+id/tv_this_round_credit" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="User ID"
+        android:id="@+id/tv_user_id_entry"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="This Round Credit"
+        android:id="@+id/tv_this_round_credit"
+        android:layout_alignBottom="@+id/tv_this_round_privacy_entry"
+        android:layout_toRightOf="@+id/button_bidding_submit"
+        android:layout_toEndOf="@+id/button_bidding_submit" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="This Round Privacy"
+        android:id="@+id/tv_this_round_privacy_entry"
+        android:layout_below="@+id/tv_user_id_entry"
+        android:layout_toLeftOf="@+id/button_bidding_submit"
+        android:layout_toStartOf="@+id/button_bidding_submit"
+        android:layout_marginTop="51dp" />
+</RelativeLayout>

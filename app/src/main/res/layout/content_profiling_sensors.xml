@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.ramapriyasridharan.trialapp04.ProfilingSensorsActivity"
+    tools:showIn="@layout/activity_profiling_sensors">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Please choose the privacy intrusion level for each of the sensors"
+        android:id="@+id/tv_instruction_label"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="33dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Accelerometer"
+        android:id="@+id/tv_acc_label"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/spinner_gps_entry"
+        android:layout_alignLeft="@+id/tv_gps_label"
+        android:layout_alignStart="@+id/tv_gps_label" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="GPS"
+        android:id="@+id/tv_gps_label"
+        android:layout_alignTop="@+id/spinner_gps_entry"
+        android:layout_alignRight="@+id/tv_light_label"
+        android:layout_alignEnd="@+id/tv_light_label" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Light"
+        android:id="@+id/tv_light_label"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/spinner_light_entry" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Proximity"
+        android:id="@+id/tv_prox_label"
+        android:layout_alignTop="@+id/spinner_prox_entry"
+        android:layout_alignLeft="@+id/tv_acc_label"
+        android:layout_alignStart="@+id/tv_acc_label" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/button_submit_sensors"
+        android:layout_marginBottom="67dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_acc_entry"
+        android:prompt="@string/spinner_features_prompt"
+        android:entries="@array/categorizing_arrays"
+        android:layout_alignBaseline="@+id/tv_acc_label"
+        android:layout_alignBottom="@+id/tv_acc_label"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/spinner_light_entry"
+        android:layout_alignStart="@+id/spinner_light_entry" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:prompt="@string/spinner_features_prompt"
+        android:entries="@array/categorizing_arrays"
+        android:id="@+id/spinner_gps_entry"
+        android:layout_below="@+id/tv_instruction_label"
+        android:layout_alignLeft="@+id/spinner_acc_entry"
+        android:layout_alignStart="@+id/spinner_acc_entry"
+        android:layout_marginTop="38dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_light_entry"
+        android:prompt="@string/spinner_features_prompt"
+        android:entries="@array/categorizing_arrays"
+        android:layout_below="@+id/spinner_acc_entry"
+        android:layout_alignLeft="@+id/spinner_prox_entry"
+        android:layout_alignStart="@+id/spinner_prox_entry"
+        android:layout_marginTop="41dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_prox_entry"
+        android:prompt="@string/spinner_features_prompt"
+        android:entries="@array/categorizing_arrays"
+        android:layout_marginBottom="47dp"
+        android:layout_above="@+id/button_submit_sensors"
+        android:layout_toRightOf="@+id/button_submit_sensors"
+        android:layout_toEndOf="@+id/button_submit_sensors" />
+
+</RelativeLayout>

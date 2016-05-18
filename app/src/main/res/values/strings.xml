@@ -5,4 +5,56 @@
     <string name="title_activity_register_user">RegisterUserActivity</string>
     <string name="title_activity_user_info">user_info</string>
     <string name="title_activity_main_bidding">MainBiddingActivity</string>
+    <string name="title_activity_get_user_information">GetUserInformation</string>
+
+    <string name="education_prompt">Choose a country</string>
+
+    <string-array name="education_arrays">
+        <item>Lesser than High School</item>
+        <item>High School</item>
+        <item>Some College</item>
+        <item>Bachelor</item>
+        <item>Master</item>
+        <item>PHD</item>
+    </string-array>
+
+    <string name="employment_prompt">Choose a country</string>
+
+    <string-array name="employment_arrays">
+        <item>Full time</item>
+        <item>Part Time</item>
+        <item>Unemployed and looking for work</item>
+        <item>Unemployed and not looking for work</item>
+        <item>Retired</item>
+        <item>Student</item>
+        <item>Disabled</item>
+    </string-array>
+
+    <string-array name="categorizing_arrays">
+        <item>very low privacy intrusion</item>
+        <item>low privacy intrusion</item>
+        <item>medium privacy intrusion</item>
+        <item>high privacy intrusion</item>
+        <item>very high privacy intrusion</item>
+    </string-array>
+
+    <string name="spinner_features_prompt">Choose Level</string>
+
+
+    <string name="title_activity_collect_user_information">CollectUserInformation</string>
+    <string name="title_activity_profiling_features">ProfilingFeaturesActivity</string>
+    <string name="title_activity_profiling_sensors">ProfilingSensorsActivity</string>
+    <string name="title_activity_profiling_data_collectors">ProfilingDataCollectorsActivity</string>
+    <string name="title_activity_profiling_contexts">ProfilingContextsActivity</string>
+    <string name="title_activity_questions">QuestionsActivity</string>
+
+    <string name="bidding_prompt">Choose the Privacy Level with which your data can be taken</string>
+
+    <string-array name="bidding_arrays">
+        <item>Very Low Privacy Level(i.e.. Take Full Data)</item>
+        <item>Low Privacy Level</item>
+        <item>Medium Privacy Level</item>
+        <item>High Privacy Level</item>
+        <item>Very High Privacy Level (i.e.. Do not Take Any Data)</item>
+    </string-array>
 </resources>

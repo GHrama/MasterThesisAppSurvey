@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.ramapriyasridharan.trialapp04.ProfilingContextsActivity"
+    tools:showIn="@layout/activity_profiling_contexts">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Please choose the privacy intrusion level for each of the contexts/purpose for which your data can be used."
+        android:id="@+id/tv_instruction_label"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Education"
+        android:id="@+id/tv_ed_label"
+        android:layout_alignRight="@+id/tv_gov_label"
+        android:layout_alignEnd="@+id/tv_gov_label"
+        android:layout_alignTop="@+id/spinner_ed_entry" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Entertainment"
+        android:id="@+id/tv_en_label"
+        android:layout_below="@+id/tv_instruction_label"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="46dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Environment"
+        android:id="@+id/tv_env_label"
+        android:layout_alignTop="@+id/spinner_env_entry"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Navigation"
+        android:id="@+id/tv_nav_label"
+        android:layout_alignTop="@+id/spinner_nav_entry"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/button_submit_context"
+        android:layout_marginBottom="67dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_ed_entry"
+        android:prompt="@string/spinner_features_prompt"
+        android:entries="@array/categorizing_arrays"
+        android:layout_above="@+id/button_submit_context"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/spinner_nav_entry"
+        android:layout_alignStart="@+id/spinner_nav_entry" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:prompt="@string/spinner_features_prompt"
+        android:entries="@array/categorizing_arrays"
+        android:id="@+id/spinner_en_entry"
+        android:layout_alignTop="@+id/tv_en_label"
+        android:layout_alignRight="@+id/tv_instruction_label"
+        android:layout_alignEnd="@+id/tv_instruction_label"
+        android:layout_toRightOf="@+id/button_submit_context"
+        android:layout_toEndOf="@+id/button_submit_context" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_env_entry"
+        android:prompt="@string/spinner_features_prompt"
+        android:entries="@array/categorizing_arrays"
+        android:layout_above="@+id/spinner_nav_entry"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="41dp"
+        android:layout_alignLeft="@+id/spinner_nav_entry"
+        android:layout_alignStart="@+id/spinner_nav_entry" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_nav_entry"
+        android:prompt="@string/spinner_features_prompt"
+        android:entries="@array/categorizing_arrays"
+        android:layout_above="@+id/spinner_ed_entry"
+        android:layout_marginBottom="48dp"
+        android:layout_toRightOf="@+id/button_submit_context"
+        android:layout_toEndOf="@+id/button_submit_context" />
+
+</RelativeLayout>

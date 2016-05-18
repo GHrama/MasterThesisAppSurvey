@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.ramapriyasridharan.trialapp04.CollectUserInformation"
+    tools:showIn="@layout/activity_collect_user_information">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="User Identification"
+        android:id="@+id/tv_id_tag"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="id number"
+        android:id="@+id/tv_id_entry"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="49dp"
+        android:layout_marginEnd="49dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Gender"
+        android:id="@+id/tv_gender_tag"
+        android:layout_below="@+id/tv_id_tag"
+        android:layout_alignRight="@+id/tv_id_tag"
+        android:layout_alignEnd="@+id/tv_id_tag"
+        android:layout_marginTop="39dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Birth Year"
+        android:id="@+id/tv_birth_tag"
+        android:layout_below="@+id/tv_gender_tag"
+        android:layout_alignRight="@+id/tv_gender_tag"
+        android:layout_alignEnd="@+id/tv_gender_tag"
+        android:layout_marginTop="49dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Education Level"
+        android:id="@+id/tv_education_tag"
+        android:layout_below="@+id/tv_birth_tag"
+        android:layout_alignRight="@+id/tv_birth_tag"
+        android:layout_alignEnd="@+id/tv_birth_tag"
+        android:layout_marginTop="49dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Employment Status"
+        android:id="@+id/tv_employment_tag"
+        android:layout_below="@+id/spinner_education_entry"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Educational Background"
+        android:id="@+id/tv_background_tag"
+        android:layout_above="@+id/button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="44dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/submit_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="47dp" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/switch_gender_entry"
+        android:textOn="Female"
+        android:textOff="Male"
+        android:layout_alignBottom="@+id/tv_gender_tag"
+        android:layout_alignLeft="@+id/tv_id_entry"
+        android:layout_alignStart="@+id/tv_id_entry" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_birth_entry"
+        android:layout_alignTop="@+id/tv_birth_tag"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/switch_gender_entry"
+        android:layout_alignStart="@+id/switch_gender_entry" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_education_entry"
+        android:layout_alignTop="@+id/tv_education_tag"
+        android:entries="@string/education_prompt"
+        android:prompt="@array/education_arrays"
+        android:layout_alignLeft="@+id/editText_birth_entry"
+        android:layout_alignStart="@+id/editText_birth_entry" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_employment_entry"
+        android:entries="@string/employment_prompt"
+        android:prompt="@array/employment_arrays"
+        android:layout_below="@+id/spinner_education_entry"
+        android:layout_alignLeft="@+id/spinner_education_entry"
+        android:layout_alignStart="@+id/spinner_education_entry" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/switch_background_entry"
+        android:textOn="Computer Science"
+        android:textOff="Other"
+        android:layout_alignTop="@+id/tv_background_tag"
+        android:layout_alignRight="@+id/spinner_employment_entry"
+        android:layout_alignEnd="@+id/spinner_employment_entry"
+        android:layout_alignLeft="@+id/spinner_employment_entry"
+        android:layout_alignStart="@+id/spinner_employment_entry" />
+
+</RelativeLayout>

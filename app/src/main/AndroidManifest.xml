@@ -7,8 +7,11 @@
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:name="com.example.ramapriyasridharan.trialapp04.permission.C2D_MESSAGE"
+
+    <permission
+        android:name="com.example.ramapriyasridharan.trialapp04.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="com.example.ramapriyasridharan.trialapp04.permission.C2D_MESSAGE" />
 
     <application
@@ -28,19 +31,33 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterUserActivity"
-            android:label="@string/title_activity_register_user"
+            android:name=".GetUserInformation"
+            android:label="@string/title_activity_get_user_information"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".user_info"
-            android:label="@string/title_activity_user_info"
+            android:name=".CollectUserInformation"
+            android:label="@string/title_activity_collect_user_information"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MainBiddingActivity"
-            android:label="@string/title_activity_main_bidding"
+            android:name=".ProfilingFeaturesActivity"
+            android:label="@string/title_activity_profiling_features"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ProfilingSensorsActivity"
+            android:label="@string/title_activity_profiling_sensors"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ProfilingDataCollectorsActivity"
+            android:label="@string/title_activity_profiling_data_collectors"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ProfilingContextsActivity"
+            android:label="@string/title_activity_profiling_contexts"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".QuestionsActivity"
+            android:label="@string/title_activity_questions"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
-
-
 
 </manifest>
