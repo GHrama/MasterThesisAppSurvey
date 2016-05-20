@@ -1,5 +1,7 @@
 package com.example.ramapriyasridharan.trialapp04;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -12,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.ramapriyasridharan.helpers.AddDouble;
 import com.example.ramapriyasridharan.helpers.UserInstanceClass;
 import com.example.ramapriyasridharan.localstore.StoreDbHelper;
 import com.kinvey.android.Client;
@@ -79,6 +82,15 @@ public class MainActivity extends AppCompatActivity {
         }*/
         String user_string = instance_user.mKinveyClient.user().getId();
         Log.i(TAG, "running for first time");
+
+        //Reset preferences file when installing application for the first time
+        SharedPreferences s = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = s.edit();
+        editor.putInt("current_question_number",-1);
+        editor.putInt("current_day",1);
+        editor = AddDouble.putDouble(editor,"current_credit",0);
+        editor = AddDouble.putDouble(editor,"current_privacy",100);
+        editor.commit();
         // Create DB
         StoreDbHelper db = new StoreDbHelper(this);
         // clear content to simulate first time user

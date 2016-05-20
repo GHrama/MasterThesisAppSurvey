@@ -97,11 +97,11 @@ public class WeightCostAnswersMatrix {
     public static void insertWeightCostDb(Context c) {
         int counter = 0;
         StoreDbHelper db = new StoreDbHelper(c);
-
         for (int i = 0; i < Sensors.sensor_list.length; i++) {
             for (int j = 0; j < DataCollectors.dc_list.length; j++) {
                 for (int k = 0; k < Contexts.contexts_list.length; k++) {
                     db.insertQuestionTable(counter, i, j, k, cost_matrix[i][j][k], weight_matrix[i][j][k]);
+                    Log.d("weight","inserted question= "+counter+" s= "+i+" b= "+j+" c= "+k+" cost= "+cost_matrix[i][j][k]+" weight= "+weight_matrix[i][j][k]);
                     counter++;
                 }
             }

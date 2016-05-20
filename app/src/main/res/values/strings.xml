@@ -57,4 +57,6 @@
         <item>High Privacy Level</item>
         <item>Very High Privacy Level (i.e.. Do not Take Any Data)</item>
     </string-array>
+    <string name="title_activity_pause">PauseActivity</string>
+    <string name="title_activity_main_questions">MainQuestionsActivity</string>
 </resources>

@@ -11,11 +11,11 @@ public class UserResponseClass extends GenericJson {
     @Key("user_id")
     private String user_id;
     @Key("sensors")
-    private String sensors;
+    private int sensors;
     @Key("data_collectors")
-    private String dcs;
+    private int dcs;
     @Key("contexts")
-    private String contexts;
+    private int contexts;
     @Key("privacy_level")
     private int level;
     @Key("timestamp")
@@ -29,6 +29,18 @@ public class UserResponseClass extends GenericJson {
     @Key("credit")
     private double credit;
 
+    public double getCredit_gain() {
+        return credit_gain;
+    }
+
+    public void setCredit_gain(double credit_gain) {
+        this.credit_gain = credit_gain;
+    }
+
+    @Key("credit_gain")
+    private double credit_gain;
+
+
 
     public String getUser_id() {
         return user_id;
@@ -38,27 +50,27 @@ public class UserResponseClass extends GenericJson {
         this.user_id = user_id;
     }
 
-    public String getSensors() {
+    public int getSensors() {
         return sensors;
     }
 
-    public void setSensors(String sensors) {
+    public void setSensors(int sensors) {
         this.sensors = sensors;
     }
 
-    public String getDcs() {
+    public int getDcs() {
         return dcs;
     }
 
-    public void setDcs(String dcs) {
+    public void setDcs(int dcs) {
         this.dcs = dcs;
     }
 
-    public String getContexts() {
+    public int getContexts() {
         return contexts;
     }
 
-    public void setContexts(String contexts) {
+    public void setContexts(int contexts) {
         this.contexts = contexts;
     }
 

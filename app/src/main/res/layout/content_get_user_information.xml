@@ -113,7 +113,9 @@
         android:textOff="Male"
         android:layout_alignBottom="@+id/tv_gender_tag"
         android:layout_alignLeft="@+id/tv_id_entry"
-        android:layout_alignStart="@+id/tv_id_entry" />
+        android:layout_alignStart="@+id/tv_id_entry"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -122,8 +124,8 @@
         android:layout_alignTop="@+id/tv_birth_tag"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/switch_gender_entry"
-        android:layout_alignStart="@+id/switch_gender_entry" />
+        android:layout_alignLeft="@+id/spinner_education_entry"
+        android:layout_alignStart="@+id/spinner_education_entry" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -132,8 +134,8 @@
         android:layout_alignTop="@+id/tv_education_tag"
         android:prompt="@string/education_prompt"
         android:entries="@array/education_arrays"
-        android:layout_alignLeft="@+id/editText_birth_entry"
-        android:layout_alignStart="@+id/editText_birth_entry" />
+        android:layout_alignLeft="@+id/spinner_employment_entry"
+        android:layout_alignStart="@+id/spinner_employment_entry" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -142,8 +144,8 @@
         android:prompt="@string/employment_prompt"
         android:entries="@array/employment_arrays"
         android:layout_below="@+id/spinner_education_entry"
-        android:layout_alignLeft="@+id/spinner_education_entry"
-        android:layout_alignStart="@+id/spinner_education_entry" />
+        android:layout_toRightOf="@+id/submit_button"
+        android:layout_toEndOf="@+id/submit_button" />
 
     <Switch
         android:layout_width="wrap_content"
@@ -155,6 +157,6 @@
         android:layout_alignTop="@+id/tv_background_tag"
         android:layout_alignRight="@+id/spinner_employment_entry"
         android:layout_alignEnd="@+id/spinner_employment_entry"
-        android:layout_alignLeft="@+id/spinner_employment_entry"
-        android:layout_alignStart="@+id/spinner_employment_entry" />
+        android:layout_toRightOf="@+id/submit_button"
+        android:layout_toEndOf="@+id/submit_button" />
 </RelativeLayout>

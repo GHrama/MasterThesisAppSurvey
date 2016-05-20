@@ -9,36 +9,36 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.ramapriyasridharan.trialapp04.QuestionsActivity"
-    tools:showIn="@layout/activity_questions">
+    tools:context="com.example.ramapriyasridharan.trialapp04.MainQuestionsActivity"
+    tools:showIn="@layout/activity_main_questions">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="No Data Requests Currently ..."
-        android:id="@+id/tv_question_window_entry"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/tv_this_round_credit"
+        android:id="@+id/tv_question_window_entry_1"
+        android:layout_below="@+id/tv_day_number_entry_1"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="48dp" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner_privacy_choice_entry"
+        android:id="@+id/spinner_privacy_choice_entry_1"
         android:prompt="@string/bidding_prompt"
         android:entries="@array/bidding_arrays"
-        android:layout_above="@+id/button_bid"
+        android:layout_above="@+id/button_bid_1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="41dp" />
+        android:layout_marginBottom="39dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit Bid"
-        android:id="@+id/button_bid"
+        android:id="@+id/button_bid_1"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="62dp" />
@@ -48,17 +48,18 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Day Number"
-        android:id="@+id/tv_day_number_entry"
-        android:layout_above="@+id/tv_this_round_privacy_entry"
-        android:layout_toRightOf="@+id/button_bid"
-        android:layout_toEndOf="@+id/button_bid" />
+        android:id="@+id/tv_day_number_entry_1"
+        android:layout_below="@+id/tv_this_round_privacy_entry_1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="39dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="User ID"
-        android:id="@+id/tv_user_id_entry"
+        android:id="@+id/tv_user_id_entry_1"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -68,19 +69,23 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="This Round Credit"
-        android:id="@+id/tv_this_round_credit"
-        android:layout_alignBottom="@+id/tv_this_round_privacy_entry"
-        android:layout_toRightOf="@+id/button_bidding_submit"
-        android:layout_toEndOf="@+id/button_bidding_submit" />
+        android:id="@+id/tv_this_round_credit_1"
+        android:layout_alignBaseline="@+id/tv_this_round_privacy_entry_1"
+        android:layout_alignBottom="@+id/tv_this_round_privacy_entry_1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="36dp"
+        android:layout_marginEnd="36dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="This Round Privacy"
-        android:id="@+id/tv_this_round_privacy_entry"
+        android:id="@+id/tv_this_round_privacy_entry_1"
         android:layout_marginTop="58dp"
         android:layout_below="@+id/tv_user_id_entry"
         android:layout_alignRight="@+id/spinner_privacy_choice_entry"
         android:layout_alignEnd="@+id/spinner_privacy_choice_entry" />
+
 </RelativeLayout>

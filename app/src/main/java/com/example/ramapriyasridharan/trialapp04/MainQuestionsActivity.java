@@ -36,13 +36,13 @@ import com.kinvey.java.core.KinveyClientCallback;
 
 import java.sql.Timestamp;
 
-public class QuestionsActivity extends AppCompatActivity {
+public class MainQuestionsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("question", "created questions activity");
-        setContentView(R.layout.activity_questions);
+        Log.d("main question", "created MAIN questions activity");
+        setContentView(R.layout.activity_main_questions);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -51,104 +51,91 @@ public class QuestionsActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         // if first time default values
-        Log.d("question", "started questions activity");
+        Log.d("main question", "started MAIN questions activity");
         SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
         Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
         Double current_privacy = AddDouble.getDouble(settings,"current_privacy",100);
         Integer current_question_number = settings.getInt("current_question_number",-1);
-        int current_day = settings.getInt("current_day", 1);
+        int current_day = settings.getInt("current_day", 2);
 
-        Log.d("question"," current_credit = "+current_credit);
-        Log.d("question"," current_privacy = "+current_privacy);
-        Log.d("question"," current_day = "+current_day);
-        Log.d("question"," current_question_number = "+current_question_number);
+        Log.d("main question"," current_credit = "+current_credit);
+        Log.d("main question"," current_privacy = "+current_privacy);
+        Log.d("main question"," current_day = "+current_day);
+        Log.d("main question"," current_question_number = "+current_question_number);
 
-        TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit);
-        TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry);
-        TextView tv_user_id = (TextView) findViewById(R.id.tv_user_id_entry);
-        TextView tv_day_no = (TextView) findViewById(R.id.tv_day_number_entry);
-        TextView tv_questions = (TextView) findViewById(R.id.tv_question_window_entry);
+        TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit_1);
+        TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry_1);
+        TextView tv_user_id = (TextView) findViewById(R.id.tv_user_id_entry_1);
+        TextView tv_day_no = (TextView) findViewById(R.id.tv_day_number_entry_1);
+        TextView tv_questions = (TextView) findViewById(R.id.tv_question_window_entry_1);
+
         UserInstanceClass user_instance = new UserInstanceClass();
         tv_user_id.setText(user_instance.getmKinveyClient().user().getId());
         tv_day_no.setText(String.valueOf(current_day));
-        // first day no seeing the pirvacy or credit
-        tv_credit.setVisibility(View.INVISIBLE);
-        tv_privacy.setVisibility(View.INVISIBLE);
-
-        if(current_day == 1){
-            Log.d("question", " core1 current day 1 entered if");
-            // do not show privacy and credit textview
-
-            Log.d("core1", "enter method");
-            core1();
-        }
-
-        tv_credit.setVisibility(View.VISIBLE);
-        tv_privacy.setVisibility(View.VISIBLE);
-
         tv_privacy.setText(String.valueOf(current_privacy));
         tv_credit.setText(String.valueOf(current_credit));
-
-        //core();
+        core1();
     }
 
 
 
 
-    // FIRST DAY SURVEY
+    // N DAY SURVEY
     public void core1(){
-        //EXCEPT DAY NO ALL 0 INDEXED
-
+        //EXCEPT DAY_NO ALL 0 INDEXED
         // Setting textviews with updated values from sharedpreferences
         final SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
         final Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
         Double current_privacy = AddDouble.getDouble(settings,"current_privacy",100);
         int current_question_number = settings.getInt("current_question_number", -1);
-        int current_day = settings.getInt("current_day", 1);
+        int current_day = settings.getInt("current_day", 2);
 
         // if questions over to go next activity
-        if (current_question_number == 10) { // 0 based index for questions
-            //push to points table
-            StoreDbHelper q = new StoreDbHelper(this);
-            q.insertPointsTable(current_day,current_credit,current_privacy);
-            // reset all these parameters
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putInt("current_day", 2);
-            editor = AddDouble.putDouble(editor,"current_privacy",100);
-            editor = AddDouble.putDouble(editor,"current_credit",0);
-            editor = AddDouble.putDouble(editor,"current_question_number",-1);
-            editor.commit();
-            Intent intent = new Intent(this, PauseActivity.class);
-            startActivity(intent);
-        }
+//        if (current_question_number == 10) { // 0 based index for questions
+//            //push to points table
+//            StoreDbHelper q = new StoreDbHelper(this);
+//            q.insertPointsTable(current_day,current_credit,current_privacy);
+//            // reset all these parameters
+//            SharedPreferences.Editor editor = settings.edit();
+//            editor.putInt("current_day", 2);
+//            editor = AddDouble.putDouble(editor,"current_privacy",100);
+//            editor = AddDouble.putDouble(editor,"current_credit",0);
+//            editor = AddDouble.putDouble(editor,"current_question_number",-1);
+//            editor.commit();
+//            Intent intent = new Intent(this, PauseActivity.class);
+//            startActivity(intent);
+//        }
 
-        TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit);
-        TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry);
-        TextView tv_user_id = (TextView) findViewById(R.id.tv_user_id_entry);
-        TextView tv_day_no = (TextView) findViewById(R.id.tv_day_number_entry);
-        //tv_credit.setVisibility(View.INVISIBLE);
-        //tv_privacy.setVisibility(View.INVISIBLE);
+        TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit_1);
+        TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry_1);
+        TextView tv_user_id = (TextView) findViewById(R.id.tv_user_id_entry_1);
+        TextView tv_day_no = (TextView) findViewById(R.id.tv_day_number_entry_1);
 
-
+        //update with new scores from previous round in preferences file
         UserInstanceClass user_instance = new UserInstanceClass();
         tv_user_id.setText(user_instance.getmKinveyClient().user().getId());
         tv_day_no.setText(String.valueOf(current_day));
         tv_privacy.setText(String.valueOf(current_privacy));
         tv_credit.setText(String.valueOf(current_credit));
 
-
-        Log.d("core1","entered method");
+        Log.d("core1 main","entered method");
         Button submit;
-        submit = (Button) findViewById(R.id.button_bid);
-        final Spinner spinner_privacy = (Spinner) findViewById(R.id.spinner_privacy_choice_entry);
-
+        submit = (Button) findViewById(R.id.button_bid_1);
+        final Spinner spinner_privacy = (Spinner) findViewById(R.id.spinner_privacy_choice_entry_1);
 
         // update question number
         Log.d("question","current_question_number = "+current_question_number);
         // go to next question
-        current_question_number ++;
-        Log.d("question","current_question_number = "+current_question_number);
+        if(current_question_number == 63){
+            current_question_number = 0; //reset to first question
+        }
+        else{
+            current_question_number ++; // go to next question
+        }
+
+        Log.d("main question","current_question_number = "+current_question_number);
         SharedPreferences.Editor editor = settings.edit();
+        // update question number to current
         editor.putInt("current_question_number",current_question_number);
         editor.commit();
 
@@ -163,14 +150,12 @@ public class QuestionsActivity extends AppCompatActivity {
         String q = Questions.returnQuestion(Sensors.sensor_list[temp.s], DataCollectors.dc_list[temp.d], Contexts.contexts_list[temp.c]);
         tv_questions.setText(q);
         Log.d("question", " q = " + q);
-
-
         final int temp_q_no = current_question_number;
         // if button clicked
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("question", "entered button click");
+                Log.d("main question", "entered button click");
                 java.util.Date date = new java.util.Date();
                 String time = new Timestamp(date.getTime()).toString();
                 UserInstanceClass user_instance = new UserInstanceClass();
@@ -186,7 +171,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 ur.setContexts(temp.c);
                 ur.setImprove(-1); //first round no improvement choice
                 StoreDbHelper db = new StoreDbHelper(v.getContext());
-                Log.d("day", "day no =" + ur.getDay_no());
+                Log.d("main day", "day no =" + ur.getDay_no());
                 db.replaceStoreAnswers(temp_q_no, ur.getLevel(), ur.getCredit(), ur.getDay_no());
                 // modify this dynamically
                 ur.setCredit_gain(Cost.returnReward(temp.cost, ur.getLevel()));
