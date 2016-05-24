@@ -30,6 +30,7 @@ import com.example.ramapriyasridharan.helpers.AddDouble;
 import com.example.ramapriyasridharan.helpers.ConvertStringToInt;
 import com.example.ramapriyasridharan.helpers.Cost;
 import com.example.ramapriyasridharan.helpers.Privacy;
+import com.example.ramapriyasridharan.helpers.SendToKinvey;
 import com.example.ramapriyasridharan.helpers.UserInstanceClass;
 import com.example.ramapriyasridharan.localstore.StoreDbHelper;
 import com.kinvey.android.AsyncAppData;
@@ -171,28 +172,8 @@ public class QuestionsActivity extends AppCompatActivity {
                 editor = AddDouble.putDouble(editor, "current_credit", ur.getCredit());
                 editor = AddDouble.putDouble(editor, "current_privacy", ur.getPrivacy_percentage());
                 editor.commit();
-                // if last question of day 1, go to pause activity
-                // pause till the next day
 
-
-
-                /*AsyncAppData<UserResponseClass> myui = user_instance.getmKinveyClient().appData("UserResponse", UserResponseClass.class);
-
-                myui.save(ur, new KinveyClientCallback<UserResponseClass>() {
-
-                    @Override
-                    public void onSuccess(UserResponseClass userInformationClass) {
-
-                        Toast.makeText(QuestionsActivity.this, "Data successfully received", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFailure(Throwable throwable) {
-
-                        Toast.makeText(QuestionsActivity.this, "Data not sent error", Toast.LENGTH_SHORT).show();
-                        Log.i("ERROR sending to kinvey", "ERROR");
-                    }
-                });*/
+                //SendToKinvey.sendUserResponse(user_instance,"UserResponse",ur);
 
                 if(temp_q_no == 9){
                     // answered all first day questions

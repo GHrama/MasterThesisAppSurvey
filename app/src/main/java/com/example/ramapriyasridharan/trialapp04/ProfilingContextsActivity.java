@@ -4,23 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.example.ramapriyasridharan.StoreValues.WeightCostAnswersMatrix;
+import com.example.ramapriyasridharan.BackgroundTasks.WeightCostMatrixService;
 import com.example.ramapriyasridharan.collections.ProfilingContextsClass;
-import com.example.ramapriyasridharan.collections.ProfilingDataCollectorsClass;
 import com.example.ramapriyasridharan.helpers.ConvertStringToInt;
 import com.example.ramapriyasridharan.helpers.UserInstanceClass;
-import com.kinvey.android.AsyncAppData;
-import com.kinvey.java.core.KinveyClientCallback;
 
 import java.sql.Timestamp;
 
@@ -77,36 +70,13 @@ public class ProfilingContextsActivity extends AppCompatActivity {
                 editor.putInt("navigation", ps.getNav());
                 editor.commit();
 
-
-//                AsyncAppData<ProfilingContextsClass> myui = user_instance.getmKinveyClient().appData("ProfilingContexts", ProfilingContextsClass.class);
-//
-//                myui.save(ps, new KinveyClientCallback<ProfilingContextsClass>() {
-//
-//                    @Override
-//                    public void onSuccess(ProfilingContextsClass userInformationClass) {
-//
-//                        Toast.makeText(ProfilingContextsActivity.this, "Data successfully received", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Throwable throwable) {
-//
-//                        Toast.makeText(ProfilingContextsActivity.this, "Data not sent error", Toast.LENGTH_SHORT).show();
-//                        Log.i("ERROR sending to kinvey", "ERROR");
-//                    }
-//                });
-
-                // place intent inside button click function
-                // now computer the weight matrix
-
-
                 // now compute the cost matrix
 
+                //SendToKinvey.sendProfilingContexts(user_instance,"ProfilingContexts", ps);
 
-
-                WeightCostAnswersMatrix.calcWeightMatrix(v.getContext());
-                WeightCostAnswersMatrix.getCostMatrix();
-                WeightCostAnswersMatrix.insertWeightCostDb(v.getContext());
+                // start background process
+                Intent weight_cost_background = new Intent(v.getContext(), WeightCostMatrixService.class);
+                startService(weight_cost_background);
 
                 Intent intent = new Intent(v.getContext(), QuestionsActivity.class);
                 final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);

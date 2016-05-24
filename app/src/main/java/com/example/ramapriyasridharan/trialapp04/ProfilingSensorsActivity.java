@@ -20,6 +20,7 @@ import com.example.ramapriyasridharan.collections.ProfilingSensorsClass;
 import com.example.ramapriyasridharan.collections.UserInformationClass;
 import com.example.ramapriyasridharan.helpers.AddDouble;
 import com.example.ramapriyasridharan.helpers.ConvertStringToInt;
+import com.example.ramapriyasridharan.helpers.SendToKinvey;
 import com.example.ramapriyasridharan.helpers.UserInstanceClass;
 import com.kinvey.android.AsyncAppData;
 import com.kinvey.java.core.KinveyClientCallback;
@@ -81,26 +82,7 @@ public class ProfilingSensorsActivity extends AppCompatActivity {
                 editor.commit();
 
 
-//                AsyncAppData<ProfilingSensorsClass> myui = user_instance.getmKinveyClient().appData("ProfilingSensors", ProfilingSensorsClass.class);
-//
-//                myui.save(ps, new KinveyClientCallback<ProfilingSensorsClass>() {
-//
-//                    @Override
-//                    public void onSuccess(ProfilingSensorsClass userInformationClass) {
-//
-//                        Toast.makeText(ProfilingSensorsActivity.this, "Data successfully received", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Throwable throwable) {
-//
-//                        Toast.makeText(ProfilingSensorsActivity.this, "Data not sent error", Toast.LENGTH_SHORT).show();
-//                        Log.i("ERROR sending to kinvey", "ERROR");
-//                    }
-//                });
-
-                // place intent inside button click function
-
+                //SendToKinvey.sendProfilingSensors(user_instance,"ProfilingSensors",ps);
                 Intent intent = new Intent(v.getContext(), ProfilingDataCollectorsActivity.class);
                 final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
                 final SharedPreferences.Editor e = s_logged.edit();

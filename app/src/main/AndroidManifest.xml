@@ -34,8 +34,8 @@
             android:name=".GetUserInformation"
             android:label="@string/title_activity_get_user_information"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".CollectUserInformation"
+        <service
+            android:name="com.example.ramapriyasridharan.BackgroundTasks.WeightCostMatrixService"
             android:label="@string/title_activity_collect_user_information"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

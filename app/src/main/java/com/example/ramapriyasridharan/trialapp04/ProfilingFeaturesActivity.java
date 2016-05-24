@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.ramapriyasridharan.collections.ProfilingFeaturesClass;
 import com.example.ramapriyasridharan.collections.UserInformationClass;
 import com.example.ramapriyasridharan.helpers.ConvertStringToInt;
+import com.example.ramapriyasridharan.helpers.SendToKinvey;
 import com.example.ramapriyasridharan.helpers.UserInstanceClass;
 import com.kinvey.android.AsyncAppData;
 import com.kinvey.java.core.KinveyClientCallback;
@@ -71,24 +72,7 @@ public class ProfilingFeaturesActivity extends AppCompatActivity {
                 editor.putInt("contexts", pf.getContext());
                 editor.commit();
 
-//                AsyncAppData<ProfilingFeaturesClass> myui = user_instance.getmKinveyClient().appData("ProfilingFeatures", ProfilingFeaturesClass.class);
-//
-//                myui.save(pf, new KinveyClientCallback<ProfilingFeaturesClass>() {
-//
-//                    @Override
-//                    public void onSuccess(ProfilingFeaturesClass userInformationClass) {
-//
-//                        Toast.makeText(ProfilingFeaturesActivity.this, "Data successfully received", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Throwable throwable) {
-//
-//                        Toast.makeText(ProfilingFeaturesActivity.this, "Data not sent error", Toast.LENGTH_SHORT).show();
-//                        Log.i("ERROR sending to kinvey", "ERROR");
-//                    }
-//                });
-
+                //SendToKinvey.sendProfilingFeatures(user_instance,"ProfilingFeatures",pf);
                 // place intent inside button click function
                 Intent intent = new Intent(v.getContext(), ProfilingSensorsActivity.class);
                 e.putString("activity","ProfilingSensorsActivity.class");

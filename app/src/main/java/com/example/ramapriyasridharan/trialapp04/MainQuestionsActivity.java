@@ -33,6 +33,7 @@ import com.example.ramapriyasridharan.helpers.AddDouble;
 import com.example.ramapriyasridharan.helpers.ConvertStringToInt;
 import com.example.ramapriyasridharan.helpers.Cost;
 import com.example.ramapriyasridharan.helpers.Privacy;
+import com.example.ramapriyasridharan.helpers.SendToKinvey;
 import com.example.ramapriyasridharan.helpers.UserInstanceClass;
 import com.example.ramapriyasridharan.localstore.StoreDbHelper;
 import com.kinvey.android.AsyncAppData;
@@ -226,24 +227,7 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 editor.commit();
                 global_qs = null;
 
-                /*AsyncAppData<UserResponseClass> myui = user_instance.getmKinveyClient().appData("UserResponse", UserResponseClass.class);
-
-                myui.save(ur, new KinveyClientCallback<UserResponseClass>() {
-
-                    @Override
-                    public void onSuccess(UserResponseClass userInformationClass) {
-
-                        Toast.makeText(QuestionsActivity.this, "Data successfully received", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFailure(Throwable throwable) {
-
-                        Toast.makeText(QuestionsActivity.this, "Data not sent error", Toast.LENGTH_SHORT).show();
-                        Log.i("ERROR sending to kinvey", "ERROR");
-                    }
-                });*/
-
+                //SendToKinvey.sendUserResponse(user_instance, "UserResponse", ur);
                 Log.d("main questions", "before call again inside");
                 core1();
 

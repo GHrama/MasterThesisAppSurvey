@@ -1,0 +1,138 @@
+package com.example.ramapriyasridharan.helpers;
+
+import android.app.Activity;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.ramapriyasridharan.collections.ProfilingContextsClass;
+import com.example.ramapriyasridharan.collections.ProfilingDataCollectorsClass;
+import com.example.ramapriyasridharan.collections.ProfilingFeaturesClass;
+import com.example.ramapriyasridharan.collections.ProfilingSensorsClass;
+import com.example.ramapriyasridharan.collections.UserInformationClass;
+import com.example.ramapriyasridharan.collections.UserResponseClass;
+import com.example.ramapriyasridharan.trialapp04.GetUserInformation;
+import com.example.ramapriyasridharan.trialapp04.ProfilingDataCollectorsActivity;
+import com.kinvey.android.AsyncAppData;
+import com.kinvey.java.core.KinveyClientCallback;
+
+/**
+ * Created by ramapriyasridharan on 24.05.16.
+ */
+public class SendToKinvey {
+
+    public static void sendUserInformation(UserInstanceClass user_instance, String collection_name, UserInformationClass ui){
+
+        AsyncAppData<UserInformationClass> myui = user_instance.getmKinveyClient().appData(collection_name, UserInformationClass.class);
+
+                myui.save(ui, new KinveyClientCallback<UserInformationClass>() {
+
+                    @Override
+                    public void onSuccess(UserInformationClass userInformationClass) {
+                        Log.i("sent to kinvey", "suceess");
+                    }
+
+                    @Override
+                    public void onFailure(Throwable throwable) {
+
+                        Log.i("ERROR sending to kinvey", "ERROR");
+                    }
+                });
+    }
+
+    public static void sendProfilingFeatures(UserInstanceClass user_instance, String collection_name, ProfilingFeaturesClass pf){
+
+        AsyncAppData<ProfilingFeaturesClass> myui = user_instance.getmKinveyClient().appData(collection_name, ProfilingFeaturesClass.class);
+
+        myui.save(pf, new KinveyClientCallback<ProfilingFeaturesClass>() {
+
+            @Override
+            public void onSuccess(ProfilingFeaturesClass f) {
+                Log.i("sent to kinvey", "suceess");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+
+                Log.i("ERROR sending to kinvey", "ERROR");
+            }
+        });
+    }
+
+    public static void sendProfilingSensors(UserInstanceClass user_instance, String collection_name, ProfilingSensorsClass ps){
+
+        AsyncAppData<ProfilingSensorsClass> myui = user_instance.getmKinveyClient().appData(collection_name, ProfilingSensorsClass.class);
+
+        myui.save(ps, new KinveyClientCallback<ProfilingSensorsClass>() {
+
+            @Override
+            public void onSuccess(ProfilingSensorsClass f) {
+                Log.i("sent to kinvey", "suceess");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+
+                Log.i("ERROR sending to kinvey", "ERROR");
+            }
+        });
+    }
+
+    public static void sendProfilingDataCollectors(UserInstanceClass user_instance, String collection_name, ProfilingDataCollectorsClass ps){
+
+        AsyncAppData<ProfilingDataCollectorsClass> myui = user_instance.getmKinveyClient().appData(collection_name, ProfilingDataCollectorsClass.class);
+
+        myui.save(ps, new KinveyClientCallback<ProfilingDataCollectorsClass>() {
+
+            @Override
+            public void onSuccess(ProfilingDataCollectorsClass f) {
+                Log.i("sent to kinvey", "suceess");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+
+                Log.i("ERROR sending to kinvey", "ERROR");
+            }
+        });
+    }
+
+    public static void sendProfilingContexts(UserInstanceClass user_instance, String collection_name, ProfilingContextsClass ps){
+
+        AsyncAppData<ProfilingContextsClass> myui = user_instance.getmKinveyClient().appData(collection_name, ProfilingContextsClass.class);
+
+        myui.save(ps, new KinveyClientCallback<ProfilingContextsClass>() {
+
+            @Override
+            public void onSuccess(ProfilingContextsClass f) {
+                Log.i("sent to kinvey", "suceess");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+
+                Log.i("ERROR sending to kinvey", "ERROR");
+            }
+        });
+    }
+
+    public static void sendUserResponse(UserInstanceClass user_instance, String collection_name, UserResponseClass ps){
+
+        AsyncAppData<UserResponseClass> myui = user_instance.getmKinveyClient().appData(collection_name, UserResponseClass.class);
+
+        myui.save(ps, new KinveyClientCallback<UserResponseClass>() {
+
+            @Override
+            public void onSuccess(UserResponseClass f) {
+                Log.i("sent to kinvey", "suceess");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+
+                Log.i("ERROR sending to kinvey", "ERROR");
+            }
+        });
+    }
+
+
+}

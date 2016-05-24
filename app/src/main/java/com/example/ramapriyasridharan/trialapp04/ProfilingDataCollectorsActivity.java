@@ -18,6 +18,7 @@ import com.example.ramapriyasridharan.collections.ProfilingDataCollectorsClass;
 import com.example.ramapriyasridharan.collections.ProfilingSensorsClass;
 import com.example.ramapriyasridharan.collections.UserInformationClass;
 import com.example.ramapriyasridharan.helpers.ConvertStringToInt;
+import com.example.ramapriyasridharan.helpers.SendToKinvey;
 import com.example.ramapriyasridharan.helpers.UserInstanceClass;
 import com.kinvey.android.AsyncAppData;
 import com.kinvey.java.core.KinveyClientCallback;
@@ -73,26 +74,8 @@ public class ProfilingDataCollectorsActivity extends AppCompatActivity {
                 editor.putInt("educational_institution", ps.getEdu());
                 editor.commit();
 
-
-//                AsyncAppData<ProfilingDataCollectorsClass> myui = user_instance.getmKinveyClient().appData("ProfilingDataCollectors", ProfilingDataCollectorsClass.class);
-//
-//                myui.save(ps, new KinveyClientCallback<ProfilingDataCollectorsClass>() {
-//
-//                    @Override
-//                    public void onSuccess(ProfilingDataCollectorsClass userInformationClass) {
-//
-//                        Toast.makeText(ProfilingDataCollectorsActivity.this, "Data successfully received", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Throwable throwable) {
-//
-//                        Toast.makeText(ProfilingDataCollectorsActivity.this, "Data not sent error", Toast.LENGTH_SHORT).show();
-//                        Log.i("ERROR sending to kinvey", "ERROR");
-//                    }
-//                });
-
                 // place intent inside button click function
+                //SendToKinvey.sendProfilingDataCollectors(user_instance,"ProfilingDataCollectors",ps);
 
                 Intent intent = new Intent(v.getContext(), ProfilingContextsActivity.class);
                 final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
