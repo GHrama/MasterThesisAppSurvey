@@ -1,5 +1,6 @@
 package com.example.ramapriyasridharan.trialapp04;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,16 +31,20 @@ public class PauseActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        addLIstenerButton();
+        addListenerButton();
     }
 
-    public void addLIstenerButton(){
+    public void addListenerButton(){
         Button submit = (Button) findViewById(R.id.button_start_experiment);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MainQuestionsActivity.class);
+                final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
+                final SharedPreferences.Editor e = s_logged.edit();
+                e.putString("activity","MainQuestionsActivity.class");
+                e.commit();
                 startActivity(intent);
 
             }

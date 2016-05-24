@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="No Data Requests Currently ..."
+        android:visibility="invisible"
         android:id="@+id/tv_question_window_entry_1"
         android:layout_below="@+id/tv_day_number_entry_1"
         android:layout_alignParentLeft="true"
@@ -27,6 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinner_privacy_choice_entry_1"
+        android:visibility="invisible"
         android:prompt="@string/bidding_prompt"
         android:entries="@array/bidding_arrays"
         android:layout_above="@+id/button_bid_1"
@@ -39,6 +41,7 @@
         android:layout_height="wrap_content"
         android:text="Submit Bid"
         android:id="@+id/button_bid_1"
+        android:visibility="invisible"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="62dp" />
@@ -87,5 +90,26 @@
         android:layout_below="@+id/tv_user_id_entry"
         android:layout_alignRight="@+id/spinner_privacy_choice_entry"
         android:layout_alignEnd="@+id/spinner_privacy_choice_entry" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Privacy"
+        android:id="@+id/button_improve_privacy"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/button_bid_1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Credit"
+        android:id="@+id/button_improve_credit"
+        android:layout_alignTop="@+id/button_improve_privacy"
+        android:layout_alignRight="@+id/tv_this_round_credit_1"
+        android:layout_alignEnd="@+id/tv_this_round_credit_1"
+        android:layout_alignLeft="@+id/tv_this_round_credit_1"
+        android:layout_alignStart="@+id/tv_this_round_credit_1" />
 
 </RelativeLayout>

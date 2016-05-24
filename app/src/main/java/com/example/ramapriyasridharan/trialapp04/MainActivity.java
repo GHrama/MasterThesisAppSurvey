@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor e = s_logged.edit();
 
         UserInstanceClass instance_user = new UserInstanceClass();
         //final Client mKinveyClient = new Client.Builder("kid_W1EFbeKyy-", "1b6f09e812114210ae4447f310b38a0a"
@@ -42,12 +44,13 @@ public class MainActivity extends AppCompatActivity {
         final TextView user_text;
         user_text = (TextView) findViewById(R.id.user_id);
 
-
+        // check if new to app
         boolean meow = instance_user.mKinveyClient.user().isUserLoggedIn();
+        int is_logged = s_logged.getInt("logged",0);
 
         // if user is logged in meow = True dont log him in again!
         {
-            if (!meow) {
+            if (meow == false && is_logged == 0) {
                 instance_user.mKinveyClient.user().login(new KinveyUserCallback() {
                     @Override
                     public void onFailure(Throwable error) {
@@ -59,43 +62,42 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(User result) {
                         user_text.setText("user id is " + result.getId());
-
+                        e.putInt("logged",1); // means it is logged in
+                        e.commit();
                         Log.i(TAG, "Logged in a new implicit user with id(first time): " + result.getId());
 
                     }
                 });
-            } else {
+
+            } else if(is_logged == 1){
 
                 Log.i(TAG, "Logged in a new implicit user with id(not first time): " + instance_user.mKinveyClient.user().getId());
                 user_text.setText("user id is " + instance_user.mKinveyClient.user().getId());
+                // fetch activity
+                // and go there before default settings
             }
         }
-        /*boolean k = settings.getBoolean("my_first_time",true);
-        user_text.setText(""+k);
-        if(settings.getBoolean("my_first_time",true)){
-            //app launched for the first time
-            //to check its value
-            Log.i(TAG,"running for first time");
-            Intent intent = new Intent(this, RegisterUserActivity.class);
-            settings.edit().putBoolean("my_first_time",true).commit();
-            startActivity(intent);
-        }*/
+
         String user_string = instance_user.mKinveyClient.user().getId();
         Log.i(TAG, "running for first time");
 
-        //Reset preferences file when installing application for the first time
+        // Reset preferences file when installing application for the first time
+        // remove only debugging!
         SharedPreferences s = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = s.edit();
-        editor.putInt("current_question_number",-1);
+        editor.putInt("current_question_number",0);
         editor.putInt("current_day",1);
         editor = AddDouble.putDouble(editor,"current_credit",0);
         editor = AddDouble.putDouble(editor,"current_privacy",100);
         editor.commit();
+
         // Create DB
         StoreDbHelper db = new StoreDbHelper(this);
         // clear content to simulate first time user
         db.removeAll();
         Intent intent = new Intent(this, GetUserInformation.class);
+        e.putString("activity","GetUserInformation.class");
+        e.commit();
         intent.putExtra("user_id",user_string);
         startActivity(intent);
 

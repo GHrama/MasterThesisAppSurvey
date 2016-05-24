@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TrialApp04</string>
+    <string name="app_name">Survey</string>
     <string name="action_settings">Settings</string>
     <string name="first_time">true</string>
     <string name="title_activity_register_user">RegisterUserActivity</string>
@@ -41,12 +41,12 @@
     <string name="spinner_features_prompt">Choose Level</string>
 
 
-    <string name="title_activity_collect_user_information">CollectUserInformation</string>
-    <string name="title_activity_profiling_features">ProfilingFeaturesActivity</string>
-    <string name="title_activity_profiling_sensors">ProfilingSensorsActivity</string>
-    <string name="title_activity_profiling_data_collectors">ProfilingDataCollectorsActivity</string>
-    <string name="title_activity_profiling_contexts">ProfilingContextsActivity</string>
-    <string name="title_activity_questions">QuestionsActivity</string>
+    <string name="title_activity_collect_user_information">Personal Information</string>
+    <string name="title_activity_profiling_features">Categorize Features</string>
+    <string name="title_activity_profiling_sensors">Categorize Sensors</string>
+    <string name="title_activity_profiling_data_collectors">Categorize Stakeholders</string>
+    <string name="title_activity_profiling_contexts">Categorize Contexts</string>
+    <string name="title_activity_questions">First Day Questions</string>
 
     <string name="bidding_prompt">Choose the Privacy Level with which your data can be taken</string>
 
@@ -57,6 +57,6 @@
         <item>High Privacy Level</item>
         <item>Very High Privacy Level (i.e.. Do not Take Any Data)</item>
     </string-array>
-    <string name="title_activity_pause">PauseActivity</string>
-    <string name="title_activity_main_questions">MainQuestionsActivity</string>
+    <string name="title_activity_pause">Done For Today!</string>
+    <string name="title_activity_main_questions">Data Selling Area</string>
 </resources>

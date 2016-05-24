@@ -2,6 +2,7 @@ package com.example.ramapriyasridharan.localstore;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
@@ -24,6 +25,7 @@ public class StoreDbHelper extends SQLiteOpenHelper {
     private static final String TABLE_QUESTION_INFO = "QUESTION_INFO";
     private static final String TABLE_STORE_ANSWERS = "STORE_ANSWERS";
     private static final String TABLE_STORE_POINTS = "STORE_POINTS";
+    private static final String TABLE_WHICH_ANSWERED = "WHICH_ANSWERED";
 
     //column names common
     private static final String Q_ID = "Q_ID";
@@ -57,6 +59,9 @@ public class StoreDbHelper extends SQLiteOpenHelper {
             + TABLE_STORE_POINTS +"( " + DAY_NO + " INTEGER PRIMARY KEY," + COST
             + " REAL," + PRIVACY + " REAL" + " )";
 
+    private static final String CREATE_TABLE_WHICH_ANSWERD = "CREATE TABLE "
+            + TABLE_WHICH_ANSWERED +"( " + Q_ID + " INTEGER PRIMARY KEY )";
+
 
 
     // create the DB
@@ -70,6 +75,7 @@ public class StoreDbHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_QUESTION_INFO);
         db.execSQL(CREATE_TABLE_STORE_ANSWERS);
         db.execSQL(CREATE_TABLE_STORE_POINTS);
+        db.execSQL(CREATE_TABLE_WHICH_ANSWERD);
     }
 
     @Override
@@ -77,8 +83,84 @@ public class StoreDbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STORE_ANSWERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUESTION_INFO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STORE_POINTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WHICH_ANSWERED);
 
         onCreate(db);
+    }
+
+
+    // return question id from answeres table
+    // with certain level
+    public ArrayList<Integer> getAnswersLevelAnswersTable(int level){
+        String q = "SELECT "+ Q_ID +" FROM "+TABLE_STORE_ANSWERS+" WHERE "+ PRIVACY_LEVEL + "=" +level;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(q, null);
+        ArrayList<Integer> questions = new ArrayList<Integer>();
+        while(cursor.moveToNext()){
+            Log.d("DB", "get question with level = " + cursor.getInt(0));
+            questions.add(cursor.getInt(0));
+        }
+        cursor.close();
+        return questions;
+    }
+    // insert questions if answered
+    public void insertQuestionAnsweredTable(int q_no){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Q_ID, q_no);
+        long _id = db.insert(TABLE_WHICH_ANSWERED, null, values);
+        Log.d("DB", "_id of insertion question = " + _id);
+    }
+
+    // check if this question answered
+    public boolean isQuestionPresentAnsweredTable(int q_no){
+        // answered true
+        // not answered false
+        String q = "SELECT * FROM "+TABLE_WHICH_ANSWERED+" WHERE "+ Q_ID+"="+q_no;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(q,null);
+        if(cursor.moveToFirst()){
+            Log.d("DB", "question present = " + q_no);
+            cursor.close();
+            return true; // data exists
+        }
+        else
+        {
+            Log.d("DB", "question not present = " + q_no);
+            cursor.close();
+            return false; // data not exist
+        }
+    }
+
+    // all questions answered empty table and restart
+    public void emptyAnsweredTable(){
+        String q = "DELETE  FROM "+TABLE_WHICH_ANSWERED;
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(q);
+    }
+
+    // check if all questions answered once
+    public boolean allQuestionsPresentAnsweredTable(int num){
+        // true - all answered
+        // false - some not answered
+        String q = "SELECT COUNT(*) FROM "+TABLE_WHICH_ANSWERED;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(q,null);
+        if(cursor.moveToFirst()){
+            int temp = cursor.getInt(0);
+            cursor.close();
+            if(temp == num){
+                Log.d("db", "temp==num");
+                return true;
+            }
+            else{
+                Log.d("db", "temp!=num");
+                return false;
+            }
+        }
+        cursor.close();
+        Log.d("db", "no cursor.movetofirst()!"); // table empty?
+        return false;
     }
 
     public long insertPointsTable(int day_no, double cost, double privacy){
@@ -117,7 +199,6 @@ public class StoreDbHelper extends SQLiteOpenHelper {
         values.put(MAX_COST, max_cost);
         values.put(WEIGHT, weight);
 
-
         long _id = db.insert(TABLE_QUESTION_INFO, null, values);
         Log.d("DB", "_id of insertion question = " + _id);
         return _id;
@@ -134,8 +215,6 @@ public class StoreDbHelper extends SQLiteOpenHelper {
         values.put(CONTEXTS, contexts);
         values.put(MAX_COST, max_cost);
         values.put(WEIGHT, weight);
-
-
         long _id = db.replace(TABLE_QUESTION_INFO, null, values);
         Log.d("DB", "_id of insertion question = " + _id);
         return _id;
@@ -192,6 +271,7 @@ public class StoreDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase(); // helper is object extends SQLiteOpenHelper
         db.delete(TABLE_STORE_ANSWERS, null, null);
         db.delete(TABLE_QUESTION_INFO, null, null);
+        db.delete(TABLE_STORE_POINTS,null,null);
     }
 
 
@@ -219,6 +299,7 @@ public class StoreDbHelper extends SQLiteOpenHelper {
             return new FetchByIdQuestionsTableStore(s,d,c,cost,weight);
         }
         else{
+            cursor.close();
             return new FetchByIdQuestionsTableStore(-1,-1,-1,-1,-1);
         }
     }

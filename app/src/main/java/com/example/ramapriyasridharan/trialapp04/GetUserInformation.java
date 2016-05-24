@@ -93,23 +93,24 @@ public class GetUserInformation extends AppCompatActivity {
                 Log.d("HI", "done getting the data");
                 UserInstanceClass user_instance = new UserInstanceClass();
                 Log.d("HI", "get user_instance");
-                AsyncAppData<UserInformationClass> myui = user_instance.getmKinveyClient().appData("InformationUsers", UserInformationClass.class);
 
-                myui.save(ui, new KinveyClientCallback<UserInformationClass>() {
-
-                    @Override
-                    public void onSuccess(UserInformationClass userInformationClass) {
-
-                        Toast.makeText(GetUserInformation.this, "Data successfully received", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFailure(Throwable throwable) {
-
-                        Toast.makeText(GetUserInformation.this, "Data not sent error", Toast.LENGTH_SHORT).show();
-                        Log.i("ERROR sending to kinvey", "ERROR");
-                    }
-                });
+//                AsyncAppData<UserInformationClass> myui = user_instance.getmKinveyClient().appData("InformationUsers", UserInformationClass.class);
+//
+//                myui.save(ui, new KinveyClientCallback<UserInformationClass>() {
+//
+//                    @Override
+//                    public void onSuccess(UserInformationClass userInformationClass) {
+//
+//                        Toast.makeText(GetUserInformation.this, "Data successfully received", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Throwable throwable) {
+//
+//                        Toast.makeText(GetUserInformation.this, "Data not sent error", Toast.LENGTH_SHORT).show();
+//                        Log.i("ERROR sending to kinvey", "ERROR");
+//                    }
+//                });
 
                 // place intent inside button click function
                 Intent intent = new Intent(v.getContext(), ProfilingFeaturesActivity.class);

@@ -74,27 +74,31 @@ public class ProfilingDataCollectorsActivity extends AppCompatActivity {
                 editor.commit();
 
 
-                AsyncAppData<ProfilingDataCollectorsClass> myui = user_instance.getmKinveyClient().appData("ProfilingDataCollectors", ProfilingDataCollectorsClass.class);
-
-                myui.save(ps, new KinveyClientCallback<ProfilingDataCollectorsClass>() {
-
-                    @Override
-                    public void onSuccess(ProfilingDataCollectorsClass userInformationClass) {
-
-                        Toast.makeText(ProfilingDataCollectorsActivity.this, "Data successfully received", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFailure(Throwable throwable) {
-
-                        Toast.makeText(ProfilingDataCollectorsActivity.this, "Data not sent error", Toast.LENGTH_SHORT).show();
-                        Log.i("ERROR sending to kinvey", "ERROR");
-                    }
-                });
+//                AsyncAppData<ProfilingDataCollectorsClass> myui = user_instance.getmKinveyClient().appData("ProfilingDataCollectors", ProfilingDataCollectorsClass.class);
+//
+//                myui.save(ps, new KinveyClientCallback<ProfilingDataCollectorsClass>() {
+//
+//                    @Override
+//                    public void onSuccess(ProfilingDataCollectorsClass userInformationClass) {
+//
+//                        Toast.makeText(ProfilingDataCollectorsActivity.this, "Data successfully received", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Throwable throwable) {
+//
+//                        Toast.makeText(ProfilingDataCollectorsActivity.this, "Data not sent error", Toast.LENGTH_SHORT).show();
+//                        Log.i("ERROR sending to kinvey", "ERROR");
+//                    }
+//                });
 
                 // place intent inside button click function
 
                 Intent intent = new Intent(v.getContext(), ProfilingContextsActivity.class);
+                final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
+                final SharedPreferences.Editor e = s_logged.edit();
+                e.putString("activity","ProfilingContextsActivity.class");
+                e.commit();
                 startActivity(intent);
 
             }

@@ -26,6 +26,9 @@ import java.sql.Timestamp;
 
 public class ProfilingContextsActivity extends AppCompatActivity {
 
+
+    // Loading sign from android while calculating & storing weight matrix
+    // FIND IT
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,23 +78,23 @@ public class ProfilingContextsActivity extends AppCompatActivity {
                 editor.commit();
 
 
-                AsyncAppData<ProfilingContextsClass> myui = user_instance.getmKinveyClient().appData("ProfilingContexts", ProfilingContextsClass.class);
-
-                myui.save(ps, new KinveyClientCallback<ProfilingContextsClass>() {
-
-                    @Override
-                    public void onSuccess(ProfilingContextsClass userInformationClass) {
-
-                        Toast.makeText(ProfilingContextsActivity.this, "Data successfully received", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFailure(Throwable throwable) {
-
-                        Toast.makeText(ProfilingContextsActivity.this, "Data not sent error", Toast.LENGTH_SHORT).show();
-                        Log.i("ERROR sending to kinvey", "ERROR");
-                    }
-                });
+//                AsyncAppData<ProfilingContextsClass> myui = user_instance.getmKinveyClient().appData("ProfilingContexts", ProfilingContextsClass.class);
+//
+//                myui.save(ps, new KinveyClientCallback<ProfilingContextsClass>() {
+//
+//                    @Override
+//                    public void onSuccess(ProfilingContextsClass userInformationClass) {
+//
+//                        Toast.makeText(ProfilingContextsActivity.this, "Data successfully received", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Throwable throwable) {
+//
+//                        Toast.makeText(ProfilingContextsActivity.this, "Data not sent error", Toast.LENGTH_SHORT).show();
+//                        Log.i("ERROR sending to kinvey", "ERROR");
+//                    }
+//                });
 
                 // place intent inside button click function
                 // now computer the weight matrix
@@ -106,6 +109,10 @@ public class ProfilingContextsActivity extends AppCompatActivity {
                 WeightCostAnswersMatrix.insertWeightCostDb(v.getContext());
 
                 Intent intent = new Intent(v.getContext(), QuestionsActivity.class);
+                final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
+                final SharedPreferences.Editor e = s_logged.edit();
+                e.putString("activity", "QuestionsActivity.class");
+                e.commit();
                 startActivity(intent);
 
 

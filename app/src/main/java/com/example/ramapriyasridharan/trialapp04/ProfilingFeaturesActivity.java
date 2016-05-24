@@ -37,7 +37,8 @@ public class ProfilingFeaturesActivity extends AppCompatActivity {
 
     public void addListenerButtonClick(){
 
-
+        final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor e = s_logged.edit();
         Button submit;
         submit = (Button) findViewById(R.id.button_submit_features);
         final Spinner spinner_sensors = (Spinner) findViewById(R.id.spinner_sensor_entry);
@@ -70,26 +71,28 @@ public class ProfilingFeaturesActivity extends AppCompatActivity {
                 editor.putInt("contexts", pf.getContext());
                 editor.commit();
 
-                AsyncAppData<ProfilingFeaturesClass> myui = user_instance.getmKinveyClient().appData("ProfilingFeatures", ProfilingFeaturesClass.class);
-
-                myui.save(pf, new KinveyClientCallback<ProfilingFeaturesClass>() {
-
-                    @Override
-                    public void onSuccess(ProfilingFeaturesClass userInformationClass) {
-
-                        Toast.makeText(ProfilingFeaturesActivity.this, "Data successfully received", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onFailure(Throwable throwable) {
-
-                        Toast.makeText(ProfilingFeaturesActivity.this, "Data not sent error", Toast.LENGTH_SHORT).show();
-                        Log.i("ERROR sending to kinvey", "ERROR");
-                    }
-                });
+//                AsyncAppData<ProfilingFeaturesClass> myui = user_instance.getmKinveyClient().appData("ProfilingFeatures", ProfilingFeaturesClass.class);
+//
+//                myui.save(pf, new KinveyClientCallback<ProfilingFeaturesClass>() {
+//
+//                    @Override
+//                    public void onSuccess(ProfilingFeaturesClass userInformationClass) {
+//
+//                        Toast.makeText(ProfilingFeaturesActivity.this, "Data successfully received", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Throwable throwable) {
+//
+//                        Toast.makeText(ProfilingFeaturesActivity.this, "Data not sent error", Toast.LENGTH_SHORT).show();
+//                        Log.i("ERROR sending to kinvey", "ERROR");
+//                    }
+//                });
 
                 // place intent inside button click function
                 Intent intent = new Intent(v.getContext(), ProfilingSensorsActivity.class);
+                e.putString("activity","ProfilingSensorsActivity.class");
+                e.commit();
                 startActivity(intent);
 
 
