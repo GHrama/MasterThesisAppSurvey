@@ -4,6 +4,7 @@ package com.example.ramapriyasridharan.StoreValues;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.ramapriyasridharan.helpers.Weights;
@@ -106,8 +107,7 @@ public class WeightCostAnswersMatrix {
                 }
             }
         }
-
-
+        db.close();
     }
 
 

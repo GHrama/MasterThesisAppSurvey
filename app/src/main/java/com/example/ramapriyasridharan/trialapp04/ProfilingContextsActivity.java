@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -32,6 +33,8 @@ public class ProfilingContextsActivity extends AppCompatActivity {
         addButtonListener();
     }
 
+    long last_clicked = 0;
+
     public void addButtonListener(){
         Button submit;
         submit = (Button) findViewById(R.id.button_submit_context);
@@ -45,6 +48,11 @@ public class ProfilingContextsActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(SystemClock.elapsedRealtime() - last_clicked < 1000){
+                    return;
+                }
+                last_clicked = SystemClock.elapsedRealtime();
 
                 String ed = spinner_ed_entry.getSelectedItem().toString();
                 String en = spinner_en_entry.getSelectedItem().toString();

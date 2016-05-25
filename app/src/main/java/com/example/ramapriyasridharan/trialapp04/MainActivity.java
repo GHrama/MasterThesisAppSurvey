@@ -2,6 +2,7 @@ package com.example.ramapriyasridharan.trialapp04;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.ramapriyasridharan.helpers.AddDouble;
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // do not let screen switch off
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -95,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         StoreDbHelper db = new StoreDbHelper(this);
         // clear content to simulate first time user
         db.removeAll();
+        db.close();
         Intent intent = new Intent(this, GetUserInformation.class);
         e.putString("activity","GetUserInformation.class");
         e.commit();

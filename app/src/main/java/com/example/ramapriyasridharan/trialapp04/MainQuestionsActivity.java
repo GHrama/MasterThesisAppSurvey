@@ -1,45 +1,38 @@
 package com.example.ramapriyasridharan.trialapp04;
 
-import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.ramapriyasridharan.BackgroundTasks.NotificationService;
 import com.example.ramapriyasridharan.StoreValues.QuestionStore;
 import com.example.ramapriyasridharan.StoreValues.WhichClicked;
 
-import com.example.ramapriyasridharan.StoreValues.Contexts;
-import com.example.ramapriyasridharan.StoreValues.DataCollectors;
-import com.example.ramapriyasridharan.StoreValues.FetchByIdQuestionsTableStore;
 import com.example.ramapriyasridharan.StoreValues.Questions;
-import com.example.ramapriyasridharan.StoreValues.Sensors;
-import com.example.ramapriyasridharan.StoreValues.WhichClicked;
-import com.example.ramapriyasridharan.collections.ProfilingSensorsClass;
-import com.example.ramapriyasridharan.collections.UserInformationClass;
 import com.example.ramapriyasridharan.collections.UserResponseClass;
 
 import com.example.ramapriyasridharan.helpers.AddDouble;
 import com.example.ramapriyasridharan.helpers.ConvertStringToInt;
 import com.example.ramapriyasridharan.helpers.Cost;
 import com.example.ramapriyasridharan.helpers.Privacy;
-import com.example.ramapriyasridharan.helpers.SendToKinvey;
+import com.example.ramapriyasridharan.helpers.Round;
 import com.example.ramapriyasridharan.helpers.UserInstanceClass;
 import com.example.ramapriyasridharan.localstore.StoreDbHelper;
-import com.kinvey.android.AsyncAppData;
-import com.kinvey.java.core.KinveyClientCallback;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 public class MainQuestionsActivity extends AppCompatActivity {
 
@@ -47,15 +40,37 @@ public class MainQuestionsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //set alarm to fire away notification every 1 minute
+        Intent myIntent = new Intent(getApplicationContext(), NotificationService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(),0,myIntent,0);
+        AlarmManager alarmManager = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.add(Calendar.HOUR, 2 ); // first time
+        long frequency= 7200 * 1000; // in ms
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), frequency, pendingIntent);
+
         super.onCreate(savedInstanceState);
+        // do not let screen switch off
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         Log.d("main question", "created MAIN questions activity");
         setContentView(R.layout.activity_main_questions);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
     }
-
+    long last_clicked = 0;
     protected void onStart(){
+//        Intent myIntent = new Intent(getApplicationContext(), NotificationService.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),  0, myIntent, 0);
+//
+//        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeInMillis(System.currentTimeMillis());
+//        calendar.add(Calendar.SECOND, 60); // first time
+//        long frequency= 60 * 1000; // in ms
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), frequency, pendingIntent);
         super.onStart();
         // if first time default values
         Log.d("main question", "started MAIN questions activity");
@@ -107,6 +122,9 @@ public class MainQuestionsActivity extends AppCompatActivity {
         final Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
         Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
         int current_day = settings.getInt("current_day", 2);
+        Log.d("main question"," current_credit = "+current_credit);
+        Log.d("main question"," current_privacy = "+current_privacy);
+        Log.d("main question"," current_day = "+current_day);
 
         TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit_1);
         TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry_1);
@@ -124,8 +142,8 @@ public class MainQuestionsActivity extends AppCompatActivity {
         UserInstanceClass user_instance = new UserInstanceClass();
         tv_user_id.setText(user_instance.getmKinveyClient().user().getId());
         tv_day_no.setText(String.valueOf(current_day));
-        tv_privacy.setText(String.valueOf(current_privacy));
-        tv_credit.setText(String.valueOf(current_credit));
+        tv_privacy.setText(String.valueOf(Round.round(current_privacy, 2)));
+        tv_credit.setText(String.valueOf(Round.round(current_credit,2)));
         final WhichClicked wc = new WhichClicked();
 
         // choose privacy or credit
@@ -143,6 +161,10 @@ public class MainQuestionsActivity extends AppCompatActivity {
         button_credit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - last_clicked < 1000) {
+                    return;
+                }
+                last_clicked = SystemClock.elapsedRealtime();
                 wc.setCredit();
                 QuestionStore qs = Questions.getQuestionWc(wc, v.getContext(), num);
                 tv_questions.setText(qs.q);
@@ -163,6 +185,10 @@ public class MainQuestionsActivity extends AppCompatActivity {
         button_privacy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - last_clicked < 1000) {
+                    return;
+                }
+                last_clicked = SystemClock.elapsedRealtime();
                 wc.setPrivacy();
                 QuestionStore qs = Questions.getQuestionWc(wc, v.getContext(), num);
                 tv_questions.setText(qs.q);
@@ -185,6 +211,10 @@ public class MainQuestionsActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(SystemClock.elapsedRealtime() - last_clicked < 1000){
+                    return;
+                }
+                last_clicked = SystemClock.elapsedRealtime();
 
                 Log.d("main question", "entered button click");
                 java.util.Date date = new java.util.Date();
@@ -210,10 +240,11 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 }
 
                 //first round no improvement choice
-                StoreDbHelper db = new StoreDbHelper(v.getContext());
                 Log.d("main day", "day no =" + ur.getDay_no());
+                StoreDbHelper db = new StoreDbHelper(v.getContext());
                 db.replaceStoreAnswers(global_qs.q_no, ur.getLevel(), ur.getCredit(), ur.getDay_no());
                 db.insertQuestionAnsweredTable(global_qs.q_no);
+                db.close();
                 Log.d("main day", "insert intro which answers" + global_qs.q_no);
 
                 ur.setCredit_gain(Cost.returnReward(global_qs.temp.cost, ur.getLevel()));
@@ -248,6 +279,15 @@ public class MainQuestionsActivity extends AppCompatActivity {
         //core1();
 
 
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
 
     }
 

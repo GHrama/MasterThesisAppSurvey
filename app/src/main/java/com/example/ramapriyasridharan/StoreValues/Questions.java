@@ -63,8 +63,9 @@ public class Questions {
             boolean flag = false;
 
             while(level >= 1){
-                Log.d("Question wc","level = "+level);
+                Log.d("Question wc", "level = " + level);
                 ArrayList<Integer> questions = db.getAnswersLevelAnswersTable(level);
+
 
                 for(int i = 0;i < questions.size() ; i++){
                     Log.d("DB", "processing question = " + questions.get(i));
@@ -120,6 +121,7 @@ public class Questions {
         }
 
         FetchByIdQuestionsTableStore q = db.fetchByIdQuestionTable(q_no);
+        db.close();
         return new QuestionStore(returnQuestion(Sensors.sensor_list[q.s], DataCollectors.dc_list[q.d], Contexts.contexts_list[q.c]),q,q_no);
     }
 
@@ -133,6 +135,7 @@ public class Questions {
         Log.d("question", "dc id = " + temp.d);
         Log.d("question", "context id = " + temp.c);
         String q = Questions.returnQuestion(Sensors.sensor_list[temp.s], DataCollectors.dc_list[temp.d], Contexts.contexts_list[temp.c]);
+        db.close();
         return new QuestionStore(q,temp,current_question_number);
     }
 

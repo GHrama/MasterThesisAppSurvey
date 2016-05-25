@@ -19,7 +19,7 @@ public class Privacy {
         StoreDbHelper db = new StoreDbHelper(c);
         ArrayList<Double> levels = db.getAllLevelsFromAnswersTable(day);
         int number = levels.size(); // number of answered questions today
-        Log.d("privacy","questions answered ="+number);
+        Log.d("privacy"," questions answered ="+number);
         double privacy = 0;
         for(int i = 0;i < number ; i++){
             if(levels.get(i) == 1){
@@ -38,8 +38,10 @@ public class Privacy {
                 privacy += 100;
             }
         }
+        Log.d("privacy"," privacy ="+ privacy);
         privacy = privacy / number ;
-        Log.d("privacy","privacy ="+privacy);
+        Log.d("privacy","privacy =" + privacy);
+        db.close();
         return privacy;
     }
 }

@@ -38,6 +38,10 @@
             android:name="com.example.ramapriyasridharan.BackgroundTasks.WeightCostMatrixService"
             android:label="@string/title_activity_collect_user_information"
             android:theme="@style/AppTheme.NoActionBar" />
+        <service
+            android:name="com.example.ramapriyasridharan.BackgroundTasks.NotificationService"
+            android:label="Notification"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProfilingFeaturesActivity"
             android:label="@string/title_activity_profiling_features"
