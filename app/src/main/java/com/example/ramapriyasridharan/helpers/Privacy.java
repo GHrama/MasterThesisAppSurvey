@@ -13,10 +13,9 @@ import java.util.ArrayList;
  */
 public class Privacy {
 
-    public static double returnPrivacyPercentage(int day, Context c){
+    public static double returnPrivacyPercentage(int day, StoreDbHelper db){
         //obtain number of questions answered till now
         //obtain all the levels for each question answered till now
-        StoreDbHelper db = new StoreDbHelper(c);
         ArrayList<Double> levels = db.getAllLevelsFromAnswersTable(day);
         int number = levels.size(); // number of answered questions today
         Log.d("privacy"," questions answered ="+number);
@@ -41,7 +40,6 @@ public class Privacy {
         Log.d("privacy"," privacy ="+ privacy);
         privacy = privacy / number ;
         Log.d("privacy","privacy =" + privacy);
-        db.close();
         return privacy;
     }
 }

@@ -47,8 +47,8 @@ public class MainQuestionsActivity extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.HOUR, 2 ); // first time
-        long frequency= 7200 * 1000; // in ms
+        calendar.add(Calendar.SECOND, 30 ); // first time
+        long frequency= 60 * 1000; // in ms
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), frequency, pendingIntent);
 
         super.onCreate(savedInstanceState);
@@ -76,9 +76,10 @@ public class MainQuestionsActivity extends AppCompatActivity {
         Log.d("main question", "started MAIN questions activity");
         SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
         Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
-        Double current_privacy = AddDouble.getDouble(settings,"current_privacy",100);
-        Integer current_question_number = settings.getInt("current_question_number",0);
+        Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
+        Integer current_question_number = settings.getInt("current_question_number", 0);
         int current_day = settings.getInt("current_day", 2);
+
 
         Log.d("main question"," current_credit = "+current_credit);
         Log.d("main question"," current_privacy = "+current_privacy);
@@ -153,7 +154,7 @@ public class MainQuestionsActivity extends AppCompatActivity {
         spinner_privacy.setVisibility(View.INVISIBLE);
         button_credit.setVisibility(View.VISIBLE);
         button_privacy.setVisibility(View.VISIBLE);
-
+        final StoreDbHelper db = new StoreDbHelper(this);
         // click either 1 of the buttons
         // cannot click on them too soon ??
 
@@ -166,7 +167,7 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 }
                 last_clicked = SystemClock.elapsedRealtime();
                 wc.setCredit();
-                QuestionStore qs = Questions.getQuestionWc(wc, v.getContext(), num);
+                QuestionStore qs = Questions.getQuestionWc(wc, db, num, v.getContext());
                 tv_questions.setText(qs.q);
                 Log.d("main question", " q = " + qs.q);
                 Log.d("main question", " q_no = " + qs.q_no);
@@ -190,7 +191,7 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 }
                 last_clicked = SystemClock.elapsedRealtime();
                 wc.setPrivacy();
-                QuestionStore qs = Questions.getQuestionWc(wc, v.getContext(), num);
+                QuestionStore qs = Questions.getQuestionWc(wc, db, num,v.getContext());
                 tv_questions.setText(qs.q);
                 Log.d("main question", " q = " + qs.q);
                 Log.d("main question", " q_no = " + qs.q_no);
@@ -231,6 +232,7 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 ur.setSensors(global_qs.temp.s);
                 ur.setDcs(global_qs.temp.d);
                 ur.setContexts(global_qs.temp.c);
+                ur.setCredit_gain(Cost.returnReward(global_qs.temp.cost, ur.getLevel()));
                 if(wc.isCredit()){
                     ur.setImprove(2); // improve credit
                 }
@@ -241,15 +243,15 @@ public class MainQuestionsActivity extends AppCompatActivity {
 
                 //first round no improvement choice
                 Log.d("main day", "day no =" + ur.getDay_no());
-                StoreDbHelper db = new StoreDbHelper(v.getContext());
-                db.replaceStoreAnswers(global_qs.q_no, ur.getLevel(), ur.getCredit(), ur.getDay_no());
+                db.replaceStoreAnswers(global_qs.q_no, ur.getLevel(), ur.getCredit_gain(), ur.getDay_no());
                 db.insertQuestionAnsweredTable(global_qs.q_no);
-                db.close();
                 Log.d("main day", "insert intro which answers" + global_qs.q_no);
 
-                ur.setCredit_gain(Cost.returnReward(global_qs.temp.cost, ur.getLevel()));
-                ur.setCredit(current_credit + ur.getCredit_gain());
-                ur.setPrivacy_percentage(Privacy.returnPrivacyPercentage(ur.getDay_no(), v.getContext()));
+
+                ur.setCredit(Cost.returnTotalCost(ur.getDay_no(), db));
+                ur.setPrivacy_percentage(Privacy.returnPrivacyPercentage(ur.getDay_no(), db));
+                Log.d("main questions", "total cost" + ur.getCredit());
+                Log.d("main questions", "privacy %tage" + ur.getPrivacy_percentage());
 
                 // Update preferences file with privacy and credit
                 SharedPreferences.Editor editor = settings.edit();
@@ -259,6 +261,7 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 global_qs = null;
 
                 //SendToKinvey.sendUserResponse(user_instance, "UserResponse", ur);
+                db.close();
                 Log.d("main questions", "before call again inside");
                 core1();
 

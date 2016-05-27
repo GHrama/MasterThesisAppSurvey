@@ -95,9 +95,8 @@ public class WeightCostAnswersMatrix {
 
     }
 
-    public static void insertWeightCostDb(Context c) {
+    public static void insertWeightCostDb(StoreDbHelper db) {
         int counter = 0;
-        StoreDbHelper db = new StoreDbHelper(c);
         for (int i = 0; i < Sensors.sensor_list.length; i++) {
             for (int j = 0; j < DataCollectors.dc_list.length; j++) {
                 for (int k = 0; k < Contexts.contexts_list.length; k++) {
@@ -107,7 +106,6 @@ public class WeightCostAnswersMatrix {
                 }
             }
         }
-        db.close();
     }
 
 

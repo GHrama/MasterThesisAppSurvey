@@ -91,8 +91,8 @@ public class StoreDbHelper extends SQLiteOpenHelper {
 
     // return question id from answeres table
     // with certain level
-    public ArrayList<Integer> getAnswersLevelAnswersTable(int level){
-        String q = "SELECT "+ Q_ID +" FROM "+TABLE_STORE_ANSWERS+" WHERE "+ PRIVACY_LEVEL + "=" +level;
+    public ArrayList<Integer> getAnswersLevelAnswersTable(int level,int day){
+        String q = "SELECT "+ Q_ID +" FROM "+TABLE_STORE_ANSWERS+" WHERE "+ PRIVACY_LEVEL + "=" +level +" AND "+DAY_NO+"="+day;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(q, null);
         ArrayList<Integer> questions = new ArrayList<Integer>();
@@ -118,7 +118,7 @@ public class StoreDbHelper extends SQLiteOpenHelper {
         // not answered false
         String q = "SELECT * FROM "+TABLE_WHICH_ANSWERED+" WHERE "+ Q_ID+"="+q_no;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(q,null);
+        Cursor cursor = db.rawQuery(q, null);
         if(cursor.moveToFirst()){
             Log.d("DB", "question present = " + q_no);
             cursor.close();
@@ -161,6 +161,22 @@ public class StoreDbHelper extends SQLiteOpenHelper {
         cursor.close();
         Log.d("db", "no cursor.movetofirst()!"); // table empty?
         return false;
+    }
+
+    // return each cost one by one in arraylist
+    public ArrayList<Double> returnCostAnswersTable(int day_no){
+        ArrayList<Double> costs= new ArrayList<Double>();
+        // get all levels from table_store_answers where day = day
+        String q = "SELECT "+COST_OBTAINED+" FROM "+TABLE_STORE_ANSWERS+" WHERE "+ DAY_NO+"="+day_no;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(q,null);
+        while(cursor.moveToNext()){
+            double temp = cursor.getDouble(0);
+            Log.d("Cost db","value = "+temp);
+            costs.add(temp);
+        }
+        cursor.close();
+        return costs;
     }
 
     public long insertPointsTable(int day_no, double cost, double privacy){

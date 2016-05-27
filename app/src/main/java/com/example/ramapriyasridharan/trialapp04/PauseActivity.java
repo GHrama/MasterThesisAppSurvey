@@ -43,7 +43,7 @@ public class PauseActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), MainQuestionsActivity.class);
                 final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
                 final SharedPreferences.Editor e = s_logged.edit();
-                e.putString("activity","MainQuestionsActivity.class");
+                e.putInt("activity",9);
                 e.commit();
                 startActivity(intent);
 

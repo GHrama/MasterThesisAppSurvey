@@ -1,6 +1,7 @@
 package com.example.ramapriyasridharan.StoreValues;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -46,15 +47,23 @@ public class Questions {
 
     // imprve privacy or credit
     // from unanswered questions pick with low or high privacy
-    public static QuestionStore getQuestionWc(WhichClicked wc, Context c, int num){
-        Log.d("Question wc","entered");
-        StoreDbHelper db = new StoreDbHelper(c);
-        int q_no = -1;
-
+    public static QuestionStore getQuestionWc(WhichClicked wc, StoreDbHelper db, int num,Context c){
+        SharedPreferences settings =  c.getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
+        int current_day = settings.getInt("current_day", 2);
+        // this is the day from which we get previous answers for credit/privacy
+        // once we get answers for today fully we use today instead of yesterday
         if(db.allQuestionsPresentAnsweredTable(num)){
-            Log.d("Question wc","questions all_done = true");
+            Log.d("Question wc", "questions all_done = true");
+            SharedPreferences.Editor e = settings.edit();
+            e.putInt("prev_day",current_day);
+            e.commit();
             db.emptyAnsweredTable();
         }
+
+        int prev_day = settings.getInt("prev_day", (current_day-1)); // defaults to previous day
+        Log.d("Question wc","prev_day = "+prev_day);
+        Log.d("Question wc","current_day = "+current_day);
+        int q_no = -1;
 
         if(wc.isCredit()){
             Log.d("Question wc","entered improve credit");
@@ -64,7 +73,7 @@ public class Questions {
 
             while(level >= 1){
                 Log.d("Question wc", "level = " + level);
-                ArrayList<Integer> questions = db.getAnswersLevelAnswersTable(level);
+                ArrayList<Integer> questions = db.getAnswersLevelAnswersTable(level,prev_day);
 
 
                 for(int i = 0;i < questions.size() ; i++){
@@ -96,7 +105,7 @@ public class Questions {
 
             while(level <= 5){
                 Log.d("Question wc","level = "+level);
-                ArrayList<Integer> questions = db.getAnswersLevelAnswersTable(level);
+                ArrayList<Integer> questions = db.getAnswersLevelAnswersTable(level,prev_day);
 
                 for(int i = 0;i < questions.size() ; i++){
                     Log.d("DB", "processing question = " + questions.get(i));
@@ -121,21 +130,18 @@ public class Questions {
         }
 
         FetchByIdQuestionsTableStore q = db.fetchByIdQuestionTable(q_no);
-        db.close();
         return new QuestionStore(returnQuestion(Sensors.sensor_list[q.s], DataCollectors.dc_list[q.d], Contexts.contexts_list[q.c]),q,q_no);
     }
 
     // keep getting next question
     // in order
-    public static QuestionStore getQuestion(Context c, int current_question_number){
+    public static QuestionStore getQuestion(StoreDbHelper db, int current_question_number){
         // Database helper
-        StoreDbHelper db = new StoreDbHelper(c);
         final FetchByIdQuestionsTableStore temp = db.fetchByIdQuestionTable(current_question_number);
         Log.d("question", "sensor id = " + temp.s);
         Log.d("question", "dc id = " + temp.d);
         Log.d("question", "context id = " + temp.c);
         String q = Questions.returnQuestion(Sensors.sensor_list[temp.s], DataCollectors.dc_list[temp.d], Contexts.contexts_list[temp.c]);
-        db.close();
         return new QuestionStore(q,temp,current_question_number);
     }
 

@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.ramapriyasridharan.helpers.AddDouble;
+import com.example.ramapriyasridharan.helpers.GotoActivity;
 import com.example.ramapriyasridharan.helpers.UserInstanceClass;
 import com.example.ramapriyasridharan.localstore.StoreDbHelper;
 import com.kinvey.android.Client;
@@ -75,10 +76,11 @@ public class MainActivity extends AppCompatActivity {
 
             } else if(is_logged == 1){
 
-                Log.i(TAG, "Logged in a new implicit user with id(not first time): " + instance_user.mKinveyClient.user().getId());
+                Log.i(TAG, "(not first time): " + instance_user.mKinveyClient.user().getId());
                 user_text.setText("user id is " + instance_user.mKinveyClient.user().getId());
-                // fetch activity
-                // and go there before default settings
+                int a = s_logged.getInt("activity", 2);
+                Log.d(TAG, "activity going to" + a);
+                GotoActivity.go(getApplicationContext(), a);
             }
         }
 
@@ -101,13 +103,10 @@ public class MainActivity extends AppCompatActivity {
         db.removeAll();
         db.close();
         Intent intent = new Intent(this, GetUserInformation.class);
-        e.putString("activity","GetUserInformation.class");
+        e.putInt("activity", 2);
         e.commit();
         intent.putExtra("user_id",user_string);
         startActivity(intent);
-
-
-
     }
 
     @Override

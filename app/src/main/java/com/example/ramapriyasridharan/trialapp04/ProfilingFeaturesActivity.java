@@ -55,8 +55,6 @@ public class ProfilingFeaturesActivity extends AppCompatActivity {
                 String sensor_level = spinner_sensors.getSelectedItem().toString();
                 String dc_level = spinner_dc.getSelectedItem().toString();
                 String context_level = spinner_context.getSelectedItem().toString();
-                java.util.Date date = new java.util.Date();
-                String time = new Timestamp(date.getTime()).toString();
                 UserInstanceClass user_instance = new UserInstanceClass();
 
                 ProfilingFeaturesClass pf = new ProfilingFeaturesClass();
@@ -75,7 +73,7 @@ public class ProfilingFeaturesActivity extends AppCompatActivity {
                 //SendToKinvey.sendProfilingFeatures(user_instance,"ProfilingFeatures",pf);
                 // place intent inside button click function
                 Intent intent = new Intent(v.getContext(), ProfilingSensorsActivity.class);
-                e.putString("activity","ProfilingSensorsActivity.class");
+                e.putInt("activity",4);
                 e.commit();
                 startActivity(intent);
 

@@ -115,10 +115,10 @@ public class QuestionsActivity extends AppCompatActivity {
 
         // update question number
         Log.d("question", "current_question_number to ask = " + current_question_number);
-
+        final StoreDbHelper db = new StoreDbHelper(this);
         TextView tv_questions = (TextView) findViewById(R.id.tv_question_window_entry);
 
-        final QuestionStore qs = Questions.getQuestion(this,current_question_number);
+        final QuestionStore qs = Questions.getQuestion(db,current_question_number);
         tv_questions.setText(qs.q);
         Log.d("question", " q = " + qs.q);
 
@@ -149,15 +149,17 @@ public class QuestionsActivity extends AppCompatActivity {
                 ur.setDcs(qs.temp.d);
                 ur.setContexts(qs.temp.c);
                 ur.setImprove(-1); //first round no improvement choice
+                ur.setCredit_gain(Cost.returnReward(qs.temp.cost, ur.getLevel()));
 
                 Log.d("day", "day no =" + ur.getDay_no());
-                StoreDbHelper db = new StoreDbHelper(v.getContext());
-                db.replaceStoreAnswers(temp_q_no, ur.getLevel(), ur.getCredit(), ur.getDay_no());
-                db.close();
+
+                db.replaceStoreAnswers(temp_q_no, ur.getLevel(), ur.getCredit_gain(), ur.getDay_no());
                 // modify this dynamically
-                ur.setCredit_gain(Cost.returnReward(qs.temp.cost, ur.getLevel()));
-                ur.setCredit(current_credit + ur.getCredit_gain());
-                ur.setPrivacy_percentage(Privacy.returnPrivacyPercentage(ur.getDay_no(), v.getContext()));
+
+                ur.setCredit(Cost.returnTotalCost(1,db));
+                ur.setPrivacy_percentage(Privacy.returnPrivacyPercentage(ur.getDay_no(), db));
+                Log.d("questions", "total cost"+ur.getCredit());
+                Log.d("questions", "privacy %tage"+ur.getPrivacy_percentage());
 
                 // Update preferences file
                 SharedPreferences.Editor editor = settings.edit();
@@ -170,9 +172,8 @@ public class QuestionsActivity extends AppCompatActivity {
                 if(temp_q_no == 9){
                     // answered all first day questions
                     // go to next activity and save all things
-                    StoreDbHelper q = new StoreDbHelper(v.getContext());
-                    q.insertPointsTable(current_day, current_credit, current_privacy);
-                    q.close();
+
+                    db.insertPointsTable(current_day, current_credit, current_privacy);
                     // reset all these parameters
                     editor.putInt("current_question_number",0);
                     editor.putInt("current_day", 2);
@@ -182,7 +183,7 @@ public class QuestionsActivity extends AppCompatActivity {
                     Intent intent = new Intent(v.getContext(), PauseActivity.class);
                     final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
                     final SharedPreferences.Editor e = s_logged.edit();
-                    e.putString("activity", "PauseActivity.class");
+                    e.putInt("activity", 8);
                     e.commit();
                     startActivity(intent);
                 }
@@ -192,7 +193,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 }
 
 
-
+                db.close();
                 Log.d("questions", "before call again inside");
                 core1();
 

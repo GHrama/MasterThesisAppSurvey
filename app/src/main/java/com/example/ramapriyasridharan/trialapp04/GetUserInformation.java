@@ -1,6 +1,8 @@
 package com.example.ramapriyasridharan.trialapp04;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -98,6 +100,10 @@ public class GetUserInformation extends AppCompatActivity {
                 //SendToKinvey.sendUserInformation(user_instance,"UserInformation",ui);
                 // place intent inside button click function
                 Intent intent = new Intent(v.getContext(), ProfilingFeaturesActivity.class);
+                final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
+                final SharedPreferences.Editor e = s_logged.edit();
+                e.putInt("activity",3);
+                e.commit();
                 startActivity(intent);
 
 

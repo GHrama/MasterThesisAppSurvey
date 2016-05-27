@@ -80,7 +80,7 @@ public class ProfilingDataCollectorsActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), ProfilingContextsActivity.class);
                 final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
                 final SharedPreferences.Editor e = s_logged.edit();
-                e.putString("activity","ProfilingContextsActivity.class");
+                e.putInt("activity",6);
                 e.commit();
                 startActivity(intent);
 
