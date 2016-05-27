@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -25,21 +26,33 @@ import com.example.ramapriyasridharan.StoreValues.Questions;
 import com.example.ramapriyasridharan.collections.UserResponseClass;
 
 import com.example.ramapriyasridharan.helpers.AddDouble;
+import com.example.ramapriyasridharan.helpers.Answer;
 import com.example.ramapriyasridharan.helpers.ConvertStringToInt;
 import com.example.ramapriyasridharan.helpers.Cost;
 import com.example.ramapriyasridharan.helpers.Privacy;
 import com.example.ramapriyasridharan.helpers.Round;
 import com.example.ramapriyasridharan.helpers.UserInstanceClass;
 import com.example.ramapriyasridharan.localstore.StoreDbHelper;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainQuestionsActivity extends AppCompatActivity {
 
     QuestionStore global_qs = null;
     StoreDbHelper db = null;
     long last_clicked = 0;
+    int num = 10;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +62,12 @@ public class MainQuestionsActivity extends AppCompatActivity {
 
         //set alarm to fire away notification every 1 minute
         Intent myIntent = new Intent(getApplicationContext(), NotificationService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(),0,myIntent,0);
-        AlarmManager alarmManager = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, myIntent, 0);
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.SECOND, 120 ); // first time
-        long frequency= 120 * 1000; // in ms
+        calendar.add(Calendar.SECOND, 120); // first time
+        long frequency = 120 * 1000; // in ms
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), frequency, pendingIntent);
 
         // do not let screen switch off
@@ -65,10 +78,16 @@ public class MainQuestionsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
 
         // if first time default values
         Log.d("main question", "started MAIN questions activity");
@@ -80,10 +99,10 @@ public class MainQuestionsActivity extends AppCompatActivity {
         Integer current_question_number = settings.getInt("current_question_number", 0);
         int current_day = settings.getInt("current_day", 2);
 
-        Log.d("main question"," current_credit = "+current_credit);
-        Log.d("main question"," current_privacy = "+current_privacy);
-        Log.d("main question"," current_day = "+current_day);
-        Log.d("main question"," current_question_number = "+current_question_number);
+        Log.d("main question", " current_credit = " + current_credit);
+        Log.d("main question", " current_privacy = " + current_privacy);
+        Log.d("main question", " current_day = " + current_day);
+        Log.d("main question", " current_question_number = " + current_question_number);
 
         //UI ids
         TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit_1);
@@ -107,18 +126,28 @@ public class MainQuestionsActivity extends AppCompatActivity {
         tv_user_id.setText(user_instance.getmKinveyClient().user().getId());
         tv_day_no.setText(String.valueOf(current_day));
         tv_privacy.setText(String.valueOf(Round.round(current_privacy, 2)));
-        tv_credit.setText(String.valueOf(Round.round(current_credit,2)));
+        tv_credit.setText(String.valueOf(Round.round(current_credit, 2)));
 
         // call main function
         core1();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "MainQuestions Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.example.ramapriyasridharan.trialapp04/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
     }
 
-
-
-
     // N DAY SURVEY
-    public void core1(){
-        final int num = 10; // total number of possible questions
+    public void core1() {
+        // total number of possible questions
 
         //EXCEPT DAY_NO ALL 0 INDEXED
 
@@ -127,9 +156,9 @@ public class MainQuestionsActivity extends AppCompatActivity {
         final Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
         Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
         int current_day = settings.getInt("current_day", 2);
-        Log.d("main question"," current_credit = "+current_credit);
+        Log.d("main question", " current_credit = " + current_credit);
         Log.d("main question", " current_privacy = " + current_privacy);
-        Log.d("main question"," current_day = "+current_day);
+        Log.d("main question", " current_day = " + current_day);
 
         //TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit_1);
         //TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry_1);
@@ -170,11 +199,7 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 }
                 last_clicked = SystemClock.elapsedRealtime();
                 wc.setCredit();
-                QuestionStore qs = Questions.getQuestionWc(wc, db, num, v.getContext());
-                tv_questions.setText(qs.q);
-                Log.d("main question", " q = " + qs.q);
-                Log.d("main question", " q_no = " + qs.q_no);
-                global_qs = qs;
+                new GetQuestionAsyncTask().execute(wc);
                 // reverse visibility of buttons
                 button_credit.setVisibility(View.INVISIBLE);
                 button_privacy.setVisibility(View.INVISIBLE);
@@ -194,11 +219,7 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 }
                 last_clicked = SystemClock.elapsedRealtime();
                 wc.setPrivacy();
-                QuestionStore qs = Questions.getQuestionWc(wc, db, num, v.getContext());
-                tv_questions.setText(qs.q);
-                Log.d("main question", " q = " + qs.q);
-                Log.d("main question", " q_no = " + qs.q_no);
-                global_qs = qs;
+                new GetQuestionAsyncTask().execute(wc);
                 // reverse visibility of buttons
                 button_credit.setVisibility(View.INVISIBLE);
                 button_privacy.setVisibility(View.INVISIBLE);
@@ -209,9 +230,7 @@ public class MainQuestionsActivity extends AppCompatActivity {
 
         });
 
-
-
-        // if button clicked
+        // if submit button clicked
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,7 +240,7 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 last_clicked = SystemClock.elapsedRealtime();
 
                 Log.d("main question", "entered button click");
-                java.util.Date date = new java.util.Date();
+                Date date = new Date();
                 String time = new Timestamp(date.getTime()).toString();
                 UserInstanceClass user_instance = new UserInstanceClass();
                 String level = spinner_privacy.getSelectedItem().toString();
@@ -236,6 +255,11 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 ur.setDcs(global_qs.temp.d);
                 ur.setContexts(global_qs.temp.c);
                 ur.setCredit_gain(Cost.returnReward(global_qs.temp.cost, ur.getLevel()));
+
+                Log.d("main question", "sensors" + global_qs.temp.s);
+                Log.d("main question", "dc" + global_qs.temp.d);
+                Log.d("main question", "context" + global_qs.temp.c);
+
                 if (wc.isCredit()) {
                     ur.setImprove(2); // improve credit
                 } else {
@@ -245,8 +269,6 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 //execute async Tasks in a separate thread
                 new StoreAndUpdateDbUiN().execute(ur);
 
-                //first round no improvement choice
-                Log.d("main questions", "before call again inside");
                 core1();
 
                 // when midnight of current day
@@ -257,16 +279,8 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 // current_day ++
                 // empty sensor tables in db
                 // reset & set preferences
-
-
             }
         });
-
-        //Log.d("questions","before call again outside");
-        //core1();
-
-
-
     }
 
     @Override
@@ -275,16 +289,87 @@ public class MainQuestionsActivity extends AppCompatActivity {
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(startMain);
-
     }
 
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         db.close();
         db = null;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "MainQuestions Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.example.ramapriyasridharan.trialapp04/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
+
+    private class GoToNextDay extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            // store into points table
+            SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
+            Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
+            Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
+            int current_day = settings.getInt("current_day", 2);
+
+            // insert into points table
+            db.insertPointsTable(current_day, current_credit, current_privacy);
+
+            // reset pref file
+            SharedPreferences.Editor editor = settings.edit();
+            editor = AddDouble.putDouble(editor, "current_credit", 0);
+            editor = AddDouble.putDouble(editor, "current_privacy", 100);
+            editor.putInt("current_day", current_day + 1);
+            editor.putInt("prev_day", current_day);
+            editor.commit();
+
+            // insert not answered question as max privacy setting into answers table
+            Questions.fillUnansweredQuestions(db, num, current_day);
+
+            //delete from answered table
+            db.emptyAnsweredTable();
+
+            //send sensor data to kinvey encrypted?
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            // update the UI?
+            TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit_1);
+            TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry_1);
+            TextView tv_day_no = (TextView) findViewById(R.id.tv_day_number_entry_1);
+
+            // get data from pref file
+            SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
+            Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
+            Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
+            int current_day = settings.getInt("current_day", 2);
+
+            // set UI values
+            tv_day_no.setText(String.valueOf(current_day));
+            tv_privacy.setText(String.valueOf(Round.round(current_privacy, 2)));
+            tv_credit.setText(String.valueOf(Round.round(current_credit, 2)));
+        }
+    }
+
+    // store answers in db
+    // upate privacy,credit ui
     private class StoreAndUpdateDbUiN extends AsyncTask<UserResponseClass, Void, UserResponseClass> {
 
         @Override
@@ -314,12 +399,11 @@ public class MainQuestionsActivity extends AppCompatActivity {
             editor = AddDouble.putDouble(editor, "current_credit", ur.getCredit());
             editor = AddDouble.putDouble(editor, "current_privacy", ur.getPrivacy_percentage());
             editor.commit();
-            global_qs = null;
             //SendToKinvey.sendUserResponse(user_instance, "UserResponse", ur);
             return ur;
         }
 
-        protected void onPostExecute(UserResponseClass ur){
+        protected void onPostExecute(UserResponseClass ur) {
             // get ids
             TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit_1);
             TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry_1);
@@ -330,13 +414,35 @@ public class MainQuestionsActivity extends AppCompatActivity {
             tv_user_id.setText(ur.getUser_id());
             tv_day_no.setText(String.valueOf(ur.getDay_no()));
             tv_privacy.setText(String.valueOf(Round.round(ur.getPrivacy_percentage(), 2)));
-            tv_credit.setText(String.valueOf(Round.round(ur.getCredit(),2)));
+            tv_credit.setText(String.valueOf(Round.round(ur.getCredit(), 2)));
         }
-
-
     }
 
+    // Fetch question and update UI
+    private class GetQuestionAsyncTask extends AsyncTask<WhichClicked, Void, Void> {
 
+        @Override
+        protected Void doInBackground(WhichClicked... params) {
+            WhichClicked wc = params[0];
+            global_qs = Questions.getQuestionWc(wc, db, num, getApplicationContext());
+
+            // get prev_answer and suggestions
+            ArrayList<Integer> ans = Answer.getSuggestions(wc, global_qs.q_no, getApplicationContext(), db);
+
+            Log.d("main question", " q = " + global_qs.q);
+            Log.d("main question", " q_no = " + global_qs.q_no);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            //set question to UI
+            TextView tv_questions = (TextView) findViewById(R.id.tv_question_window_entry_1);
+            tv_questions.setText(global_qs.q);
+
+            // set the UI for seuggestions as well
+        }
+    }
 
 
 }

@@ -34,9 +34,8 @@ public class GetUserInformation extends AppCompatActivity {
 
         // set user_id
         final TextView tv_id_entry = (TextView) findViewById(R.id.tv_id_entry);
-        Bundle extras = getIntent().getExtras();
-        final String user_id = extras.getString("user_id");
-        tv_id_entry.setText(user_id);
+        UserInstanceClass ui = new UserInstanceClass();
+        tv_id_entry.setText(ui.mKinveyClient.user().getId());
         addListenerOnButton();
 
     }

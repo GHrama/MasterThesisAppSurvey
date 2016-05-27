@@ -13,13 +13,11 @@ import java.util.ArrayList;
  */
 public class Cost {
 
-
     // return rewards
     public static double returnReward(double cost, int level){
 
         return ((double) cost / level);
     }
-
 
     public static double returnTotalCost(int day,StoreDbHelper db){
         double cost = 0.0;

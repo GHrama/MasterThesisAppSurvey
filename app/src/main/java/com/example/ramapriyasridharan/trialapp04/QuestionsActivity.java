@@ -46,8 +46,6 @@ public class QuestionsActivity extends AppCompatActivity {
 
     }
 
-
-
     protected void onStart(){
 
         super.onStart();
@@ -94,9 +92,6 @@ public class QuestionsActivity extends AppCompatActivity {
 
     }
 
-
-
-
     // FIRST DAY SURVEY
     public void core1(){
         // call notification
@@ -135,6 +130,9 @@ public class QuestionsActivity extends AppCompatActivity {
                 ur.setSensors(qs.temp.s);
                 ur.setDcs(qs.temp.d);
                 ur.setContexts(qs.temp.c);
+                Log.d("question", "sensors" + qs.temp.s);
+                Log.d("question", "dc" + qs.temp.d);
+                Log.d("question", "context" + qs.temp.c);
                 ur.setImprove(-1); //first round no improvement choice
                 ur.setCredit_gain(Cost.returnReward(qs.temp.cost, ur.getLevel()));
 
@@ -189,7 +187,7 @@ public class QuestionsActivity extends AppCompatActivity {
             UserResponseClass ur = urs[0];
 
             Log.d("main day", "day no =" + ur.getDay_no());
-            Log.d("main day", "insert intro which answers" + qs.q_no);
+            Log.d("main day", "insert into which answers" + qs.q_no);
 
             // insert enteredt answer
             // insert what questions answered in this round
@@ -212,9 +210,8 @@ public class QuestionsActivity extends AppCompatActivity {
 
             // store the question_number to ask
             Integer current_question_number = settings.getInt("current_question_number", 0);
-            editor.putInt("current_question_number",current_question_number+1);
+            editor.putInt("current_question_number", current_question_number + 1);
             editor.commit();
-            qs = null;
             //SendToKinvey.sendUserResponse(user_instance, "UserResponse", ur);
             return ur;
         }
@@ -224,7 +221,19 @@ public class QuestionsActivity extends AppCompatActivity {
             SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = settings.edit();
 
-            // if question to ask is 64 (or) 10 (represents the next question to ask
+            TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit);
+            TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry);
+            TextView tv_user_id = (TextView) findViewById(R.id.tv_user_id_entry);
+            TextView tv_day_no = (TextView) findViewById(R.id.tv_day_number_entry);
+            TextView tv_questions = (TextView) findViewById(R.id.tv_question_window_entry);
+
+            // set UI values
+            tv_user_id.setText(ur.getUser_id());
+            tv_day_no.setText(String.valueOf(ur.getDay_no()));
+            tv_privacy.setText(String.valueOf(Round.round(ur.getPrivacy_percentage(),2)));
+            tv_credit.setText(String.valueOf(Round.round(ur.getCredit(), 2)));
+
+            // if question to ask is 64 (or) 10 (represents the next question to ask)
             if(settings.getInt("current_question_number", 0) == 10){
                 // answered all first day questions
                 // go to next activity and save all things
@@ -246,21 +255,6 @@ public class QuestionsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             else{
-                // get ids
-                TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit);
-                TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry);
-                TextView tv_user_id = (TextView) findViewById(R.id.tv_user_id_entry);
-                TextView tv_day_no = (TextView) findViewById(R.id.tv_day_number_entry);
-                TextView tv_questions = (TextView) findViewById(R.id.tv_question_window_entry);
-
-                // set UI values
-                tv_user_id.setText(ur.getUser_id());
-                tv_day_no.setText(String.valueOf(ur.getDay_no()));
-                tv_privacy.setText(String.valueOf(Round.round(ur.getPrivacy_percentage(),2)));
-                tv_credit.setText(String.valueOf(Round.round(ur.getCredit(), 2)));
-
-                // get question to ask
-
                 Integer current_question_number = settings.getInt("current_question_number", 0);
                 qs = Questions.getQuestion(db,current_question_number);
                 tv_questions.setText(qs.q);

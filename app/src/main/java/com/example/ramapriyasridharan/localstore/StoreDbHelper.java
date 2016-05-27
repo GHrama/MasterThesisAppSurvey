@@ -163,13 +163,14 @@ public class StoreDbHelper extends SQLiteOpenHelper {
         return false;
     }
 
+
     // return each cost one by one in arraylist
     public ArrayList<Double> returnCostAnswersTable(int day_no){
         ArrayList<Double> costs= new ArrayList<Double>();
         // get all levels from table_store_answers where day = day
         String q = "SELECT "+COST_OBTAINED+" FROM "+TABLE_STORE_ANSWERS+" WHERE "+ DAY_NO+"="+day_no;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(q,null);
+        Cursor cursor = db.rawQuery(q, null);
         while(cursor.moveToNext()){
             double temp = cursor.getDouble(0);
             Log.d("Cost db","value = "+temp);
@@ -191,10 +192,33 @@ public class StoreDbHelper extends SQLiteOpenHelper {
         return _id;
     }
 
+    // get answer from previous day_no or current_dayno
+    public int getLevelFromAnswersTable(int q_no,int day){
+        String q = "SELECT "+PRIVACY_LEVEL+" FROM "+TABLE_STORE_ANSWERS+" WHERE "+DAY_NO+"="+day+" AND "+Q_ID+"="+q_no;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(q, null);
+        cursor.moveToFirst();
+        int level = cursor.getInt(0);
+        cursor.close();
+        return level;
+    }
+
+    public ArrayList<Integer> getAllAnswered(){
+        ArrayList<Integer> qno= new ArrayList<Integer>();
+        String q = "SELECT * FROM "+TABLE_WHICH_ANSWERED+" ORDER BY "+Q_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(q,null);
+        while(cursor.moveToNext()){
+            int temp = cursor.getInt(0);
+            Log.d("DB", "get answer id from answered table" + temp);
+            qno.add(temp);
+        }
+        return qno;
+    }
 
     // get info from points table
     public getCostPrivacyPointsTable getCostPrivacyPointsTable(int day){
-        String q = "SELECT * FROM "+TABLE_STORE_POINTS+" WHERE "+ DAY_NO+"="+day;
+        String q = "SELECT * FROM "+TABLE_STORE_POINTS+" WHERE "+DAY_NO+"="+day;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(q,null);
         cursor.moveToFirst();

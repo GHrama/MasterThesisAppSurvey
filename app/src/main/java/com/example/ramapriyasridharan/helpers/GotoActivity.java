@@ -18,17 +18,17 @@ import com.example.ramapriyasridharan.trialapp04.QuestionsActivity;
  */
 public class GotoActivity {
 
-    public static void go(Context context, int a){
+    public void go(Context context, int a){
         switch(a){
-            case 1: context.startActivity(new Intent(context, MainActivity.class));
-            case 2: context.startActivity(new Intent(context, GetUserInformation.class));
-            case 3: context.startActivity(new Intent(context, ProfilingFeaturesActivity.class));
-            case 4: context.startActivity(new Intent(context, ProfilingSensorsActivity.class));
-            case 5: context.startActivity(new Intent(context, ProfilingDataCollectorsActivity.class));
-            case 6: context.startActivity(new Intent(context, ProfilingContextsActivity.class));
-            case 7: context.startActivity(new Intent(context, QuestionsActivity.class));
-            case 8: context.startActivity(new Intent(context, PauseActivity.class));
-            case 9: context.startActivity(new Intent(context, MainQuestionsActivity.class));
+            case 1: context.startActivity(new Intent(context, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            case 2: context.startActivity(new Intent(context, GetUserInformation.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            case 3: context.startActivity(new Intent(context, ProfilingFeaturesActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            case 4: context.startActivity(new Intent(context, ProfilingSensorsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            case 5: context.startActivity(new Intent(context, ProfilingDataCollectorsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            case 6: context.startActivity(new Intent(context, ProfilingContextsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            case 7: context.startActivity(new Intent(context, QuestionsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            case 8: context.startActivity(new Intent(context, PauseActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            case 9: context.startActivity(new Intent(context, MainQuestionsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 }

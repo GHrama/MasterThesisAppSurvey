@@ -145,5 +145,16 @@ public class Questions {
         return new QuestionStore(q,temp,current_question_number);
     }
 
+    // if question unanswered send maximum privacy
+    public static void fillUnansweredQuestions(StoreDbHelper db,int num,int day){
+        ArrayList<Integer> qno = db.getAllAnswered();
+        for(int i = 0;i<num;i++){
+            if(i != qno.get(i)){
+                // send to answers table
+                db.replaceStoreAnswers(i,5,0,day);
+                Log.d("question", "question not answered = " + i);
+            }
+        }
+    }
 
 }

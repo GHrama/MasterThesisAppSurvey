@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
         final SharedPreferences.Editor e = s_logged.edit();
+        int temp = s_logged.getInt("activity", 0);
+        Log.d("main activity", " s_logged activity ="+temp );
 
         UserInstanceClass instance_user = new UserInstanceClass();
         //final Client mKinveyClient = new Client.Builder("kid_W1EFbeKyy-", "1b6f09e812114210ae4447f310b38a0a"
@@ -51,12 +53,34 @@ public class MainActivity extends AppCompatActivity {
 
         // check if new to app
         boolean meow = instance_user.mKinveyClient.user().isUserLoggedIn();
+        Log.i("main activity", "meow = " + meow);
         int is_logged = s_logged.getInt("logged",0);
+        Log.d("main activity", " s_logged logged ="+is_logged);
+
+        // if already logged
+        if(meow){
+            Log.i(TAG, "(not first time): " + instance_user.mKinveyClient.user().getId());
+            user_text.setText("user id is " + instance_user.mKinveyClient.user().getId());
+            int a = s_logged.getInt("activity", 2);
+            Log.d(TAG, "activity going to" + a);
+            Intent i = null;
+            switch(a){
+                case 1: i = new Intent(this, MainActivity.class);break;
+                case 2: i = new Intent(this, ProfilingFeaturesActivity.class);break;
+                case 4: i = new Intent(this, ProfilingSensorsActivity.class);break;
+                case 5: i = new Intent(this, ProfilingDataCollectorsActivity.class);break;
+                case 6: i = new Intent(this, ProfilingContextsActivity.class);break;
+                case 7: i = new Intent(this, QuestionsActivity.class);break;
+                case 8: i = new Intent(this, PauseActivity.class);break;
+                case 9: i = new Intent(this, MainQuestionsActivity.class);break;
+            }
+            startActivity(i);
+        }
 
         // if user is logged in meow = True dont log him in again!
-        {
-            if (meow == false && is_logged == 0) {
-                instance_user.mKinveyClient.user().login(new KinveyUserCallback() {
+
+        if (!meow) {
+            instance_user.mKinveyClient.user().login(new KinveyUserCallback() {
                     @Override
                     public void onFailure(Throwable error) {
                         Log.i(TAG, "Fail");
@@ -70,19 +94,11 @@ public class MainActivity extends AppCompatActivity {
                         e.putInt("logged",1); // means it is logged in
                         e.commit();
                         Log.i(TAG, "Logged in a new implicit user with id(first time): " + result.getId());
-
                     }
-                });
+            });
 
-            } else if(is_logged == 1){
-
-                Log.i(TAG, "(not first time): " + instance_user.mKinveyClient.user().getId());
-                user_text.setText("user id is " + instance_user.mKinveyClient.user().getId());
-                int a = s_logged.getInt("activity", 2);
-                Log.d(TAG, "activity going to" + a);
-                GotoActivity.go(getApplicationContext(), a);
-            }
         }
+
 
         String user_string = instance_user.mKinveyClient.user().getId();
         Log.i(TAG, "running for first time");

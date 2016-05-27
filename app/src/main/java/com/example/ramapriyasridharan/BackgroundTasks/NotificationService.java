@@ -4,7 +4,9 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.IBinder;
@@ -13,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
+import com.example.ramapriyasridharan.helpers.AddDouble;
 import com.example.ramapriyasridharan.trialapp04.MainQuestionsActivity;
 import com.example.ramapriyasridharan.trialapp04.QuestionsActivity;
 import com.example.ramapriyasridharan.trialapp04.R;
@@ -70,12 +73,18 @@ public class NotificationService extends Service {
     public class NotificationAsyncTask extends AsyncTask<Void,Void,Void> {
         @Override
         protected Void doInBackground(Void... params) {
+            // get info
+            SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
+            Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
+            Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
+
             Log.d("SERVICE NOTIFICATION","entered do in backgorund");
+            String title = "Privacy = "+current_privacy+"% Credit = "+current_credit;
             // create notification
             NotificationCompat.Builder mBuilder =
                     (NotificationCompat.Builder) new NotificationCompat.Builder(getApplicationContext())
                             .setSmallIcon(R.drawable.common_ic_googleplayservices)
-                            .setContentTitle("Forgot us? :)")
+                            .setContentTitle(title)
                             .setContentText("Would you like to further improve your privacy?")
                             .setPriority(Notification.PRIORITY_MAX);
 
