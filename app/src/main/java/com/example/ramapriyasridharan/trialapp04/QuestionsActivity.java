@@ -212,6 +212,10 @@ public class QuestionsActivity extends AppCompatActivity {
             Integer current_question_number = settings.getInt("current_question_number", 0);
             editor.putInt("current_question_number", current_question_number + 1);
             editor.commit();
+
+            // get question after update current question
+            current_question_number = settings.getInt("current_question_number", 0);
+            qs = Questions.getQuestion(db,current_question_number);
             //SendToKinvey.sendUserResponse(user_instance, "UserResponse", ur);
             return ur;
         }
@@ -244,6 +248,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 editor.putInt("current_day", 2);
                 editor = AddDouble.putDouble(editor,"current_privacy",100);
                 editor = AddDouble.putDouble(editor,"current_credit",0);
+                editor.putInt("prev_day", 1);
                 editor.commit();
 
                 // start new intent
@@ -255,11 +260,8 @@ public class QuestionsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             else{
-                Integer current_question_number = settings.getInt("current_question_number", 0);
-                qs = Questions.getQuestion(db,current_question_number);
                 tv_questions.setText(qs.q);
                 Log.d("question", " q = " + qs.q);
-
             }
 
         }

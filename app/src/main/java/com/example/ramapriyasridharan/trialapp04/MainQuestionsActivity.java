@@ -48,6 +48,8 @@ public class MainQuestionsActivity extends AppCompatActivity {
     StoreDbHelper db = null;
     long last_clicked = 0;
     int num = 10;
+
+    int count = 0;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -268,7 +270,6 @@ public class MainQuestionsActivity extends AppCompatActivity {
 
                 //execute async Tasks in a separate thread
                 new StoreAndUpdateDbUiN().execute(ur);
-
                 core1();
 
                 // when midnight of current day
@@ -321,7 +322,9 @@ public class MainQuestionsActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
+            Log.d("nextday", "STARTING");
             // store into points table
+            count = 0;// reset count
             SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
             Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
             Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
@@ -385,6 +388,8 @@ public class MainQuestionsActivity extends AppCompatActivity {
             db.replaceStoreAnswers(global_qs.q_no, ur.getLevel(), ur.getCredit_gain(), ur.getDay_no());
             db.insertQuestionAnsweredTable(global_qs.q_no);
 
+            count ++;
+            Log.d("main questions", "count =" + count);
             // calculate the credit
             ur.setCredit(Cost.returnTotalCost(ur.getDay_no(), db));
             ur.setPrivacy_percentage(Privacy.returnPrivacyPercentage(ur.getDay_no(), db));
@@ -415,6 +420,10 @@ public class MainQuestionsActivity extends AppCompatActivity {
             tv_day_no.setText(String.valueOf(ur.getDay_no()));
             tv_privacy.setText(String.valueOf(Round.round(ur.getPrivacy_percentage(), 2)));
             tv_credit.setText(String.valueOf(Round.round(ur.getCredit(), 2)));
+
+            if (count >= 10) {
+                new GoToNextDay().execute(); // Use alarm manager
+            }
         }
     }
 

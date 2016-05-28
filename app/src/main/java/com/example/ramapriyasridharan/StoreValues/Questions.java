@@ -148,7 +148,10 @@ public class Questions {
     // if question unanswered send maximum privacy
     public static void fillUnansweredQuestions(StoreDbHelper db,int num,int day){
         ArrayList<Integer> qno = db.getAllAnswered();
-        for(int i = 0;i<num;i++){
+        Log.d("question", "Number of answered questions = " + qno.size());
+        for(int i = 0;i < qno.size();i++){
+            Log.d("question", "current question to see i = " + i);
+            Log.d("question", "current question to see qno.get(i) = " + qno.get(i));
             if(i != qno.get(i)){
                 // send to answers table
                 db.replaceStoreAnswers(i,5,0,day);
