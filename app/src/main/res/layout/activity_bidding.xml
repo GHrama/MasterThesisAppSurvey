@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/improveLayout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="334dp"
+        android:visibility="gone"
+        android:background="@color/colorPrimaryDark">
+
+        <ImageButton
+            android:id="@+id/button_improve_privacy"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="50dp"
+            android:src="@drawable/privacy"
+            android:background="#00000000"
+            android:scaleType="fitCenter" />
+
+
+
+        <ImageButton
+            android:id="@+id/button_improve_profit"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/profit"
+            android:background="#00000000"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/homeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:paddingTop="30dp"
+            android:paddingBottom="20dp"
+            android:visibility="visible">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/entityLogo"
+                android:src="@drawable/eth_logo"
+                android:background="#00000000" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:visibility="visible">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tv_question_window_entry_1"
+                android:background="#00000000"
+                android:text="@string/entitity_description"
+                android:typeface="normal"
+                android:textSize="18sp"
+                android:gravity="center_vertical" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:visibility="visible">
+            <ImageButton
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/button_bid"
+                android:src="@drawable/checkmark"
+                android:background="#00000000"
+                android:scaleType="fitCenter"
+                android:visibility="invisible" />
+            <ImageButton
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/button_bid_2"
+                android:src="@drawable/checkmark"
+                android:background="#00000000"
+                android:scaleType="fitCenter"
+                android:visibility="invisible" />
+            <ImageButton
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/button_bid_3"
+                android:src="@drawable/checkmark"
+                android:background="#00000000"
+                android:scaleType="fitCenter"
+                android:visibility="invisible" />
+            <ImageButton
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/button_bid_4"
+                android:src="@drawable/checkmark"
+                android:background="#00000000"
+                android:scaleType="fitCenter"
+                android:visibility="invisible" />
+            <ImageButton
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/button_bid_5"
+                android:src="@drawable/checkmark"
+                android:background="#00000000"
+                android:scaleType="fitCenter"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
+
+        <RadioGroup
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:padding="3dip"
+            android:background="@color/nnorange"
+            android:visibility="visible">
+            <RadioButton
+                android:gravity="center"
+                android:text="0"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="18sp"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/pre_1"
+                android:layout_weight="2"
+                android:background="@drawable/button_boarder"
+                android:onClick="onRadioButtonClicked"/>
+            <RadioButton
+                android:gravity="center"
+                android:text="25"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="18sp"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/pre_2"
+                android:layout_weight="2"
+                android:background="@drawable/button_boarder"
+                android:onClick="onRadioButtonClicked"/>
+            <RadioButton
+                android:gravity="center"
+                android:text="50"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="18sp"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/pre_3"
+                android:layout_weight="2"
+                android:background="@drawable/button_boarder"
+                android:onClick="onRadioButtonClicked"/>
+            <RadioButton
+                android:gravity="center"
+                android:text="75"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="18sp"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/pre_4"
+                android:layout_weight="2"
+                android:background="@drawable/button_boarder"
+                android:onClick="onRadioButtonClicked"/>
+            <RadioButton
+                android:gravity="center"
+                android:text="100"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="18sp"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/pre_5"
+                android:layout_weight="2"
+                android:background="#ffffff"
+                android:onClick="onRadioButtonClicked"/>
+        </RadioGroup>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:paddingStart="3dip"
+            android:paddingEnd="3dip"
+            android:background="#00000000"
+            android:visibility="visible">
+            <Button
+                android:text="$0"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="13sp"
+                android:clickable="@bool/subButtonsClickable"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/required_11"
+                android:layout_weight="2"
+                android:background="@drawable/button_boarder_grey"/>
+            <Button
+                android:text="+1.2"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="13sp"
+                android:clickable="@bool/subButtonsClickable"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/required_12"
+                android:layout_weight="2"
+                android:background="@drawable/button_boarder"/>
+            <Button
+                android:text="$2"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="13sp"
+                android:clickable="@bool/subButtonsClickable"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/required_13"
+                android:layout_weight="2"
+                android:background="@drawable/button_boarder_grey"/>
+            <Button
+                android:text="+0.6"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="13sp"
+                android:clickable="@bool/subButtonsClickable"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/required_14"
+                android:layout_weight="2"
+                android:background="@drawable/button_boarder"/>
+            <Button
+                android:text="$4"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="13sp"
+                android:clickable="@bool/subButtonsClickable"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/required_15"
+                android:layout_weight="2"
+                android:background="@drawable/button_boarder_grey"/>
+            <Button
+                android:text="+0"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="13sp"
+                android:clickable="@bool/subButtonsClickable"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/required_16"
+                android:layout_weight="2"
+                android:background="@drawable/button_boarder"/>
+            <Button
+                android:text="$6"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="13sp"
+                android:clickable="@bool/subButtonsClickable"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/required_17"
+                android:layout_weight="2"
+                android:background="@drawable/button_boarder_grey"/>
+            <Button
+                android:text="-0.6"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="13sp"
+                android:clickable="@bool/subButtonsClickable"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/required_18"
+                android:layout_weight="2"
+                android:background="@drawable/button_boarder"/>
+            <Button
+                android:text="$8"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="13sp"
+                android:clickable="@bool/subButtonsClickable"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/required_19"
+                android:layout_weight="2"
+                android:background="@drawable/button_boarder_grey"/>
+            <Button
+                android:text="-1.2"
+                android:textStyle="normal"
+                android:textColor="@color/mediumcolor"
+                android:textSize="13sp"
+                android:clickable="@bool/subButtonsClickable"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/required_20"
+                android:layout_weight="2"
+                android:background="#ffffff"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:paddingTop="20dp"
+        android:gravity="center_vertical"
+        android:layout_weight="1">
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:src="@drawable/backdrop"
+                android:background="#00000000"
+                android:scaleType="fitCenter" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="@string/monetary_score"
+                android:textSize="18pt"
+                android:id="@+id/tv_this_round_credit_1" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:src="@drawable/backdrop"
+                android:background="#00000000"
+                android:scaleType="fitCenter"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="@string/privacy_score"
+                android:textSize="18pt"
+                android:id="@+id/tv_this_round_privacy_entry_1" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Money Earned"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Privacy Score"
+            android:gravity="center"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/infoLayout"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical|end">
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:id="@+id/tv_day_number_entry_1"
+            android:background="#00000000"
+            android:text="Day#"
+            android:typeface="normal"
+            android:textSize="18sp"
+            android:gravity="center" />
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:id="@+id/tv_use_entry_1"
+            android:background="#00000000"
+            android:text="UserID"
+            android:typeface="normal"
+            android:textSize="18sp"
+            android:gravity="center" />
+        <ImageButton
+            android:layout_width="70dip"
+            android:layout_height="match_parent"
+            android:id="@+id/infoButton"
+            android:background="@android:color/transparent"
+            android:src="@drawable/info"
+            android:scaleType="fitCenter"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

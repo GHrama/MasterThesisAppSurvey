@@ -1,0 +1,4 @@
+<resources>
+    <bool name="subButtonsClickable">false</bool>
+
+</resources>

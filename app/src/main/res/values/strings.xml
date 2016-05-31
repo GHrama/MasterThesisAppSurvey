@@ -40,6 +40,10 @@
 
     <string name="spinner_features_prompt">Choose Level</string>
 
+    <string name="privacy_score">76</string>
+    <string name="monetary_score">$236</string>
+    <string name="entitity_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</string>
+
 
     <string name="title_activity_collect_user_information">Personal Information</string>
     <string name="title_activity_profiling_features">Categorize Features</string>
