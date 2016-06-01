@@ -89,7 +89,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:id="@+id/button_bid"
+                android:id="@+id/button_bid_1"
                 android:src="@drawable/checkmark"
                 android:background="#00000000"
                 android:scaleType="fitCenter"
@@ -140,7 +140,8 @@
             android:layout_height="50dp"
             android:padding="3dip"
             android:background="@color/nnorange"
-            android:visibility="visible">
+            android:visibility="visible"
+            android:id="@+id/finalselection">
             <RadioButton
                 android:gravity="center"
                 android:text="0"
@@ -152,7 +153,8 @@
                 android:id="@+id/pre_1"
                 android:layout_weight="2"
                 android:background="@drawable/button_boarder"
-                android:onClick="onRadioButtonClicked"/>
+                android:onClick="onRadioButtonClicked"
+                android:button="@null" />
             <RadioButton
                 android:gravity="center"
                 android:text="25"
@@ -164,7 +166,8 @@
                 android:id="@+id/pre_2"
                 android:layout_weight="2"
                 android:background="@drawable/button_boarder"
-                android:onClick="onRadioButtonClicked"/>
+                android:onClick="onRadioButtonClicked"
+                android:button="@null" />
             <RadioButton
                 android:gravity="center"
                 android:text="50"
@@ -176,7 +179,8 @@
                 android:id="@+id/pre_3"
                 android:layout_weight="2"
                 android:background="@drawable/button_boarder"
-                android:onClick="onRadioButtonClicked"/>
+                android:onClick="onRadioButtonClicked"
+                android:button="@null" />
             <RadioButton
                 android:gravity="center"
                 android:text="75"
@@ -188,7 +192,8 @@
                 android:id="@+id/pre_4"
                 android:layout_weight="2"
                 android:background="@drawable/button_boarder"
-                android:onClick="onRadioButtonClicked"/>
+                android:onClick="onRadioButtonClicked"
+                android:button="@null" />
             <RadioButton
                 android:gravity="center"
                 android:text="100"
@@ -200,7 +205,8 @@
                 android:id="@+id/pre_5"
                 android:layout_weight="2"
                 android:background="#ffffff"
-                android:onClick="onRadioButtonClicked"/>
+                android:onClick="onRadioButtonClicked"
+                android:button="@null" />
         </RadioGroup>
 
 
@@ -431,7 +437,7 @@
             android:layout_height="match_parent"
             android:id="@+id/infoButton"
             android:background="@android:color/transparent"
-            android:src="@drawable/backdrop"
+            android:src="@drawable/info"
             android:scaleType="fitCenter"/>
 
     </LinearLayout>

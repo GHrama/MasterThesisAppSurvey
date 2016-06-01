@@ -20,14 +20,14 @@
             android:padding="20dp"
             android:gravity="center"
             android:background="#00000000"/>
+
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/infoButton"
             android:background="@android:color/transparent"
-            android:src="@drawable/backdrop"
-            android:scaleType="fitCenter"
-            android:layout_gravity="center" />
+            android:src="@drawable/info"
+            android:scaleType="fitCenter"/>
     </LinearLayout>
 
     <LinearLayout
