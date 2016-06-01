@@ -7,35 +7,52 @@
 
     <LinearLayout
         android:id="@+id/improveLayout"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="334dp"
         android:visibility="gone"
-        android:background="@color/colorPrimaryDark">
+        android:background="#000000">
 
-        <ImageButton
-            android:id="@+id/button_improve_privacy"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:layout_weight="1"
-            android:layout_marginRight="20dp"
             android:layout_marginLeft="50dp"
-            android:src="@drawable/privacy"
-            android:background="#00000000"
-            android:scaleType="fitCenter" />
+            android:layout_marginRight="50dp"
+            android:textSize="24sp"
+            android:textColor="@color/lightcolor"
+            android:text="Please chose whether you would like more privacy or more profit"
+            android:gravity="center"/>
 
-
-
-        <ImageButton
-            android:id="@+id/button_improve_profit"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:layout_marginRight="50dp"
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/profit"
-            android:background="#00000000"
-            android:scaleType="fitCenter" />
+            android:orientation="horizontal"
+            android:layout_weight="1">
+            <ImageButton
+                android:id="@+id/button_improve_privacy"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="50dp"
+                android:src="@drawable/privacy"
+                android:background="#00000000"
+                android:scaleType="fitCenter" />
+
+
+
+            <ImageButton
+                android:id="@+id/button_improve_profit"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/profit"
+                android:background="#00000000"
+                android:scaleType="fitCenter" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -84,48 +101,13 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:visibility="visible">
+            android:visibility="visible"
+            android:id="@+id/bidlayout">
             <ImageButton
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/button_bid_1"
-                android:src="@drawable/checkmark"
-                android:background="#00000000"
-                android:scaleType="fitCenter"
-                android:visibility="invisible" />
-            <ImageButton
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/button_bid_2"
-                android:src="@drawable/checkmark"
-                android:background="#00000000"
-                android:scaleType="fitCenter"
-                android:visibility="invisible" />
-            <ImageButton
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/button_bid_3"
-                android:src="@drawable/checkmark"
-                android:background="#00000000"
-                android:scaleType="fitCenter"
-                android:visibility="invisible" />
-            <ImageButton
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/button_bid_4"
-                android:src="@drawable/checkmark"
-                android:background="#00000000"
-                android:scaleType="fitCenter"
-                android:visibility="invisible" />
-            <ImageButton
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/button_bid_5"
                 android:src="@drawable/checkmark"
                 android:background="#00000000"
                 android:scaleType="fitCenter"
@@ -153,8 +135,7 @@
                 android:id="@+id/pre_1"
                 android:layout_weight="2"
                 android:background="@drawable/button_boarder"
-                android:onClick="onRadioButtonClicked"
-                android:button="@null" />
+                android:onClick="onRadioButtonClicked" />
             <RadioButton
                 android:gravity="center"
                 android:text="25"
@@ -166,8 +147,7 @@
                 android:id="@+id/pre_2"
                 android:layout_weight="2"
                 android:background="@drawable/button_boarder"
-                android:onClick="onRadioButtonClicked"
-                android:button="@null" />
+                android:onClick="onRadioButtonClicked" />
             <RadioButton
                 android:gravity="center"
                 android:text="50"
@@ -179,8 +159,7 @@
                 android:id="@+id/pre_3"
                 android:layout_weight="2"
                 android:background="@drawable/button_boarder"
-                android:onClick="onRadioButtonClicked"
-                android:button="@null" />
+                android:onClick="onRadioButtonClicked" />
             <RadioButton
                 android:gravity="center"
                 android:text="75"
@@ -192,8 +171,7 @@
                 android:id="@+id/pre_4"
                 android:layout_weight="2"
                 android:background="@drawable/button_boarder"
-                android:onClick="onRadioButtonClicked"
-                android:button="@null" />
+                android:onClick="onRadioButtonClicked" />
             <RadioButton
                 android:gravity="center"
                 android:text="100"
@@ -205,8 +183,7 @@
                 android:id="@+id/pre_5"
                 android:layout_weight="2"
                 android:background="#ffffff"
-                android:onClick="onRadioButtonClicked"
-                android:button="@null" />
+                android:onClick="onRadioButtonClicked" />
         </RadioGroup>
 
 
@@ -339,14 +316,15 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:paddingTop="20dp"
         android:gravity="center_vertical"
         android:layout_weight="1">
 
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:paddingLeft="50dp"
+            android:paddingRight="25dp">
 
             <ImageButton
                 android:layout_width="fill_parent"
@@ -354,7 +332,8 @@
                 android:layout_gravity="center"
                 android:src="@drawable/backdrop"
                 android:background="#00000000"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                />
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -362,12 +341,21 @@
                 android:text="@string/monetary_score"
                 android:textSize="18pt"
                 android:id="@+id/tv_this_round_credit_1" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="Money Earned"
+                android:gravity="bottom|center"/>
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:paddingLeft="25dp"
+            android:paddingRight="50dp">
 
             <ImageButton
                 android:layout_width="fill_parent"
@@ -383,27 +371,19 @@
                 android:text="@string/privacy_score"
                 android:textSize="18pt"
                 android:id="@+id/tv_this_round_privacy_entry_1" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="Privacy Score"
+                android:gravity="bottom|center"/>
         </FrameLayout>
 
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Money Earned"
-            android:gravity="center"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Privacy Score"
-            android:gravity="center"/>
-    </LinearLayout>
+
 
 
     <LinearLayout
@@ -422,7 +402,8 @@
             android:text="Day#"
             android:typeface="normal"
             android:textSize="18sp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:visibility="invisible" />
         <TextView
             android:layout_width="200dp"
             android:layout_height="match_parent"
@@ -431,7 +412,8 @@
             android:text="UserID"
             android:typeface="normal"
             android:textSize="18sp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:visibility="invisible" />
         <ImageButton
             android:layout_width="70dip"
             android:layout_height="match_parent"

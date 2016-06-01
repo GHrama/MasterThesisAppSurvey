@@ -1,8 +1,12 @@
 package com.example.ramapriyasridharan.trialapp04;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -12,9 +16,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.RadioGroup;
+import android.widget.RadioButton;
+import android.widget.LinearLayout;
 
 import com.example.ramapriyasridharan.helpers.AddDouble;
 import com.example.ramapriyasridharan.helpers.GotoActivity;
@@ -28,14 +39,19 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static String TAG = MainActivity.class.getName();
+    ImageButton button_bid_1;
+    LinearLayout homeLayout;
+    LinearLayout improveLayout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // do not let screen switch off
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_bidding);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
         final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
         final SharedPreferences.Editor e = s_logged.edit();
         int temp = s_logged.getInt("activity", 0);
@@ -48,8 +64,20 @@ public class MainActivity extends AppCompatActivity {
         instance_user.setmKinveyClient(new Client.Builder(this.getApplicationContext()).build());
         //final Client mKinveyClient = new Client.Builder(this.getApplicationContext()).build();
         // get app properties from kinvey.properties
-        final TextView user_text;
-        user_text = (TextView) findViewById(R.id.user_id);
+        //final TextView user_text;
+        //user_text = (TextView) findViewById(R.id.user_id);
+        button_bid_1 = (ImageButton) findViewById(R.id.button_bid_1);
+        homeLayout = (LinearLayout) findViewById(R.id.homeLayout);
+        improveLayout = (LinearLayout) findViewById(R.id.improveLayout);
+
+        button_bid_1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                homeLayout.setVisibility(View.GONE);
+                improveLayout.setVisibility(View.VISIBLE);
+            }
+        });
+
 
         // check if new to app
         boolean meow = instance_user.mKinveyClient.user().isUserLoggedIn();
@@ -60,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         // if already logged
         if(meow){
             Log.i(TAG, "(not first time): " + instance_user.mKinveyClient.user().getId());
-            user_text.setText("user id is " + instance_user.mKinveyClient.user().getId());
+            //user_text.setText("user id is " + instance_user.mKinveyClient.user().getId());
             int a = s_logged.getInt("activity", 2);
             Log.d(TAG, "activity going to" + a);
             Intent i = null;
@@ -74,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 case 8: i = new Intent(this, PauseActivity.class);break;
                 case 9: i = new Intent(this, MainQuestionsActivity.class);break;
             }
-            startActivity(i);
+            //startActivity(i);
         }
 
         // if user is logged in meow = True dont log him in again!
@@ -84,13 +112,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Throwable error) {
                         Log.i(TAG, "Fail");
-                        user_text.setText("User not identified !!");
+                        //user_text.setText("User not identified !!");
                         Log.i(TAG, "" + error);
                     }
 
                     @Override
                     public void onSuccess(User result) {
-                        user_text.setText("user id is " + result.getId());
+                        //user_text.setText("user id is " + result.getId());
                         e.putInt("logged",1); // means it is logged in
                         e.commit();
                         Log.i(TAG, "Logged in a new implicit user with id(first time): " + result.getId());
@@ -122,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         e.putInt("activity", 2);
         e.commit();
         intent.putExtra("user_id",user_string);
-        startActivity(intent);
+        //startActivity(intent);
     }
 
     @Override
@@ -146,4 +174,15 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @TargetApi(23)
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+        if (checked) button_bid_1.setVisibility(View.VISIBLE);
+        else button_bid_1.setVisibility(View.VISIBLE);
+        // Check which radio button was clicked
+
+    }
+
 }

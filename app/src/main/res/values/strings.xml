@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Survey</string>
+    <string name="app_name">Day 1</string>
     <string name="action_settings">Settings</string>
     <string name="first_time">true</string>
     <string name="title_activity_register_user">RegisterUserActivity</string>
@@ -63,4 +63,5 @@
     </string-array>
     <string name="title_activity_pause">Done For Today!</string>
     <string name="title_activity_main_questions">Data Selling Area</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>
