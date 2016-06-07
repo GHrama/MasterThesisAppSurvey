@@ -1,11 +1,18 @@
 package com.example.ramapriyasridharan.trialapp04;
 
+<<<<<<< HEAD
 import android.app.AlarmManager;
 import android.app.IntentService;
 import android.app.PendingIntent;
+=======
+import android.annotation.TargetApi;
+>>>>>>> cd81d50043d0ba857afb89576679137eade4f9d8
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -15,9 +22,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.RadioGroup;
+import android.widget.RadioButton;
+import android.widget.LinearLayout;
 
 import com.example.ramapriyasridharan.BackgroundTasks.SensorIntentService;
 import com.example.ramapriyasridharan.BackgroundTasks.WeightCostMatrixService;
@@ -66,6 +80,11 @@ public class MainActivity extends AppCompatActivity {
     UserInstanceClass instance_user = null;
 
     private static String TAG = MainActivity.class.getName();
+    ImageButton button_bid_1;
+    LinearLayout homeLayout;
+    LinearLayout improveLayout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,13 +111,46 @@ public class MainActivity extends AppCompatActivity {
 
         // do not let screen switch off
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+<<<<<<< HEAD
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+=======
+        setContentView(R.layout.activity_bidding);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor e = s_logged.edit();
+        int temp = s_logged.getInt("activity", 0);
+        Log.d("main activity", " s_logged activity ="+temp );
+
+        UserInstanceClass instance_user = new UserInstanceClass();
+        //final Client mKinveyClient = new Client.Builder("kid_W1EFbeKyy-", "1b6f09e812114210ae4447f310b38a0a"
+         //       , this.getApplicationContext()).build();
+>>>>>>> cd81d50043d0ba857afb89576679137eade4f9d8
 
         instance_user = new UserInstanceClass();
         instance_user.setmKinveyClient(new Client.Builder(this.getApplicationContext()).build());
+<<<<<<< HEAD
+=======
+        //final Client mKinveyClient = new Client.Builder(this.getApplicationContext()).build();
+        // get app properties from kinvey.properties
+        //final TextView user_text;
+        //user_text = (TextView) findViewById(R.id.user_id);
+        button_bid_1 = (ImageButton) findViewById(R.id.button_bid_1);
+        homeLayout = (LinearLayout) findViewById(R.id.homeLayout);
+        improveLayout = (LinearLayout) findViewById(R.id.improveLayout);
+
+        button_bid_1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                homeLayout.setVisibility(View.GONE);
+                improveLayout.setVisibility(View.VISIBLE);
+            }
+        });
+
+>>>>>>> cd81d50043d0ba857afb89576679137eade4f9d8
 
         // check if new to app
         boolean meow = instance_user.mKinveyClient.user().isUserLoggedIn();
@@ -109,13 +161,54 @@ public class MainActivity extends AppCompatActivity {
         //setExactNextDayChangeAlarm();
         //startSensorService();
         if(meow){
+<<<<<<< HEAD
             gotoLastState();
         }
         else if (!meow) {
             firstLogin();
+=======
+            Log.i(TAG, "(not first time): " + instance_user.mKinveyClient.user().getId());
+            //user_text.setText("user id is " + instance_user.mKinveyClient.user().getId());
+            int a = s_logged.getInt("activity", 2);
+            Log.d(TAG, "activity going to" + a);
+            Intent i = null;
+            switch(a){
+                case 1: i = new Intent(this, MainActivity.class);break;
+                case 2: i = new Intent(this, ProfilingFeaturesActivity.class);break;
+                case 4: i = new Intent(this, ProfilingSensorsActivity.class);break;
+                case 5: i = new Intent(this, ProfilingDataCollectorsActivity.class);break;
+                case 6: i = new Intent(this, ProfilingContextsActivity.class);break;
+                case 7: i = new Intent(this, QuestionsActivity.class);break;
+                case 8: i = new Intent(this, PauseActivity.class);break;
+                case 9: i = new Intent(this, MainQuestionsActivity.class);break;
+            }
+            //startActivity(i);
+>>>>>>> cd81d50043d0ba857afb89576679137eade4f9d8
         }
     }
 
+<<<<<<< HEAD
+=======
+        // if user is logged in meow = True dont log him in again!
+
+        if (!meow) {
+            instance_user.mKinveyClient.user().login(new KinveyUserCallback() {
+                    @Override
+                    public void onFailure(Throwable error) {
+                        Log.i(TAG, "Fail");
+                        //user_text.setText("User not identified !!");
+                        Log.i(TAG, "" + error);
+                    }
+
+                    @Override
+                    public void onSuccess(User result) {
+                        //user_text.setText("user id is " + result.getId());
+                        e.putInt("logged",1); // means it is logged in
+                        e.commit();
+                        Log.i(TAG, "Logged in a new implicit user with id(first time): " + result.getId());
+                    }
+            });
+>>>>>>> cd81d50043d0ba857afb89576679137eade4f9d8
 
 
     private void firstLogin(){
@@ -154,8 +247,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GetUserInformation.class);
         e.putInt("activity", 2);
         e.commit();
+<<<<<<< HEAD
         intent.putExtra("user_id", user_string);
         startActivity(intent);
+=======
+        intent.putExtra("user_id",user_string);
+        //startActivity(intent);
+>>>>>>> cd81d50043d0ba857afb89576679137eade4f9d8
     }
 
 
@@ -211,6 +309,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+<<<<<<< HEAD
 
     public void setApproxNotificationAlarm(){
         Log.d("ALARM", "create notification alarm");
@@ -242,4 +341,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+=======
+    @TargetApi(23)
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+        if (checked) button_bid_1.setVisibility(View.VISIBLE);
+        else button_bid_1.setVisibility(View.VISIBLE);
+        // Check which radio button was clicked
+
+    }
+
+>>>>>>> cd81d50043d0ba857afb89576679137eade4f9d8
 }
