@@ -3,6 +3,7 @@ package com.example.ramapriyasridharan.trialapp04;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -30,6 +31,7 @@ public class ProfilingDataCollectorsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_profiling_data_collectors);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -55,7 +57,7 @@ public class ProfilingDataCollectorsActivity extends AppCompatActivity {
                 String gov = spinner_gov_entry.getSelectedItem().toString();
                 String ngo = spinner_ngo_entry.getSelectedItem().toString();
                 String edu = spinner_edu_entry.getSelectedItem().toString();
-                java.util.Date date= new java.util.Date();
+                java.util.Date date = new java.util.Date();
                 String time = new Timestamp(date.getTime()).toString();
                 UserInstanceClass user_instance = new UserInstanceClass();
 
@@ -80,13 +82,21 @@ public class ProfilingDataCollectorsActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), ProfilingContextsActivity.class);
                 final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
                 final SharedPreferences.Editor e = s_logged.edit();
-                e.putInt("activity",6);
+                e.putInt("activity", 6);
                 e.commit();
                 startActivity(intent);
 
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 
 }

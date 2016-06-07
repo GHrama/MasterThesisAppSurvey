@@ -9,10 +9,13 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <permission
-        android:name="com.example.ramapriyasridharan.trialapp04.permission.C2D_MESSAGE"
+        android:name="com.example.ramapriyasridharan.trialap1p04.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.example.ramapriyasridharan.trialapp04.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
 
     <application
         android:allowBackup="true"
@@ -39,7 +42,40 @@
             android:label="@string/title_activity_collect_user_information"
             android:theme="@style/AppTheme.NoActionBar" />
         <service
+            android:name="com.example.ramapriyasridharan.BackgroundTasks.SensorIntentService"
+            android:label="@string/title_activity_collect_user_information"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <service
             android:name="com.example.ramapriyasridharan.BackgroundTasks.NotificationService"
+            android:label="Notification"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <receiver android:name="com.example.ramapriyasridharan.BroadcastReceivers.AlarmReceiver">
+
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED">
+                </action>
+            </intent-filter>
+
+        </receiver>
+        <service android:name="com.example.ramapriyasridharan.JobService.UserResponseSendService"
+            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY"/>
+            </intent-filter>
+        </service>
+        <receiver
+            android:name="com.example.ramapriyasridharan.BroadcastReceivers.BootReceiver"
+            android:label="StartMyServiceAtBootReceiver"
+            android:enabled="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="com.example.ramapriyasridharan.BackgroundTasks.AlarmNextDayService"
             android:label="Notification"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

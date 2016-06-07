@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.example.ramapriyasridharan.StoreValues.WeightCostAnswersMatrix;
+import com.example.ramapriyasridharan.helpers.DatabaseInstance;
 import com.example.ramapriyasridharan.localstore.StoreDbHelper;
 
 /**
@@ -30,9 +31,8 @@ public class WeightCostMatrixService extends IntentService{
         Log.d("intent", "inside");
         WeightCostAnswersMatrix.calcWeightMatrix(getApplicationContext());
         WeightCostAnswersMatrix.getCostMatrix();
-        StoreDbHelper db = new StoreDbHelper(getApplicationContext());
+        StoreDbHelper db = DatabaseInstance.db;
         WeightCostAnswersMatrix.insertWeightCostDb(db);
-        db.close();
         Log.d("intent", "done work");
     }
 }

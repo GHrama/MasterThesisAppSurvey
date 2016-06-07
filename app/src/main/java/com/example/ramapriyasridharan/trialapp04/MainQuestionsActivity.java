@@ -1,12 +1,15 @@
 package com.example.ramapriyasridharan.trialapp04;
 
+import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +21,14 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.ramapriyasridharan.AsyncTasks.GoToNextDay;
+import com.example.ramapriyasridharan.BackgroundTasks.AlarmNextDayService;
 import com.example.ramapriyasridharan.BackgroundTasks.NotificationService;
+import com.example.ramapriyasridharan.BroadcastReceivers.AlarmReceiver;
+
+import com.example.ramapriyasridharan.JobService.UserResponseSendService;
 import com.example.ramapriyasridharan.StoreValues.QuestionStore;
+import com.example.ramapriyasridharan.StoreValues.Settings;
 import com.example.ramapriyasridharan.StoreValues.WhichClicked;
 
 import com.example.ramapriyasridharan.StoreValues.Questions;
@@ -29,6 +38,7 @@ import com.example.ramapriyasridharan.helpers.AddDouble;
 import com.example.ramapriyasridharan.helpers.Answer;
 import com.example.ramapriyasridharan.helpers.ConvertStringToInt;
 import com.example.ramapriyasridharan.helpers.Cost;
+import com.example.ramapriyasridharan.helpers.DatabaseInstance;
 import com.example.ramapriyasridharan.helpers.Privacy;
 import com.example.ramapriyasridharan.helpers.Round;
 import com.example.ramapriyasridharan.helpers.UserInstanceClass;
@@ -44,52 +54,59 @@ import java.util.Date;
 
 public class MainQuestionsActivity extends AppCompatActivity {
 
-    QuestionStore global_qs = null;
-    StoreDbHelper db = null;
-    long last_clicked = 0;
-    int num = 10;
+    static MainQuestionsActivity main_question;
 
-    int count = 0;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+    QuestionStore global_qs = null;
+    public StoreDbHelper db = null;
+    public long last_clicked = 0;
+
+    public int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        db = new StoreDbHelper(this);
+        main_question = this;
+
+        db = DatabaseInstance.db;
 
         //set alarm to fire away notification every 1 minute
-        Intent myIntent = new Intent(getApplicationContext(), NotificationService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, myIntent, 0);
-        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.SECOND, 120); // first time
-        long frequency = 120 * 1000; // in ms
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), frequency, pendingIntent);
-
+//        Intent myIntent1 = new Intent(getApplicationContext(), NotificationService.class);
+//        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 5, myIntent1, 0);
+//        AlarmManager alarmManager1 = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+//        Calendar calendar1 = Calendar.getInstance();
+//        calendar1.setTimeInMillis(System.currentTimeMillis());
+//        long frequency1 = 30 * 1000; // in ms
+//        alarmManager1.setRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis() + frequency1, frequency1, pendingIntent);
+//
+//        // Set alarm to fire go to Next day everyday at the same time
+//        Calendar calendar = Calendar.getInstance();
+//
+//        calendar.set(Calendar.HOUR_OF_DAY, 18); // For 1 PM or 2 PM
+//        calendar.set(Calendar.MINUTE, 43);
+//        //calendar.setTimeInMillis(System.currentTimeMillis());
+//        Intent myintent = new Intent(getApplicationContext(), AlarmNextDayService.class);
+//        PendingIntent pi = PendingIntent.getService(this, 11, myintent,0 );
+//        alarmManager1.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
         // do not let screen switch off
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         Log.d("main question", "created MAIN questions activity");
         setContentView(R.layout.activity_main_questions);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
+    public static MainQuestionsActivity getInstance(){
+        return main_question;
+    }
+
+    // Set notification alarm
 
     protected void onStart() {
         super.onStart();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
 
         // if first time default values
         Log.d("main question", "started MAIN questions activity");
@@ -132,19 +149,6 @@ public class MainQuestionsActivity extends AppCompatActivity {
 
         // call main function
         core1();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "MainQuestions Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.example.ramapriyasridharan.trialapp04/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
     }
 
     // N DAY SURVEY
@@ -294,81 +298,12 @@ public class MainQuestionsActivity extends AppCompatActivity {
 
     public void onDestroy() {
         super.onDestroy();
-        db.close();
         db = null;
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "MainQuestions Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.example.ramapriyasridharan.trialapp04/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
-    }
-
-    private class GoToNextDay extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            Log.d("nextday", "STARTING");
-            // store into points table
-            count = 0;// reset count
-            SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
-            Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
-            Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
-            int current_day = settings.getInt("current_day", 2);
-
-            // insert into points table
-            db.insertPointsTable(current_day, current_credit, current_privacy);
-
-            // reset pref file
-            SharedPreferences.Editor editor = settings.edit();
-            editor = AddDouble.putDouble(editor, "current_credit", 0);
-            editor = AddDouble.putDouble(editor, "current_privacy", 100);
-            editor.putInt("current_day", current_day + 1);
-            editor.putInt("prev_day", current_day);
-            editor.commit();
-
-            // insert not answered question as max privacy setting into answers table
-            Questions.fillUnansweredQuestions(db, num, current_day);
-
-            //delete from answered table
-            db.emptyAnsweredTable();
-
-            //send sensor data to kinvey encrypted?
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            // update the UI?
-            TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit_1);
-            TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry_1);
-            TextView tv_day_no = (TextView) findViewById(R.id.tv_day_number_entry_1);
-
-            // get data from pref file
-            SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
-            Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
-            Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
-            int current_day = settings.getInt("current_day", 2);
-
-            // set UI values
-            tv_day_no.setText(String.valueOf(current_day));
-            tv_privacy.setText(String.valueOf(Round.round(current_privacy, 2)));
-            tv_credit.setText(String.valueOf(Round.round(current_credit, 2)));
-        }
     }
 
     // store answers in db
@@ -391,8 +326,11 @@ public class MainQuestionsActivity extends AppCompatActivity {
             count ++;
             Log.d("main questions", "count =" + count);
             // calculate the credit
-            ur.setCredit(Cost.returnTotalCost(ur.getDay_no(), db));
-            ur.setPrivacy_percentage(Privacy.returnPrivacyPercentage(ur.getDay_no(), db));
+            ur.setCredit(Cost.returnTotalCost(ur.getDay_no()));
+            ur.setPrivacy_percentage(Privacy.returnPrivacyPercentage(ur.getDay_no()));
+
+            // store answers for kinvey
+            db.insertIntoUserResponseTable(ur);
 
             //log result
             Log.d("main questions", "total cost" + ur.getCredit());
@@ -421,9 +359,9 @@ public class MainQuestionsActivity extends AppCompatActivity {
             tv_privacy.setText(String.valueOf(Round.round(ur.getPrivacy_percentage(), 2)));
             tv_credit.setText(String.valueOf(Round.round(ur.getCredit(), 2)));
 
-            if (count >= 10) {
-                new GoToNextDay().execute(); // Use alarm manager
-            }
+//            if (count >= 10) {
+//                new GoToNextDay().execute(); // Use alarm manager
+//            }
         }
     }
 
@@ -433,13 +371,21 @@ public class MainQuestionsActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(WhichClicked... params) {
             WhichClicked wc = params[0];
-            global_qs = Questions.getQuestionWc(wc, db, num, getApplicationContext());
+            global_qs = Questions.getQuestionWc(wc, db, Settings.num, getApplicationContext());
+
+            final SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
+            final Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
+            Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
+            int current_day = settings.getInt("current_day", 2);
 
             // get prev_answer and suggestions
             ArrayList<Integer> ans = Answer.getSuggestions(wc, global_qs.q_no, getApplicationContext(), db);
+            ArrayList<Double> cost = Cost.getUiCost(current_day,current_credit,global_qs.q_no);
+            ArrayList<Double> pri = Privacy.getUiPrivacy(current_privacy,global_qs.q_no,current_day);
 
             Log.d("main question", " q = " + global_qs.q);
             Log.d("main question", " q_no = " + global_qs.q_no);
+
             return null;
         }
 

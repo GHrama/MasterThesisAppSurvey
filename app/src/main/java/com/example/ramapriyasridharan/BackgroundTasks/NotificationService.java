@@ -15,7 +15,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
+import com.example.ramapriyasridharan.BroadcastReceivers.AlarmReceiver;
 import com.example.ramapriyasridharan.helpers.AddDouble;
+import com.example.ramapriyasridharan.helpers.Round;
 import com.example.ramapriyasridharan.trialapp04.MainQuestionsActivity;
 import com.example.ramapriyasridharan.trialapp04.QuestionsActivity;
 import com.example.ramapriyasridharan.trialapp04.R;
@@ -59,6 +61,7 @@ public class NotificationService extends Service {
 //        mWakeLock.acquire();
         Log.d("SERVICE NOTIFICATION", "calling async task");
         new NotificationAsyncTask().execute();
+        AlarmReceiver.completeWakefulIntent(intent);
 
         // check the global background data setting
 //        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -79,7 +82,7 @@ public class NotificationService extends Service {
             Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
 
             Log.d("SERVICE NOTIFICATION","entered do in backgorund");
-            String title = "Privacy = "+current_privacy+"% Credit = "+current_credit;
+            String title = "Privacy = "+ Round.round(current_privacy,2)+"% Credit = "+Round.round(current_credit,2);
             // create notification
             NotificationCompat.Builder mBuilder =
                     (NotificationCompat.Builder) new NotificationCompat.Builder(getApplicationContext())

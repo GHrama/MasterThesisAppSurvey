@@ -3,10 +3,12 @@ package com.example.ramapriyasridharan.collections;
 import com.google.api.client.json.GenericJson;
 import com.google.api.client.util.Key;
 
+import java.io.Serializable;
+
 /**
  * Created by ramapriyasridharan on 14.05.16.
  */
-public class UserResponseClass extends GenericJson {
+public class UserResponseClass extends GenericJson implements Serializable{
 
     @Key("user_id")
     private String user_id;

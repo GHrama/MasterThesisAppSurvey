@@ -3,6 +3,7 @@ package com.example.ramapriyasridharan.trialapp04;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -32,6 +33,7 @@ public class ProfilingSensorsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_profiling_sensors);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -86,7 +88,7 @@ public class ProfilingSensorsActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), ProfilingDataCollectorsActivity.class);
                 final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
                 final SharedPreferences.Editor e = s_logged.edit();
-                e.putInt("activity",5);
+                e.putInt("activity", 5);
                 e.commit();
                 startActivity(intent);
 
@@ -95,6 +97,14 @@ public class ProfilingSensorsActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 
 }

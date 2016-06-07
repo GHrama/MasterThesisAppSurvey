@@ -3,6 +3,7 @@ package com.example.ramapriyasridharan.trialapp04;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -28,6 +29,7 @@ public class GetUserInformation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_get_user_information);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -55,7 +57,7 @@ public class GetUserInformation extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("HI","IN the setonclick method");
+                Log.d("HI", "IN the setonclick method");
                 //get gender
                 if (switch_gender_entry.isChecked()) {
                     //on = female
@@ -70,7 +72,7 @@ public class GetUserInformation extends AppCompatActivity {
                 // get year of birth
                 String birth = edittext_year_entry.getText().toString();
                 ui.setBirth_year(birth);
-                if(Integer.parseInt(birth) > 2016 && Integer.parseInt(birth) < 1900){
+                if (Integer.parseInt(birth) > 2016 && Integer.parseInt(birth) < 1900) {
                     Toast.makeText(GetUserInformation.this, "Re-enter your date of birth Correctly", Toast.LENGTH_SHORT).show();
                 }
 
@@ -78,11 +80,11 @@ public class GetUserInformation extends AppCompatActivity {
 
                 // get the chosen option of educational level
                 String educational_level = spinner_education_entry.getSelectedItem().toString();
-                ui.setEducation_level(Integer.toString(ConvertStringToInt.education_level(educational_level,v.getContext())));
-                Log.d("HI", "set education level"+ui.getEducation_level());
+                ui.setEducation_level(Integer.toString(ConvertStringToInt.education_level(educational_level, v.getContext())));
+                Log.d("HI", "set education level" + ui.getEducation_level());
                 String employment_level = spinner_employment_entry.getSelectedItem().toString();
                 ui.setEmployment_status(Integer.toString(ConvertStringToInt.employment_status(employment_level, v.getContext())));
-                Log.d("HI", "set employment"+ui.getEmployment_status());
+                Log.d("HI", "set employment" + ui.getEmployment_status());
                 if (switch_background_entry.isChecked()) {
                     // on = cs background
                     ui.setEducation_background(Integer.toString(1));
@@ -101,7 +103,7 @@ public class GetUserInformation extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), ProfilingFeaturesActivity.class);
                 final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
                 final SharedPreferences.Editor e = s_logged.edit();
-                e.putInt("activity",3);
+                e.putInt("activity", 3);
                 e.commit();
                 startActivity(intent);
 
@@ -112,6 +114,14 @@ public class GetUserInformation extends AppCompatActivity {
         // send this information to kinvey collection InformationUsers
 
 
-            }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
+    }
 
 }

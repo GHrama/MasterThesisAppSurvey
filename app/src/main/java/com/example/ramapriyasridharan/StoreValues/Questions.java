@@ -149,10 +149,17 @@ public class Questions {
     public static void fillUnansweredQuestions(StoreDbHelper db,int num,int day){
         ArrayList<Integer> qno = db.getAllAnswered();
         Log.d("question", "Number of answered questions = " + qno.size());
+
+        int[] store_answered = new int[num];
+        for(int i = 0;i < store_answered.length;i++){
+            store_answered[i] = 0;
+        }
         for(int i = 0;i < qno.size();i++){
-            Log.d("question", "current question to see i = " + i);
-            Log.d("question", "current question to see qno.get(i) = " + qno.get(i));
-            if(i != qno.get(i)){
+            store_answered[qno.get(i)] = 1;
+        }
+        for(int i = 0;i < store_answered.length;i++){
+            Log.d("question", "current question = " + i);
+            if(store_answered[i]==0){
                 // send to answers table
                 db.replaceStoreAnswers(i,5,0,day);
                 Log.d("question", "question not answered = " + i);

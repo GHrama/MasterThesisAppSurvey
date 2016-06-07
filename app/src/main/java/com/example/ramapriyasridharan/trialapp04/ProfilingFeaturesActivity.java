@@ -3,6 +3,7 @@ package com.example.ramapriyasridharan.trialapp04;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class ProfilingFeaturesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_profiling_features);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -73,7 +75,7 @@ public class ProfilingFeaturesActivity extends AppCompatActivity {
                 //SendToKinvey.sendProfilingFeatures(user_instance,"ProfilingFeatures",pf);
                 // place intent inside button click function
                 Intent intent = new Intent(v.getContext(), ProfilingSensorsActivity.class);
-                e.putInt("activity",4);
+                e.putInt("activity", 4);
                 e.commit();
                 startActivity(intent);
 
@@ -82,6 +84,14 @@ public class ProfilingFeaturesActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 
 }
