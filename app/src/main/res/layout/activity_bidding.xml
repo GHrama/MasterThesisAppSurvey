@@ -19,9 +19,9 @@
             android:layout_weight="1"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            android:textSize="24sp"
+            android:textSize="30sp"
             android:textColor="@color/lightcolor"
-            android:text="Please chose whether you would like more privacy or more profit"
+            android:text="What would you prefer to improve?"
             android:gravity="center"/>
 
         <LinearLayout
@@ -29,29 +29,57 @@
             android:layout_height="fill_parent"
             android:orientation="horizontal"
             android:layout_weight="1">
-            <ImageButton
-                android:id="@+id/button_improve_privacy"
+            <FrameLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="50dp"
-                android:src="@drawable/privacy"
-                android:background="#00000000"
-                android:scaleType="fitCenter" />
+                android:layout_marginRight="25dp"
+                android:layout_marginLeft="50dp">
 
+                <ImageButton
+                    android:id="@+id/button_improve_profit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/profit"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="25dp"
+                    android:layout_weight="1"
+                    android:text="Rewards"
+                    android:gravity="bottom|center"
+                    android:textColor="@color/lightcolor"/>
+            </FrameLayout>
 
-
-            <ImageButton
-                android:id="@+id/button_improve_profit"
+            <FrameLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:layout_marginRight="50dp"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/profit"
-                android:background="#00000000"
-                android:scaleType="fitCenter" />
+                android:layout_marginLeft="20dp">
+
+                <ImageButton
+                    android:id="@+id/button_improve_privacy"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/privacy"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
+                    android:text="Privacy"
+                    android:gravity="bottom|center"
+                    android:textColor="@color/lightcolor"/>
+            </FrameLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 
@@ -61,26 +89,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="visible">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:paddingTop="30dp"
-            android:paddingBottom="20dp"
-            android:visibility="visible">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/entityLogo"
-                android:src="@drawable/eth_logo"
-                android:background="#00000000" />
-        </LinearLayout>
-
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="175dp"
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
             android:visibility="visible">
@@ -91,8 +104,8 @@
                 android:background="#00000000"
                 android:text="@string/entitity_description"
                 android:typeface="normal"
-                android:textSize="18sp"
-                android:gravity="center_vertical" />
+                android:textSize="24sp"
+                android:gravity="center" />
 
         </LinearLayout>
 
@@ -100,9 +113,18 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="75dp"
             android:visibility="visible"
             android:id="@+id/bidlayout">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:text="Least privacy"
+                android:gravity="left|bottom"
+                android:textStyle="bold" />
             <ImageButton
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
@@ -111,7 +133,17 @@
                 android:src="@drawable/checkmark"
                 android:background="#00000000"
                 android:scaleType="fitCenter"
-                android:visibility="invisible" />
+                android:visibility="visible"
+                android:layout_marginBottom="3dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:text="Most privacy"
+                android:gravity="right|bottom"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -120,13 +152,14 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:padding="3dip"
             android:background="@color/nnorange"
             android:visibility="visible"
-            android:id="@+id/finalselection">
+            android:id="@+id/finalselection"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp">
             <RadioButton
                 android:gravity="center"
-                android:text="0"
+                android:text="1"
                 android:textStyle="normal"
                 android:textColor="@color/mediumcolor"
                 android:textSize="18sp"
@@ -138,7 +171,7 @@
                 android:onClick="onRadioButtonClicked" />
             <RadioButton
                 android:gravity="center"
-                android:text="25"
+                android:text="2"
                 android:textStyle="normal"
                 android:textColor="@color/mediumcolor"
                 android:textSize="18sp"
@@ -147,10 +180,13 @@
                 android:id="@+id/pre_2"
                 android:layout_weight="2"
                 android:background="@drawable/button_boarder"
-                android:onClick="onRadioButtonClicked" />
+                android:onClick="onRadioButtonClicked"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="3dp" />
             <RadioButton
                 android:gravity="center"
-                android:text="50"
+                android:text="3"
                 android:textStyle="normal"
                 android:textColor="@color/mediumcolor"
                 android:textSize="18sp"
@@ -159,10 +195,12 @@
                 android:id="@+id/pre_3"
                 android:layout_weight="2"
                 android:background="@drawable/button_boarder"
-                android:onClick="onRadioButtonClicked" />
+                android:onClick="onRadioButtonClicked"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp" />
             <RadioButton
                 android:gravity="center"
-                android:text="75"
+                android:text="4"
                 android:textStyle="normal"
                 android:textColor="@color/mediumcolor"
                 android:textSize="18sp"
@@ -171,10 +209,12 @@
                 android:id="@+id/pre_4"
                 android:layout_weight="2"
                 android:background="@drawable/button_boarder"
-                android:onClick="onRadioButtonClicked" />
+                android:onClick="onRadioButtonClicked"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp" />
             <RadioButton
                 android:gravity="center"
-                android:text="100"
+                android:text="5"
                 android:textStyle="normal"
                 android:textColor="@color/mediumcolor"
                 android:textSize="18sp"
@@ -183,7 +223,10 @@
                 android:id="@+id/pre_5"
                 android:layout_weight="2"
                 android:background="#ffffff"
-                android:onClick="onRadioButtonClicked" />
+                android:onClick="onRadioButtonClicked"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginRight="3dp" />
         </RadioGroup>
 
 
@@ -346,7 +389,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:text="Money Earned"
+                android:text="Credits"
                 android:gravity="bottom|center"/>
         </FrameLayout>
 
@@ -376,7 +419,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:text="Privacy Score"
+                android:text="Privacy"
                 android:gravity="bottom|center"/>
         </FrameLayout>
 
