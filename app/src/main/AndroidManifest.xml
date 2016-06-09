@@ -37,7 +37,6 @@
             android:name=".GetUserInformation"
             android:label="@string/title_activity_get_user_information"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <service
             android:name="com.example.ramapriyasridharan.BackgroundTasks.WeightCostMatrixService"
             android:label="@string/title_activity_collect_user_information"
@@ -50,7 +49,6 @@
             android:name="com.example.ramapriyasridharan.BackgroundTasks.NotificationService"
             android:label="Notification"
             android:theme="@style/AppTheme.NoActionBar" />
-<<<<<<< HEAD
         <receiver android:name="com.example.ramapriyasridharan.BroadcastReceivers.AlarmReceiver">
 
             <intent-filter>
@@ -80,9 +78,6 @@
             android:name="com.example.ramapriyasridharan.BackgroundTasks.AlarmNextDayService"
             android:label="Notification"
             android:theme="@style/AppTheme.NoActionBar" />
-=======
-
->>>>>>> cd81d50043d0ba857afb89576679137eade4f9d8
         <activity
             android:name=".ProfilingFeaturesActivity"
             android:label="@string/title_activity_profiling_features"
@@ -110,15 +105,12 @@
         <activity
             android:name=".MainQuestionsActivity"
             android:label="@string/title_activity_main_questions"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <!--
-             ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-        -->
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
     </application>
 
 </manifest>

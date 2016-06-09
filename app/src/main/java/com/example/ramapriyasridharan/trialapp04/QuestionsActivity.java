@@ -12,10 +12,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.ramapriyasridharan.BackgroundTasks.NotificationService;
 import com.example.ramapriyasridharan.StoreValues.QuestionStore;
 import com.example.ramapriyasridharan.StoreValues.Questions;
 import com.example.ramapriyasridharan.StoreValues.Settings;
@@ -66,22 +68,23 @@ public class QuestionsActivity extends AppCompatActivity {
         Log.d("question"," current_day = "+current_day);
         Log.d("question"," current_question_number = "+current_question_number);
 
-        TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit);
-        TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry);
+        //TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit);
+        //TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry);
         TextView tv_user_id = (TextView) findViewById(R.id.tv_user_id_entry);
         TextView tv_day_no = (TextView) findViewById(R.id.tv_day_number_entry);
         TextView tv_questions = (TextView) findViewById(R.id.tv_question_window_entry);
         UserInstanceClass user_instance = new UserInstanceClass();
-        tv_user_id.setText(user_instance.getmKinveyClient().user().getId());
+        //tv_user_id.setText(user_instance.getmKinveyClient().user().getId());
         tv_day_no.setText(String.valueOf(current_day));
         // first day no seeing the pirvacy or credit
         //tv_credit.setVisibility(View.INVISIBLE);
         //tv_privacy.setVisibility(View.INVISIBLE);
-
         tv_user_id.setText(user_instance.getmKinveyClient().user().getId());
+
+
         tv_day_no.setText(String.valueOf(current_day));
-        tv_privacy.setText(String.valueOf(Round.round(current_privacy, 2)));
-        tv_credit.setText(String.valueOf(Round.round(current_credit, 2)));
+        //tv_privacy.setText(String.valueOf(Round.round(current_privacy, 2)));
+        //tv_credit.setText(String.valueOf(Round.round(current_credit, 2)));
 
         qs = Questions.getQuestion(db,current_question_number);
         tv_questions.setText(qs.q);
@@ -98,17 +101,29 @@ public class QuestionsActivity extends AppCompatActivity {
 
     // FIRST DAY SURVEY
     public void core1(){
+
+        final RadioGroup radio_group = (RadioGroup) findViewById(R.id.finalselection);
+        radio_group.clearCheck(); //clear options
+
         // call notification
         //EXCEPT DAY NO ALL 0 INDEXED
         // Setting textviews with updated values from sharedpreferences
         final SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
-        final Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
-        final Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 0);
+        //final Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
+        //final Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 0);
         final int current_day = settings.getInt("current_day", 1);
 
-        Button submit;
-        submit = (Button) findViewById(R.id.button_bid);
-        final Spinner spinner_privacy = (Spinner) findViewById(R.id.spinner_privacy_choice_entry);
+        final ImageButton submit;
+        submit = (ImageButton) findViewById(R.id.button_bid);
+        submit.setVisibility(View.INVISIBLE);
+
+        // if any rafio button clicked, make submit button appear
+        radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radio_group, int checkedId) {
+                submit.setVisibility(View.VISIBLE);
+            }
+        });
 
         // if button clicked
         submit.setOnClickListener(new View.OnClickListener() {
@@ -123,12 +138,17 @@ public class QuestionsActivity extends AppCompatActivity {
                 java.util.Date date = new java.util.Date();
                 String time = new Timestamp(date.getTime()).toString();
                 UserInstanceClass user_instance = new UserInstanceClass();
-                String level = spinner_privacy.getSelectedItem().toString();
+
+                int radioButtonID = radio_group.getCheckedRadioButtonId();
+                View radioButton = radio_group.findViewById(radioButtonID);
+                int idx = radio_group.indexOfChild(radioButton);
+                idx++; //make 1-indexed
+                Log.d("question", "index of selected child" + idx);
 
                 // Set object value
                 UserResponseClass ur = new UserResponseClass();
                 ur.setUser_id(user_instance.getmKinveyClient().user().getId());
-                ur.setLevel(ConvertStringToInt.categorizingStringToIntBid(level, v.getContext()));
+                ur.setLevel(idx);//1-5
 
                 ur.setTimestamp(time);
 
@@ -224,8 +244,8 @@ public class QuestionsActivity extends AppCompatActivity {
             SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = settings.edit();
 
-            TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit);
-            TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry);
+            //TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit);
+            //TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry);
             TextView tv_user_id = (TextView) findViewById(R.id.tv_user_id_entry);
             TextView tv_day_no = (TextView) findViewById(R.id.tv_day_number_entry);
             TextView tv_questions = (TextView) findViewById(R.id.tv_question_window_entry);
@@ -233,8 +253,10 @@ public class QuestionsActivity extends AppCompatActivity {
             // set UI values
             tv_user_id.setText(ur.getUser_id());
             tv_day_no.setText(String.valueOf(ur.getDay_no()));
-            tv_privacy.setText(String.valueOf(Round.round(ur.getPrivacy_percentage(),2)));
-            tv_credit.setText(String.valueOf(Round.round(ur.getCredit(), 2)));
+            ImageButton button_bid = (ImageButton) findViewById(R.id.button_bid);
+            button_bid.setVisibility(View.INVISIBLE);
+            //tv_privacy.setText(String.valueOf(Round.round(ur.getPrivacy_percentage(),2)));
+            //tv_credit.setText(String.valueOf(Round.round(ur.getCredit(), 2)));
 
             // if question to ask is 64 (or) 10 (represents the next question to ask)
             if(settings.getInt("current_question_number", 0) == Settings.num){
@@ -267,6 +289,9 @@ public class QuestionsActivity extends AppCompatActivity {
 
 
     }
+
+
+
 
 
 }

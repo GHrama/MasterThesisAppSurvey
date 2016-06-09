@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Survey</string>
+    <string name="app_name">Day 1</string>
     <string name="action_settings">Settings</string>
     <string name="first_time">true</string>
     <string name="title_activity_register_user">RegisterUserActivity</string>
@@ -40,6 +40,10 @@
 
     <string name="spinner_features_prompt">Choose Level</string>
 
+    <string name="privacy_score">76</string>
+    <string name="monetary_score">37</string>
+    <string name="entitity_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</string>
+
 
     <string name="title_activity_collect_user_information">Personal Information</string>
     <string name="title_activity_profiling_features">Categorize Features</string>
@@ -59,4 +63,5 @@
     </string-array>
     <string name="title_activity_pause">Done For Today!</string>
     <string name="title_activity_main_questions">Data Selling Area</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>

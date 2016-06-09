@@ -1,15 +1,10 @@
 package com.example.ramapriyasridharan.trialapp04;
 
-import android.annotation.TargetApi;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -18,15 +13,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.ramapriyasridharan.AsyncTasks.GoToNextDay;
-import com.example.ramapriyasridharan.BackgroundTasks.AlarmNextDayService;
-import com.example.ramapriyasridharan.BackgroundTasks.NotificationService;
-import com.example.ramapriyasridharan.BroadcastReceivers.AlarmReceiver;
-
-import com.example.ramapriyasridharan.JobService.UserResponseSendService;
 import com.example.ramapriyasridharan.StoreValues.QuestionStore;
 import com.example.ramapriyasridharan.StoreValues.Settings;
 import com.example.ramapriyasridharan.StoreValues.WhichClicked;
@@ -43,13 +35,9 @@ import com.example.ramapriyasridharan.helpers.Privacy;
 import com.example.ramapriyasridharan.helpers.Round;
 import com.example.ramapriyasridharan.helpers.UserInstanceClass;
 import com.example.ramapriyasridharan.localstore.StoreDbHelper;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class MainQuestionsActivity extends AppCompatActivity {
@@ -65,38 +53,14 @@ public class MainQuestionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        main_question = this;
-
-        db = DatabaseInstance.db;
-
-        //set alarm to fire away notification every 1 minute
-//        Intent myIntent1 = new Intent(getApplicationContext(), NotificationService.class);
-//        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 5, myIntent1, 0);
-//        AlarmManager alarmManager1 = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-//        Calendar calendar1 = Calendar.getInstance();
-//        calendar1.setTimeInMillis(System.currentTimeMillis());
-//        long frequency1 = 30 * 1000; // in ms
-//        alarmManager1.setRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis() + frequency1, frequency1, pendingIntent);
-//
-//        // Set alarm to fire go to Next day everyday at the same time
-//        Calendar calendar = Calendar.getInstance();
-//
-//        calendar.set(Calendar.HOUR_OF_DAY, 18); // For 1 PM or 2 PM
-//        calendar.set(Calendar.MINUTE, 43);
-//        //calendar.setTimeInMillis(System.currentTimeMillis());
-//        Intent myintent = new Intent(getApplicationContext(), AlarmNextDayService.class);
-//        PendingIntent pi = PendingIntent.getService(this, 11, myintent,0 );
-//        alarmManager1.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
-        // do not let screen switch off
-
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-        Log.d("main question", "created MAIN questions activity");
         setContentView(R.layout.activity_main_questions);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        main_question = this;
+        db = DatabaseInstance.db;
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        Log.d("main question", "created MAIN questions activity");
     }
 
     public static MainQuestionsActivity getInstance(){
@@ -114,7 +78,7 @@ public class MainQuestionsActivity extends AppCompatActivity {
         //get file values
         SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
         Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
-        Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
+        Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 0);
         Integer current_question_number = settings.getInt("current_question_number", 0);
         int current_day = settings.getInt("current_day", 2);
 
@@ -128,17 +92,6 @@ public class MainQuestionsActivity extends AppCompatActivity {
         TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry_1);
         TextView tv_user_id = (TextView) findViewById(R.id.tv_user_id_entry_1);
         TextView tv_day_no = (TextView) findViewById(R.id.tv_day_number_entry_1);
-        TextView tv_questions = (TextView) findViewById(R.id.tv_question_window_entry_1);
-        Button button_privacy = (Button) findViewById(R.id.button_improve_privacy);
-        Button button_credit = (Button) findViewById(R.id.button_improve_credit);
-        Button submit;
-        submit = (Button) findViewById(R.id.button_bid_1);
-
-        //set visibility
-        button_credit.setVisibility(View.VISIBLE);
-        button_privacy.setVisibility(View.VISIBLE);
-        tv_questions.setVisibility(View.INVISIBLE);
-        submit.setVisibility(View.INVISIBLE);
 
         //set values to ids ui
         UserInstanceClass user_instance = new UserInstanceClass();
@@ -153,48 +106,36 @@ public class MainQuestionsActivity extends AppCompatActivity {
 
     // N DAY SURVEY
     public void core1() {
+
+        final Button submit;
+        submit = (Button) findViewById(R.id.button_bid_1);
+        submit.setVisibility(View.INVISIBLE);
         // total number of possible questions
 
-        //EXCEPT DAY_NO ALL 0 INDEXED
+        final RadioGroup radio_group = (RadioGroup) findViewById(R.id.finalselection);
+        radio_group.clearCheck(); //clear options
+
+        // if any rafio button clicked, make submit button appear
+        radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radio_group, int checkedId) {
+                submit.setVisibility(View.VISIBLE);
+            }
+        });
 
         // Setting textviews with updated values from sharedpreferences
         final SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
         final Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
-        Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
+        Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 0);
         int current_day = settings.getInt("current_day", 2);
         Log.d("main question", " current_credit = " + current_credit);
         Log.d("main question", " current_privacy = " + current_privacy);
         Log.d("main question", " current_day = " + current_day);
 
-        //TextView tv_credit = (TextView) findViewById(R.id.tv_this_round_credit_1);
-        //TextView tv_privacy = (TextView) findViewById(R.id.tv_this_round_privacy_entry_1);
-        //TextView tv_user_id = (TextView) findViewById(R.id.tv_user_id_entry_1);
-        //TextView tv_day_no = (TextView) findViewById(R.id.tv_day_number_entry_1);
 
         final Button button_privacy = (Button) findViewById(R.id.button_improve_privacy);
         final Button button_credit = (Button) findViewById(R.id.button_improve_credit);
-        final Button submit;
-        submit = (Button) findViewById(R.id.button_bid_1);
-        final Spinner spinner_privacy = (Spinner) findViewById(R.id.spinner_privacy_choice_entry_1);
-        final TextView tv_questions = (TextView) findViewById(R.id.tv_question_window_entry_1);
-
-        // update value of fields from preferences file
-        UserInstanceClass user_instance = new UserInstanceClass();
-        //tv_user_id.setText(user_instance.getmKinveyClient().user().getId());
-        //tv_day_no.setText(String.valueOf(current_day));
-        //tv_privacy.setText(String.valueOf(Round.round(current_privacy, 2)));
-        //tv_credit.setText(String.valueOf(Round.round(current_credit,2)));
         final WhichClicked wc = new WhichClicked();
-
-        // choose privacy or credit
-        // already set in xml
-        tv_questions.setVisibility(View.INVISIBLE);
-        submit.setVisibility(View.INVISIBLE);
-        spinner_privacy.setVisibility(View.INVISIBLE);
-        button_credit.setVisibility(View.VISIBLE);
-        button_privacy.setVisibility(View.VISIBLE);
-        // click either 1 of the buttons
-        // cannot click on them too soon ??
 
         //click on improve credit
         button_credit.setOnClickListener(new View.OnClickListener() {
@@ -207,11 +148,6 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 wc.setCredit();
                 new GetQuestionAsyncTask().execute(wc);
                 // reverse visibility of buttons
-                button_credit.setVisibility(View.INVISIBLE);
-                button_privacy.setVisibility(View.INVISIBLE);
-                tv_questions.setVisibility(View.VISIBLE);
-                submit.setVisibility(View.VISIBLE);
-                spinner_privacy.setVisibility(View.VISIBLE);
             }
 
         });
@@ -227,11 +163,6 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 wc.setPrivacy();
                 new GetQuestionAsyncTask().execute(wc);
                 // reverse visibility of buttons
-                button_credit.setVisibility(View.INVISIBLE);
-                button_privacy.setVisibility(View.INVISIBLE);
-                tv_questions.setVisibility(View.VISIBLE);
-                submit.setVisibility(View.VISIBLE);
-                spinner_privacy.setVisibility(View.VISIBLE);
             }
 
         });
@@ -240,21 +171,28 @@ public class MainQuestionsActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (SystemClock.elapsedRealtime() - last_clicked < 1000) {
                     return;
                 }
                 last_clicked = SystemClock.elapsedRealtime();
 
+                // get checked option
+                int radioButtonID = radio_group.getCheckedRadioButtonId();
+                View radioButton = radio_group.findViewById(radioButtonID);
+                int idx = radio_group.indexOfChild(radioButton);
+                idx++; //make 1-indexed
+                Log.d("question", "index of selected child" + idx);
+
                 Log.d("main question", "entered button click");
                 Date date = new Date();
                 String time = new Timestamp(date.getTime()).toString();
                 UserInstanceClass user_instance = new UserInstanceClass();
-                String level = spinner_privacy.getSelectedItem().toString();
 
                 // Store user choices
                 UserResponseClass ur = new UserResponseClass();
                 ur.setUser_id(user_instance.getmKinveyClient().user().getId());
-                ur.setLevel(ConvertStringToInt.categorizingStringToIntBid(level, v.getContext()));
+                ur.setLevel(idx);
                 ur.setTimestamp(time);
                 ur.setDay_no(settings.getInt("current_day", 2));
                 ur.setSensors(global_qs.temp.s);
@@ -275,15 +213,6 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 //execute async Tasks in a separate thread
                 new StoreAndUpdateDbUiN().execute(ur);
                 core1();
-
-                // when midnight of current day
-                // store credit & privacy levels & day_no into store_points table
-                // summarize the data in DB acc to level set in answers_table
-                // reset which_answers table
-                // send to kinvey
-                // current_day ++
-                // empty sensor tables in db
-                // reset & set preferences
             }
         });
     }
@@ -359,6 +288,14 @@ public class MainQuestionsActivity extends AppCompatActivity {
             tv_privacy.setText(String.valueOf(Round.round(ur.getPrivacy_percentage(), 2)));
             tv_credit.setText(String.valueOf(Round.round(ur.getCredit(), 2)));
 
+            //remove privacy buttons
+            LinearLayout improveLayout = (LinearLayout) findViewById(R.id.improveLayout);
+            improveLayout.setVisibility(View.VISIBLE);
+
+            //bring default layout
+            LinearLayout homeLayout = (LinearLayout) findViewById(R.id.homeLayout);
+            homeLayout.setVisibility(View.GONE);
+
 //            if (count >= 10) {
 //                new GoToNextDay().execute(); // Use alarm manager
 //            }
@@ -391,9 +328,23 @@ public class MainQuestionsActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+
             //set question to UI
             TextView tv_questions = (TextView) findViewById(R.id.tv_question_window_entry_1);
             tv_questions.setText(global_qs.q);
+
+            //remove privacy buttons
+            LinearLayout improveLayout = (LinearLayout) findViewById(R.id.improveLayout);
+            improveLayout.setVisibility(View.GONE);
+
+            //bring default layout
+            LinearLayout homeLayout = (LinearLayout) findViewById(R.id.homeLayout);
+            homeLayout.setVisibility(View.VISIBLE);
+
+            final Button submit;
+            submit = (Button) findViewById(R.id.button_bid_1);
+            submit.setVisibility(View.INVISIBLE);
+
 
             // set the UI for seuggestions as well
         }

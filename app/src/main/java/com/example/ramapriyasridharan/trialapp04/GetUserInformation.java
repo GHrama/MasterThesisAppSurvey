@@ -97,6 +97,7 @@ public class GetUserInformation extends AppCompatActivity {
                 Log.d("HI", "done getting the data");
                 UserInstanceClass user_instance = new UserInstanceClass();
                 Log.d("HI", "get user_instance");
+                ui.setUser_id(user_instance.getmKinveyClient().user().getId());
 
                 //SendToKinvey.sendUserInformation(user_instance,"UserInformation",ui);
                 // place intent inside button click function

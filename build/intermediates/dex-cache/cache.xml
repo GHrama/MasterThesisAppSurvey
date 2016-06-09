@@ -1,2 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="f2df436a8f02ce7e4d7d209671fc45f97c470f0e">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-wallet-8.4.0_5c816a8c7cd3cff10dfcd2bf756d32fd082d55c2/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="0194a7409c40de94fb539d4ad9928ec5d47afeb7">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-safetynet-8.4.0_eee13690e552b5450e39a2cac4f745f40fef54a5/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/libs/google-http-client-gson-1.19.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b3cdefb990d5212bb2a130525b20e2c44aeffc4c">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/2/google-http-client-gson-1.19.0_713b1e4a9adc34d74a1c86905b96c683dfde2265/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="3a364cc6b698d1b3b2d284f64618daaa7fe77ddf">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-games-8.4.0_76ed133dba37059544f7a3d121535a5c48f7fba6/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/libs/signpost-core-1.2.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="47d92007ca13efd47efad1af94d842ecb5066310">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/2/signpost-core-1.2.1.1_1eedbca30585e56b4eb51bb3e5c1dd08423caffe/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-measurement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="613298b7aa012f121ce542881c0a599ebd8078f2">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-measurement-8.4.0_43589b560a9155a82c8c4cd1a72c5ed525641a41/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="551e78f21acf69ebfb489c0e79647824c838013e">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-cast-8.4.0_a2f45c901eda7766573e3a467bcb5043e1c7767d/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="1a78298e7724d5440d210bcb946b3493250d354d">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-plus-8.4.0_f32963f960a5a3497dfe06a988cb115cf86e03c9/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="9cad249cf62751a323d9af568caf12284b7d6062">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-nearby-8.4.0_ab652b8ea57f9802bd7904d9d325cd54d897afc0/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="2d7fe76982677315c4dc4edfb459c8ca718a9d4c">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-gcm-8.4.0_92f8cdeeae6ff84ccbb639d4c780dac52d89a89c/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.android.support/multidex/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6666dd525c3da197e7d07f4f23ef5fc7881a697b">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-multidex-1.0.0_e8bf8ff631302f77105115ded3e58d308665863e/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-mediarouter-v7-23.0.0_25aa33f0aa1ee2ed27c8d5ea12222e8c85375d45/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-8.4.0_cf03578af83f22a2b0a037797a853650c3d8ede7/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/libs/java-api-core-2.10.4.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="7d1a72e6a70c7ac8d8c50c41e2cbacdde6c5b74e">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/2/java-api-core-2.10.4_a7188f4856d8b54a4afbc5c6bee48fdf1a380ef7/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="1c9f35e952b212c843f7bd2c7eec8e82ad95602e">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-analytics-8.4.0_035f2d98e8308bc6f80f77bb1612ea9e7bf78afc/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6e3578f92f7462d1a935a1d36173e3bdd1234976">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.2.0_fac8f325c24252778c5b8729151f7933d121b4b5/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b36f30ac5ee5d5214f4b1e2ac49f11889d58e71a">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-drive-8.4.0_8c6408f1f64d3516f4759d03c99dab7fb77ac109/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/libs/jackson-core-2.1.3.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="f6c3aed1cdfa21b5c1737c915186ea93a95a58bd">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/2/jackson-core-2.1.3_dbd4d14a10a01f5dbe3644be75492c5ef9c2e3d8/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8c108c22c99e794eff255bb34d2a461200c4cbb0">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-23.2.0_b1892bf81bbb0b956dcce8deb5d99c40664441f7/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/libs/google-http-client-1.19.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="cdca49ad0977c040f603478aa2e16b2775c8fec6">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/2/google-http-client-1.19.0_5919d54cd639d293003ee5843b022518ed8d41ea/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-8.4.0_749f5f1a347e64aa0c4fb60109fe594d4a4f9ee6/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/libs/gson-2.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="2e66da15851f9f5b5079228f856c2f090ba98c38">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/2/gson-2.1_ce5670312fffaa32c0ae20a2a760d85682a6cb7f/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/libs/signpost-commonshttp4-1.2.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="1e6380adcb5808bfe13a934a2f35bfeed1adbc49">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/2/signpost-commonshttp4-1.2.1.1_2559238219b00a00da251a9ed879db0e1f382f4b/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="966e5771a5a2ebfb31bf00d7cd6cd2546d245517">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-8.4.0_69b7bca00abaf96812de84480b949327165f8718/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.android.support/design/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="1aa5b025efe97f5006f5be16d6ca67c6c3c0c0d8">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-23.2.0_6bf8033f7487e342271090b643535b00372cd808/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="c54246475c1bb64ac6857d1320364bfbfeda2c46">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-fitness-8.4.0_79d0c9d90ce54f2d40611a7f0b2cb153b77c70ac/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="d4c936aa8c7d2522c82e3f1829c791d9e367f009">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-23.2.0_8d40df2f21117657c2f9700284371048d1924185/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/libs/google-http-client-jackson2-1.19.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="81dbf9795d387d5e80e55346582d5f2fb81a42eb">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/2/google-http-client-jackson2-1.19.0_8b7d4482d93112db1727685f03bd75c6798a96c3/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/libs/google-http-client-android-1.19.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e3f11020c2c812112803d252d1392872d3f619c8">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/2/google-http-client-android-1.19.0_5152ce374196268cd84a7196291f135e1e10a601/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b5e7892fb0708e792e0e933c4c0a0ca0ac7831fb">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-ads-8.4.0_fa1bccb61c8b26446c1b76411e72ded1083bd59a/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="08d34b2d135c1cc96ab506fd8bf6916d1e2f391a">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-panorama-8.4.0_2ba59f5b6681564a335ecf8e9590bd8ccfe6f77a/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-location-8.4.0_1ccfb2ff6d1fc41f3804118bfb090fc9d35accbc/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/libs/guava-18.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="cce0823396aa693798f8882e64213b1772032b09">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/2/guava-18.0_0827814c1d68abb8c7cee766281bf2be77acf9f9/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/jars/libs/internal_impl-23.2.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6e239441500605809818997dd63b62a947195f8c">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.2.0_c310c9a631db164ab5f254d7f5cab5b2db6f3d1a/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/kinvey-android-lib-2.10.4/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="7892d399a6671e46091cea056f276b4c75f50226">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/intermediates-exploded-aar-kinvey-android-lib-2.10.4_44fb619498dfac16e0f67c02b25cfd1fe7dec34b/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-appindexing-8.4.0_b674cb649bdb623443f04e2fdd015b199f084529/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e5f32fa48a3eb2de0c987025c11b6e3864b634d9">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.2.0_a8acce405ddefa46429bfb1371758bffd3cf87f5/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="04de44f90606c77f3b28cf44861f306290505aac">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-maps-8.4.0_b239a196be43c9c576ff86d30de2dc08065d0ef3/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-vision/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="dfecc4d835cdabcdecf7e95f0d20a3ef1e9d8ef4">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-vision-8.4.0_3259f78cbe7a9f69c2d2f2a69124ab1e178dde85/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="b82b8e847173c28efffcd291b2a0b1ae9ad17fa4">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-identity-8.4.0_38c3a614112fc1ccad5d55f09d22e1bbdf027ec6/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.2.0/support-annotations-23.2.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="c5bf571bb10462bd90e5419ade67793f71acbc87">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.2.0_51ba14b0e1b36514b3d84510338087f3f522a350/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="9fe026fb4c7fce21bc5142f6e1bdf844f28061ac">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-appinvite-8.4.0_5c331f66c141ac22ac15f97e1a7340ea54da66bd/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.0.0_e901fbcd5cc59c6d9588a3ff57a07fa7c0b23009/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="292a9fa091757208efa65e77eef63088247e51f3">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-23.2.0_1530173e2663db0c3477defb2042702af1533695/classes.dex" />
+    </item>
+    <item
+        jar="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e167a34eaca0b31704212f43f9576ea84e05046f">
+        <dex dex="/Users/ramapriyasridharan/Downloads/TrialApp04/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-wearable-8.4.0_d80631e927f715bf7c5dc2c952f3e4aecb78390f/classes.dex" />
+    </item>
+
+</items>
