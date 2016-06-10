@@ -135,6 +135,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 }
                 last_clicked = SystemClock.elapsedRealtime();
                 Log.d("question", "entered button click");
+
                 java.util.Date date = new java.util.Date();
                 String time = new Timestamp(date.getTime()).toString();
                 UserInstanceClass user_instance = new UserInstanceClass();
@@ -142,6 +143,9 @@ public class QuestionsActivity extends AppCompatActivity {
                 int radioButtonID = radio_group.getCheckedRadioButtonId();
                 View radioButton = radio_group.findViewById(radioButtonID);
                 int idx = radio_group.indexOfChild(radioButton);
+                if(idx < 0 || idx > 4){
+                    return;
+                }
                 idx++; //make 1-indexed
                 Log.d("question", "index of selected child" + idx);
 

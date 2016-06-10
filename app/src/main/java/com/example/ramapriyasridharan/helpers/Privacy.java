@@ -96,7 +96,7 @@ public class Privacy {
             no = p.size();
             for(int i=0;i<5;i++){
                 meek = (temp + convertLevelToPrivacy(i+1))/no;
-                p1.add(i,(current_privacy-meek));
+                p1.add(i,(meek-current_privacy));
                 Log.d("privacy", " level" +i+" improvement "+(meek-current_privacy));
             }
         }
@@ -105,7 +105,7 @@ public class Privacy {
             no = p.size()+1;
             for(int i=0;i<5;i++){
                 meek = (temp + convertLevelToPrivacy(i+1))/no;
-                p1.add(i,(current_privacy-meek));
+                p1.add(i,(meek-current_privacy));
                 Log.d("privacy", " level" + i + " improvement " + (meek - current_privacy));
             }
         }

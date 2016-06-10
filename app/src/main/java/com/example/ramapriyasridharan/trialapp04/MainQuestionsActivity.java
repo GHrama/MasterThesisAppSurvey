@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.ramapriyasridharan.StoreValues.QuestionStore;
@@ -28,7 +27,6 @@ import com.example.ramapriyasridharan.collections.UserResponseClass;
 
 import com.example.ramapriyasridharan.helpers.AddDouble;
 import com.example.ramapriyasridharan.helpers.Answer;
-import com.example.ramapriyasridharan.helpers.ConvertStringToInt;
 import com.example.ramapriyasridharan.helpers.Cost;
 import com.example.ramapriyasridharan.helpers.DatabaseInstance;
 import com.example.ramapriyasridharan.helpers.Privacy;
@@ -39,6 +37,7 @@ import com.example.ramapriyasridharan.localstore.StoreDbHelper;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.StringTokenizer;
 
 public class MainQuestionsActivity extends AppCompatActivity {
 
@@ -71,7 +70,6 @@ public class MainQuestionsActivity extends AppCompatActivity {
 
     protected void onStart() {
         super.onStart();
-
         // if first time default values
         Log.d("main question", "started MAIN questions activity");
 
@@ -107,8 +105,8 @@ public class MainQuestionsActivity extends AppCompatActivity {
     // N DAY SURVEY
     public void core1() {
 
-        final Button submit;
-        submit = (Button) findViewById(R.id.button_bid_1);
+        final ImageButton submit;
+        submit = (ImageButton) findViewById(R.id.button_bid_1);
         submit.setVisibility(View.INVISIBLE);
         // total number of possible questions
 
@@ -133,8 +131,8 @@ public class MainQuestionsActivity extends AppCompatActivity {
         Log.d("main question", " current_day = " + current_day);
 
 
-        final Button button_privacy = (Button) findViewById(R.id.button_improve_privacy);
-        final Button button_credit = (Button) findViewById(R.id.button_improve_credit);
+        final ImageButton button_privacy = (ImageButton) findViewById(R.id.button_improve_privacy);
+        final ImageButton button_credit = (ImageButton) findViewById(R.id.button_improve_credit);
         final WhichClicked wc = new WhichClicked();
 
         //click on improve credit
@@ -175,12 +173,16 @@ public class MainQuestionsActivity extends AppCompatActivity {
                 if (SystemClock.elapsedRealtime() - last_clicked < 1000) {
                     return;
                 }
+
                 last_clicked = SystemClock.elapsedRealtime();
 
                 // get checked option
                 int radioButtonID = radio_group.getCheckedRadioButtonId();
                 View radioButton = radio_group.findViewById(radioButtonID);
                 int idx = radio_group.indexOfChild(radioButton);
+                if(idx < 0 || idx > 4){
+                    return;
+                }
                 idx++; //make 1-indexed
                 Log.d("question", "index of selected child" + idx);
 
@@ -219,6 +221,9 @@ public class MainQuestionsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        final ImageButton submit;
+        submit = (ImageButton) findViewById(R.id.button_bid_1);
+        submit.setVisibility(View.INVISIBLE);
         Intent startMain = new Intent(Intent.ACTION_MAIN);
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -226,6 +231,9 @@ public class MainQuestionsActivity extends AppCompatActivity {
     }
 
     public void onDestroy() {
+        final ImageButton submit;
+        submit = (ImageButton) findViewById(R.id.button_bid_1);
+        submit.setVisibility(View.INVISIBLE);
         super.onDestroy();
         db = null;
     }
@@ -233,6 +241,9 @@ public class MainQuestionsActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
+        final ImageButton submit;
+        submit = (ImageButton) findViewById(R.id.button_bid_1);
+        submit.setVisibility(View.INVISIBLE);
     }
 
     // store answers in db
@@ -285,8 +296,8 @@ public class MainQuestionsActivity extends AppCompatActivity {
             // set UI values
             tv_user_id.setText(ur.getUser_id());
             tv_day_no.setText(String.valueOf(ur.getDay_no()));
-            tv_privacy.setText(String.valueOf(Round.round(ur.getPrivacy_percentage(), 2)));
-            tv_credit.setText(String.valueOf(Round.round(ur.getCredit(), 2)));
+            tv_privacy.setText(String.valueOf(Round.round(ur.getPrivacy_percentage(),2)));
+            tv_credit.setText(String.valueOf(Round.round(ur.getCredit(),2)));
 
             //remove privacy buttons
             LinearLayout improveLayout = (LinearLayout) findViewById(R.id.improveLayout);
@@ -303,31 +314,24 @@ public class MainQuestionsActivity extends AppCompatActivity {
     }
 
     // Fetch question and update UI
-    private class GetQuestionAsyncTask extends AsyncTask<WhichClicked, Void, Void> {
+    private class GetQuestionAsyncTask extends AsyncTask<WhichClicked, Void, ArrayList<Integer>> {
 
         @Override
-        protected Void doInBackground(WhichClicked... params) {
+        protected ArrayList<Integer> doInBackground(WhichClicked... params) {
             WhichClicked wc = params[0];
             global_qs = Questions.getQuestionWc(wc, db, Settings.num, getApplicationContext());
 
-            final SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
-            final Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
-            Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
-            int current_day = settings.getInt("current_day", 2);
-
             // get prev_answer and suggestions
             ArrayList<Integer> ans = Answer.getSuggestions(wc, global_qs.q_no, getApplicationContext(), db);
-            ArrayList<Double> cost = Cost.getUiCost(current_day,current_credit,global_qs.q_no);
-            ArrayList<Double> pri = Privacy.getUiPrivacy(current_privacy,global_qs.q_no,current_day);
 
             Log.d("main question", " q = " + global_qs.q);
             Log.d("main question", " q_no = " + global_qs.q_no);
 
-            return null;
+            return ans;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(ArrayList<Integer> ans) {
 
             //set question to UI
             TextView tv_questions = (TextView) findViewById(R.id.tv_question_window_entry_1);
@@ -341,10 +345,41 @@ public class MainQuestionsActivity extends AppCompatActivity {
             LinearLayout homeLayout = (LinearLayout) findViewById(R.id.homeLayout);
             homeLayout.setVisibility(View.VISIBLE);
 
-            final Button submit;
-            submit = (Button) findViewById(R.id.button_bid_1);
+            final ImageButton submit;
+            submit = (ImageButton) findViewById(R.id.button_bid_1);
             submit.setVisibility(View.INVISIBLE);
 
+            final SharedPreferences settings = getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
+            final Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
+            Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
+            int current_day = settings.getInt("current_day", 2);
+
+            ArrayList<Double> cost = Cost.getUiCost(current_day,current_credit,global_qs.q_no);
+            ArrayList<Double> pri = Privacy.getUiPrivacy(current_privacy,global_qs.q_no,current_day);
+
+            //Set the privacy improvements
+            Button req_11 = (Button) findViewById(R.id.required_11);
+            Button req_12 = (Button) findViewById(R.id.required_12);
+            Button req_13 = (Button) findViewById(R.id.required_13);
+            Button req_14 = (Button) findViewById(R.id.required_14);
+            Button req_15 = (Button) findViewById(R.id.required_15);
+            Button req_16 = (Button) findViewById(R.id.required_16);
+            Button req_17 = (Button) findViewById(R.id.required_17);
+            Button req_18 = (Button) findViewById(R.id.required_18);
+            Button req_19 = (Button) findViewById(R.id.required_19);
+            Button req_20 = (Button) findViewById(R.id.required_20);
+
+            req_11.setText(String.valueOf(Round.round(cost.get(0), 1)));
+            req_13.setText(String.valueOf(Round.round(cost.get(1), 1)));
+            req_15.setText(String.valueOf(Round.round(cost.get(2), 1)));
+            req_17.setText(String.valueOf(Round.round(cost.get(3), 1)));
+            req_19.setText(String.valueOf(Round.round(cost.get(4), 1)));
+
+            req_12.setText(String.valueOf(Round.round(pri.get(0), 1)));
+            req_14.setText(String.valueOf(Round.round(pri.get(1), 1)));
+            req_16.setText(String.valueOf(Round.round(pri.get(2), 1)));
+            req_18.setText(String.valueOf(Round.round(pri.get(3), 1)));
+            req_20.setText(String.valueOf(Round.round(pri.get(4), 1)));
 
             // set the UI for seuggestions as well
         }

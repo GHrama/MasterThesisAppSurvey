@@ -7,6 +7,6 @@ public class Settings {
 
     public static int no_days = 2;
     public static double daily_budget = 30;
-    public static int num = 2;
+    public static int num = 10;
 
 }

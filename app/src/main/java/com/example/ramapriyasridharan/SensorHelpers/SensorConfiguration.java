@@ -35,8 +35,8 @@ public class SensorConfiguration {
 
         long measureDuration = settings.getLong(Long.toHexString(sensorID) + "_measureDuration", 5000);
         int collectAmount = settings.getInt(Long.toHexString(sensorID) + "_collectAmount", 500);
-        SensorCollectStatus scs = new SensorCollectStatus(sensorID, doMeasure, doShare, measureInterval, measureDuration, collectAmount);
-        return scs;
+        //SensorCollectStatus scs = new SensorCollectStatus(sensorID, doMeasure, doShare, measureInterval, measureDuration, collectAmount);
+        return null;
     }
 
 }

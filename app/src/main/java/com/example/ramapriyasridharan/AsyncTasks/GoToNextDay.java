@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -59,11 +61,6 @@ public class GoToNextDay extends AsyncTask<Void, Void, Void> {
 
     @Override
     public void onPostExecute(Void aVoid) {
-        // update the UI?
-        TextView tv_credit = (TextView) MainQuestionsActivity.getInstance().findViewById(R.id.tv_this_round_credit_1);
-        TextView tv_privacy = (TextView) MainQuestionsActivity.getInstance().findViewById(R.id.tv_this_round_privacy_entry_1);
-        TextView tv_day_no = (TextView) MainQuestionsActivity.getInstance().findViewById(R.id.tv_day_number_entry_1);
-
         // get data from pref file
         SharedPreferences settings = c.getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
         Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
@@ -74,24 +71,21 @@ public class GoToNextDay extends AsyncTask<Void, Void, Void> {
         Log.d("nextday", "privacy =" + current_privacy);
         Log.d("nextday", "credit =" + current_credit);
 
-        // set UI values
+        TextView tv_credit = (TextView) MainQuestionsActivity.getInstance().findViewById(R.id.tv_this_round_credit_1);
+        TextView tv_privacy = (TextView) MainQuestionsActivity.getInstance().findViewById(R.id.tv_this_round_privacy_entry_1);
+        TextView tv_day_no = (TextView) MainQuestionsActivity.getInstance().findViewById(R.id.tv_day_number_entry_1);
+
         tv_day_no.setText(String.valueOf(current_day));
-        tv_privacy.setText(String.valueOf(Round.round(current_privacy, 2)));
-        tv_credit.setText(String.valueOf(Round.round(current_credit, 2)));
+        tv_privacy.setText(String.valueOf(Round.round(current_privacy,2)));
+        tv_credit.setText(String.valueOf(Round.round(current_privacy,2)));
 
-        // Incase the user is in the questions window?
-        final Button button_privacy = (Button) MainQuestionsActivity.getInstance().findViewById(R.id.button_improve_privacy);
-        final Button button_credit = (Button) MainQuestionsActivity.getInstance().findViewById(R.id.button_improve_credit);
-        final Button submit;
-        submit = (Button) MainQuestionsActivity.getInstance().findViewById(R.id.button_bid_1);
-        final Spinner spinner_privacy = (Spinner) MainQuestionsActivity.getInstance().findViewById(R.id.spinner_privacy_choice_entry_1);
-        final TextView tv_questions = (TextView) MainQuestionsActivity.getInstance().findViewById(R.id.tv_question_window_entry_1);
+        //remove privacy buttons
+        LinearLayout improveLayout = (LinearLayout) MainQuestionsActivity.getInstance().findViewById(R.id.improveLayout);
+        improveLayout.setVisibility(View.VISIBLE);
 
-        // go back to privacy window
-        tv_questions.setVisibility(View.INVISIBLE);
-        submit.setVisibility(View.INVISIBLE);
-        spinner_privacy.setVisibility(View.INVISIBLE);
-        button_credit.setVisibility(View.VISIBLE);
-        button_privacy.setVisibility(View.VISIBLE);
+        //bring default layout
+        LinearLayout homeLayout = (LinearLayout) MainQuestionsActivity.getInstance().findViewById(R.id.homeLayout);
+        homeLayout.setVisibility(View.GONE);
+
     }
 }

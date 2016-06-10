@@ -51,7 +51,6 @@ public class UserResponseSendService extends GcmTaskService {
                         Log.d("UR SERVICE", "data ur_array key ="+ur_array.get(i).key);
 
                         AsyncAppData<UserResponseClass> myui = user_instance.getmKinveyClient().appData("UserResponse2", UserResponseClass.class);
-
                         final int key = ur_array.get(i).key;
                         myui.save(ur_array.get(i).ur, new KinveyClientCallback<UserResponseClass>() {
                             @Override

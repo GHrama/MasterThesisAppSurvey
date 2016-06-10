@@ -6,6 +6,7 @@ import com.example.ramapriyasridharan.collections.ProfilingContextsClass;
 import com.example.ramapriyasridharan.collections.ProfilingDataCollectorsClass;
 import com.example.ramapriyasridharan.collections.ProfilingFeaturesClass;
 import com.example.ramapriyasridharan.collections.ProfilingSensorsClass;
+import com.example.ramapriyasridharan.collections.UserIdClass;
 import com.example.ramapriyasridharan.collections.UserInformationClass;
 import com.kinvey.android.AsyncAppData;
 import com.kinvey.java.core.KinveyClientCallback;
@@ -15,7 +16,7 @@ import com.kinvey.java.core.KinveyClientCallback;
  */
 public class SendToKinvey {
 
-    public void sendUserInformation(UserInstanceClass user_instance, String collection_name, UserInformationClass ui){
+    public static void sendUserInformation(UserInstanceClass user_instance, String collection_name, UserInformationClass ui){
 
         AsyncAppData<UserInformationClass> myui = user_instance.getmKinveyClient().appData(collection_name, UserInformationClass.class);
 
@@ -34,7 +35,7 @@ public class SendToKinvey {
                 });
     }
 
-    public void sendProfilingFeatures(UserInstanceClass user_instance, String collection_name, ProfilingFeaturesClass pf){
+    public static void sendProfilingFeatures(UserInstanceClass user_instance, String collection_name, ProfilingFeaturesClass pf){
 
         AsyncAppData<ProfilingFeaturesClass> myui = user_instance.getmKinveyClient().appData(collection_name, ProfilingFeaturesClass.class);
 
@@ -53,7 +54,7 @@ public class SendToKinvey {
         });
     }
 
-    public void sendProfilingSensors(UserInstanceClass user_instance, String collection_name, ProfilingSensorsClass ps){
+    public static void sendProfilingSensors(UserInstanceClass user_instance, String collection_name, ProfilingSensorsClass ps){
 
         AsyncAppData<ProfilingSensorsClass> myui = user_instance.getmKinveyClient().appData(collection_name, ProfilingSensorsClass.class);
 
@@ -72,7 +73,7 @@ public class SendToKinvey {
         });
     }
 
-    public void sendProfilingDataCollectors(UserInstanceClass user_instance, String collection_name, ProfilingDataCollectorsClass ps){
+    public static void sendProfilingDataCollectors(UserInstanceClass user_instance, String collection_name, ProfilingDataCollectorsClass ps){
 
         AsyncAppData<ProfilingDataCollectorsClass> myui = user_instance.getmKinveyClient().appData(collection_name, ProfilingDataCollectorsClass.class);
 
@@ -91,7 +92,7 @@ public class SendToKinvey {
         });
     }
 
-    public void sendProfilingContexts(UserInstanceClass user_instance, String collection_name, ProfilingContextsClass ps){
+    public static void sendProfilingContexts(UserInstanceClass user_instance, String collection_name, ProfilingContextsClass ps){
 
         AsyncAppData<ProfilingContextsClass> myui = user_instance.getmKinveyClient().appData(collection_name, ProfilingContextsClass.class);
 
@@ -106,6 +107,25 @@ public class SendToKinvey {
             public void onFailure(Throwable throwable) {
 
                 Log.i("ERROR sending to kinvey", "ERROR");
+            }
+        });
+    }
+
+    public static void sendUserId(UserInstanceClass user_instance, String collection_name, UserIdClass ui){
+
+        AsyncAppData<UserIdClass> myui = user_instance.getmKinveyClient().appData(collection_name, UserIdClass.class);
+
+        myui.save(ui, new KinveyClientCallback<UserIdClass>() {
+
+            @Override
+            public void onSuccess(UserIdClass userInformationClass) {
+                Log.i("sent to kinvey", "suceess USER ID");
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+
+                Log.i("ERROR sending to kinvey", "ERROR USER ID");
             }
         });
     }

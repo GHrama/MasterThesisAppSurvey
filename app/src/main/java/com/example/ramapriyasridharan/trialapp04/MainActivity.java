@@ -19,15 +19,17 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.example.ramapriyasridharan.BackgroundTasks.SensorIntentService;
+
 import com.example.ramapriyasridharan.BackgroundTasks.WeightCostMatrixService;
 import com.example.ramapriyasridharan.BroadcastReceivers.AlarmReceiver;
 import com.example.ramapriyasridharan.JobService.UserResponseSendService;
 import com.example.ramapriyasridharan.SensorHelpers.SensorCollectStatus;
 import com.example.ramapriyasridharan.SensorHelpers.SensorConfiguration;
+import com.example.ramapriyasridharan.collections.UserIdClass;
 import com.example.ramapriyasridharan.helpers.AddDouble;
 import com.example.ramapriyasridharan.helpers.DatabaseInstance;
 import com.example.ramapriyasridharan.helpers.GotoActivity;
+import com.example.ramapriyasridharan.helpers.SendToKinvey;
 import com.example.ramapriyasridharan.helpers.UserInstanceClass;
 import com.example.ramapriyasridharan.localstore.StoreDbHelper;
 import com.google.android.gms.common.ConnectionResult;
@@ -103,10 +105,10 @@ public class MainActivity extends AppCompatActivity {
         // check if new to app
         boolean meow = instance_user.mKinveyClient.user().isUserLoggedIn();
 
-        //UserResponseSendService.scheduleRepeat(this);
+        UserResponseSendService.scheduleRepeat(this);
         // set alarms
-        //setApproxNotificationAlarm();
-        //setExactNextDayChangeAlarm();
+        setApproxNotificationAlarm();
+        setExactNextDayChangeAlarm();
         //startSensorService();
         if(meow){
             gotoLastState();
@@ -136,7 +138,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "Logged in a new implicit user with id(first time): " + result.getId());
             }
         });
+
+        // Send to Kinvey the user_id to UserId Table
+
         String user_string = instance_user.mKinveyClient.user().getId();
+        UserIdClass ui = new UserIdClass();
+        ui.setUser_id(instance_user.mKinveyClient.user().getId());
+        SendToKinvey.sendUserId(instance_user,"UserId",ui);
         Log.i(TAG, "running for first time");
 
         // Reset preferences file when installing application for the first time
@@ -146,13 +154,13 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("current_question_number", 0);
         editor.putInt("current_day", 1);
         editor = AddDouble.putDouble(editor,"current_credit",0);
-        editor = AddDouble.putDouble(editor,"current_privacy",100);
+        editor = AddDouble.putDouble(editor,"current_privacy",0);
         editor.commit();
 
         // clear content to simulate first time user
         db.removeAll();
-        Intent intent = new Intent(this, GetUserInformation.class);
-        e.putInt("activity", 2);
+        Intent intent = new Intent(this, ProfilingFeaturesActivity.class);
+        e.putInt("activity", 3);
         e.commit();
         intent.putExtra("user_id", user_string);
         startActivity(intent);
@@ -165,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         final SharedPreferences.Editor e = s_logged.edit();
         Log.i(TAG, "(not first time): " + instance_user.mKinveyClient.user().getId());
         //user_text.setText("user id is " + instance_user.mKinveyClient.user().getId());
-        int a = s_logged.getInt("activity", 2);
+        int a = s_logged.getInt("activity", 3);
         Log.d(TAG, "activity going to :" + a);
         Intent i = null;
         switch(a){
@@ -193,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
     boolean serviceRunning = false;
 
     public void startSensorService() {
-            SensorIntentService.startService(this);
+            //SensorIntentService.startService(this);
             serviceRunning = true;
     }
 
@@ -218,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
         intent_notification.setAction(NOTIFICATION_ACTION);
         pi_notification = PendingIntent.getBroadcast(this, 111, intent_notification, 0);
         alarm_notification = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarm_notification.set(alarm_notification.RTC_WAKEUP, System.currentTimeMillis() + 60 * 1000, pi_notification);
+        alarm_notification.set(alarm_notification.RTC_WAKEUP, System.currentTimeMillis() + 300 * 1000, pi_notification);
     }
 
 
@@ -231,8 +239,8 @@ public class MainActivity extends AppCompatActivity {
         pi_next_day_change = PendingIntent.getBroadcast(this, 1003, intent_next_day_change,0);
         alarm_next_day_change = (AlarmManager) getSystemService(ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 16); // For 1 PM or 2 PM
-        calendar.set(Calendar.MINUTE, 55);
+        calendar.set(Calendar.HOUR_OF_DAY, 12); // For 1 PM or 2 PM
+        calendar.set(Calendar.MINUTE, 50);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             alarm_next_day_change.setExact(alarm_next_day_change.RTC_WAKEUP,calendar.getTimeInMillis(),pi_next_day_change);
         } else {
