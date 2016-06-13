@@ -25,8 +25,10 @@ import com.example.ramapriyasridharan.BroadcastReceivers.AlarmReceiver;
 import com.example.ramapriyasridharan.JobService.UserResponseSendService;
 import com.example.ramapriyasridharan.SensorHelpers.SensorCollectStatus;
 import com.example.ramapriyasridharan.SensorHelpers.SensorConfiguration;
+import com.example.ramapriyasridharan.StoreValues.StoreContext;
 import com.example.ramapriyasridharan.collections.UserIdClass;
 import com.example.ramapriyasridharan.helpers.AddDouble;
+import com.example.ramapriyasridharan.helpers.AlarmClass;
 import com.example.ramapriyasridharan.helpers.DatabaseInstance;
 import com.example.ramapriyasridharan.helpers.GotoActivity;
 import com.example.ramapriyasridharan.helpers.SendToKinvey;
@@ -106,10 +108,14 @@ public class MainActivity extends AppCompatActivity {
         boolean meow = instance_user.mKinveyClient.user().isUserLoggedIn();
 
         UserResponseSendService.scheduleRepeat(this);
+
+        AlarmClass ac = new AlarmClass();
         // set alarms
-        setApproxNotificationAlarm();
-        setExactNextDayChangeAlarm();
+        ac.setApproxNotificationAlarm(this);
+        setExactNextDayChangeAlarm(this);
+
         //startSensorService();
+
         if(meow){
             gotoLastState();
         }
@@ -117,8 +123,6 @@ public class MainActivity extends AppCompatActivity {
             firstLogin();
         }
     }
-
-
 
     private void firstLogin(){
         final SharedPreferences s_logged = getSharedPreferences("logged", Context.MODE_PRIVATE);
@@ -219,28 +223,20 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void setApproxNotificationAlarm(){
-        Log.d("ALARM", "create notification alarm");
-        intent_notification = new Intent(this, AlarmReceiver.class);
-        intent_notification.setAction(NOTIFICATION_ACTION);
-        pi_notification = PendingIntent.getBroadcast(this, 111, intent_notification, 0);
-        alarm_notification = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarm_notification.set(alarm_notification.RTC_WAKEUP, System.currentTimeMillis() + 300 * 1000, pi_notification);
-    }
-
-
-    // Set Next day change alarm
-    public void setExactNextDayChangeAlarm(){
+    //set by time for first time
+    public void setExactNextDayChangeAlarm(Context context){
         // At a time
         Log.d("ALARM", "create next day alarm");
-        intent_next_day_change = new Intent(this, AlarmReceiver.class);
+        Intent intent_next_day_change;
+        intent_next_day_change = new Intent(context, AlarmReceiver.class);
         intent_next_day_change.setAction(NEXT_DAY_CHANGE_ACTION);
-        pi_next_day_change = PendingIntent.getBroadcast(this, 1003, intent_next_day_change,0);
-        alarm_next_day_change = (AlarmManager) getSystemService(ALARM_SERVICE);
+        PendingIntent pi_next_day_change;
+        pi_next_day_change = PendingIntent.getBroadcast(context, 1003, intent_next_day_change,0);
+        AlarmManager alarm_next_day_change;
+        alarm_next_day_change = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 12); // For 1 PM or 2 PM
-        calendar.set(Calendar.MINUTE, 50);
+        calendar.set(Calendar.HOUR_OF_DAY, 14); // For 1 PM or 2 PM
+        calendar.set(Calendar.MINUTE, 15);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             alarm_next_day_change.setExact(alarm_next_day_change.RTC_WAKEUP,calendar.getTimeInMillis(),pi_next_day_change);
         } else {
@@ -248,6 +244,4 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-
 }

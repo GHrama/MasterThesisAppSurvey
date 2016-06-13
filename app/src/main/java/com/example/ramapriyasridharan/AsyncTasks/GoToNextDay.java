@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.ramapriyasridharan.StoreValues.Questions;
 import com.example.ramapriyasridharan.StoreValues.Settings;
+import com.example.ramapriyasridharan.StoreValues.StoreContext;
 import com.example.ramapriyasridharan.helpers.AddDouble;
 import com.example.ramapriyasridharan.helpers.DatabaseInstance;
 import com.example.ramapriyasridharan.helpers.Round;
@@ -28,7 +29,7 @@ import com.example.ramapriyasridharan.trialapp04.R;
 public class GoToNextDay extends AsyncTask<Void, Void, Void> {
 
     StoreDbHelper db = DatabaseInstance.db;
-    Context c = MainActivity.getInstance().getApplicationContext();
+    Context c = StoreContext.c;
     @Override
     public Void doInBackground(Void... params) {
         Log.d("nextday", "STARTING");
@@ -36,7 +37,7 @@ public class GoToNextDay extends AsyncTask<Void, Void, Void> {
         MainQuestionsActivity.getInstance().count = 0;// reset count
         SharedPreferences settings = c.getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
         Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
-        Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
+        Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 0);
         int current_day = settings.getInt("current_day", 2);
 
         // insert into points table
@@ -45,7 +46,7 @@ public class GoToNextDay extends AsyncTask<Void, Void, Void> {
         // reset pref file
         SharedPreferences.Editor editor = settings.edit();
         editor = AddDouble.putDouble(editor, "current_credit", 0);
-        editor = AddDouble.putDouble(editor, "current_privacy", 100);
+        editor = AddDouble.putDouble(editor, "current_privacy", 0);
         editor.putInt("current_day", current_day + 1);
         editor.putInt("prev_day", current_day);
         editor.commit();
@@ -64,7 +65,7 @@ public class GoToNextDay extends AsyncTask<Void, Void, Void> {
         // get data from pref file
         SharedPreferences settings = c.getSharedPreferences("bid_window_values", Context.MODE_PRIVATE);
         Double current_credit = AddDouble.getDouble(settings, "current_credit", 0);
-        Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 100);
+        Double current_privacy = AddDouble.getDouble(settings, "current_privacy", 0);
         int current_day = settings.getInt("current_day", 2);
 
         Log.d("nextday", "day no =" + current_day);
